@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vaardighedenprofiel Business Operations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+/* Layout: één leeskolom als onderbouwingsrapport; dekkingsmatrix van het functieprofiel bovenaan, daarna bewijs per taak, resultaten, vaardighedenkaart en het groeigebied */
+:root {
+  --bg: #F5F7F7;
+  --surface: #FFFFFF;
+  --fg: #162124;
+  --muted: #56676B;
+  --line: #DCE2E3;
+  --accent: #1C6470;
+  --accent-soft: #E0EDEF;
+  --bar: #C2CACC;
+  --warn: #8E5410;
+  --warn-soft: #FAF0E1;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101719; --surface: #172124; --fg: #E4EBEC; --muted: #98AAAE; --line: #2A373A;
+    --accent: #62B6C3; --accent-soft: #15313A; --bar: #46555A; --warn: #E3A65B; --warn-soft: #2C2316;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101719; --surface: #172124; --fg: #E4EBEC; --muted: #98AAAE; --line: #2A373A;
+  --accent: #62B6C3; --accent-soft: #15313A; --bar: #46555A; --warn: #E3A65B; --warn-soft: #2C2316;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+.page {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 3rem 4rem;
+  display: grid;
+  gap: 3.25rem;
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1rem; font-weight: 700; font-family: var(--font-body); }
+p { margin: 0; max-width: 65ch; }
+ul, ol { margin: 0; padding: 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+.eyebrow { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+.meta { color: var(--muted); font-size: 0.95rem; }
+section { display: grid; gap: 1.1rem; }
+.section-head { display: grid; gap: 0.35rem; }
+.lead { font-size: 1.12rem; }
+
+/* Kop */
+header { display: grid; gap: 0.85rem; }
+.shift {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; margin-top: 0.4rem;
+}
+.shift > div { padding: 0.9rem 1.15rem; display: grid; gap: 0.15rem; min-width: 0; }
+.shift .k { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; }
+.shift .v { font-weight: 700; font-size: 1.05rem; line-height: 1.3; }
+.shift .to { background: var(--accent-soft); }
+.shift .to .v { color: var(--accent); }
+.shift .arrow { display: grid; place-items: center; padding: 0 0.6rem; color: var(--muted); font-size: 1.2rem; border-inline: 1px solid var(--line); }
+
+/* Dekking */
+.cover { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.3rem 1.4rem; display: grid; gap: 1.1rem; }
+.cover-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; }
+.big { font-family: var(--font-display); font-weight: 700; font-size: 3rem; line-height: 1; font-variant-numeric: tabular-nums; color: var(--accent); }
+.big small { font-size: 1.3rem; color: var(--muted); font-weight: 600; }
+.cover-top p { font-weight: 600; }
+.cover-rows { display: grid; gap: 0.15rem; }
+.cover-row { display: grid; grid-template-columns: minmax(0, 1fr) auto 3rem; gap: 1rem; align-items: center; padding-block: 0.55rem; }
+.cover-name { font-weight: 600; font-size: 0.98rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; min-width: 0; }
+.tag { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.05rem 0.5rem; }
+.cells { display: flex; gap: 0.3rem; }
+.cell { width: 1.15rem; height: 1.15rem; border-radius: 3px; background: var(--accent); }
+.cell.part { background: linear-gradient(135deg, var(--accent) 50%, transparent 50%); box-shadow: inset 0 0 0 1.5px var(--accent); }
+.count { font-family: var(--font-mono); font-weight: 600; font-size: 0.9rem; text-align: right; font-variant-numeric: tabular-nums; }
+.cover-split { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; padding-top: 0.7rem; margin-top: 0.3rem; border-top: 1px dashed var(--line); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-size: 0.88rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.legend .cell { width: 0.85rem; height: 0.85rem; }
+
+/* Per taak */
+.areas { display: grid; gap: 1rem; }
+.area { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem 0.4rem; display: grid; }
+.area-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.3rem 1rem; padding-bottom: 0.55rem; }
+.area-head .count { text-align: left; color: var(--muted); font-family: var(--font-body); font-weight: 600; font-size: 0.9rem; }
+.area-note { color: var(--muted); font-size: 0.92rem; padding-bottom: 0.5rem; margin-top: -0.3rem; }
+.task { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.15rem 1rem; padding-block: 0.7rem; border-top: 1px solid var(--line); align-items: start; }
+.task .what { font-size: 0.98rem; min-width: 0; }
+.task .why { grid-column: 1; color: var(--muted); font-size: 0.92rem; min-width: 0; }
+.pill { font-size: 0.75rem; font-weight: 600; padding: 0.12rem 0.6rem; border-radius: 999px; white-space: nowrap; margin-top: 0.15rem; }
+.pill.done { background: var(--accent-soft); color: var(--accent); }
+.pill.part { background: var(--warn-soft); color: var(--warn); }
+
+/* Resultaten */
+.results { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.results li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.05rem 1.2rem; display: grid; gap: 0.35rem; align-content: start; min-width: 0; }
+.results li .k { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); font-weight: 600; }
+.results li h3 { font-size: 1.02rem; }
+.results li p { font-size: 0.96rem; color: var(--muted); }
+.results li.wide { grid-column: 1 / -1; }
+
+/* Vaardighedenkaart */
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.25rem 1.4rem 1.4rem; display: grid; gap: 0.25rem; }
+.chart-grid { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); column-gap: 1rem; row-gap: 0.55rem; align-items: center; }
+.scale { grid-column: 2; position: relative; height: 1.4rem; font-size: 0.75rem; color: var(--muted); }
+.scale > span { position: absolute; top: 0; transform: translateX(-100%); white-space: nowrap; padding-right: 2px; }
+.scale b { font-family: var(--font-mono); font-weight: 600; color: var(--fg); margin-right: 0.3rem; }
+.group-label { grid-column: 1 / -1; font-weight: 700; font-size: 0.95rem; margin-top: 0.9rem; padding-bottom: 0.15rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.2rem 1rem; }
+.group-label span { font-weight: 400; color: var(--muted); font-size: 0.88rem; }
+.group-label:first-of-type { margin-top: 0.2rem; }
+.item { font-size: 0.97rem; min-width: 0; line-height: 1.35; }
+.track {
+  position: relative; height: 1.25rem;
+  background-image: repeating-linear-gradient(to right, transparent 0, transparent calc(20% - 1px), var(--line) calc(20% - 1px), var(--line) 20%);
+  border-left: 1px solid var(--muted);
+}
+.bar { position: absolute; left: 0; top: 0.15rem; height: 0.95rem; width: calc(var(--lvl) * 20%); background: var(--bar); border-radius: 0 3px 3px 0; }
+.config .bar { background: var(--accent); }
+.val { position: absolute; top: -0.05rem; left: calc(var(--lvl) * 20% + 0.45rem); font-family: var(--font-mono); font-weight: 600; font-size: 0.85rem; }
+.lvl-5 .val { left: auto; right: 0.4rem; color: var(--fg); }
+.chart-foot { margin-top: 1rem; color: var(--muted); font-size: 0.9rem; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 36rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--line); }
+th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 600; }
+td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; white-space: nowrap; }
+
+.callout { background: var(--warn-soft); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; gap: 0.4rem; }
+.callout h3 { color: var(--warn); }
+
+/* Groeipad */
+.steps { list-style: none; display: grid; counter-reset: stap; }
+.steps > li { counter-increment: stap; display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.9rem; padding-block: 1rem; border-top: 1px solid var(--line); }
+.steps > li:last-child { border-bottom: 1px solid var(--line); }
+.steps > li::before {
+  content: counter(stap); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem;
+  width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent);
+}
+.steps .body { display: grid; gap: 0.4rem; min-width: 0; }
+.steps h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.6rem; }
+.steps ul { list-style: none; display: grid; gap: 0.3rem; }
+.steps ul li, .bullets li { padding-left: 1rem; position: relative; font-size: 0.98rem; }
+.steps ul li::before, .bullets li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 0.4rem; height: 1px; background: var(--muted); }
+
+.agree { list-style: none; display: grid; gap: 0.55rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; }
+.agree li { display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: 0.7rem; align-items: start; }
+.agree li::before { content: ""; width: 0.95rem; height: 0.95rem; margin-top: 0.3rem; border: 1.5px solid var(--accent); border-radius: 3px; }
+
+.sources { font-size: 0.92rem; color: var(--muted); display: grid; gap: 0.3rem; }
+.sources ul { list-style: none; display: grid; gap: 0.2rem; }
+
+@media (max-width: 600px) {
+  .page { padding-block: 2rem 3rem; gap: 2.5rem; }
+  .shift { grid-template-columns: minmax(0, 1fr); }
+  .shift .arrow { display: none; }
+  .shift .to { border-top: 1px solid var(--line); }
+  .cover { padding: 1rem; }
+  .cover-row { grid-template-columns: minmax(0, 1fr) 2.6rem; row-gap: 0.4rem; }
+  .cover-row .cells { grid-row: 2; grid-column: 1 / -1; }
+  .cover-row .count { grid-row: 1; grid-column: 2; }
+  .results { grid-template-columns: minmax(0, 1fr); }
+  .chart { padding: 1rem; }
+  .chart-grid { grid-template-columns: minmax(0, 1fr); row-gap: 0.2rem; }
+  .scale { grid-column: 1; }
+  .scale .w { display: none; }
+  .item { margin-top: 0.45rem; }
+}
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <header>
+    <div class="eyebrow">SkillsTown · Onderbouwing functiewaardering</div>
+    <h1>Vaardighedenprofiel Business Operations</h1>
+    <p class="meta">Bob Andringa · 15 oktober 2026</p>
+    <div class="shift">
+      <div><span class="k">Huidige titel</span><span class="v">Medewerker Operations</span></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="to"><span class="k">Voorgestelde functie</span><span class="v">Business Operations &amp; Applications Specialist</span></div>
+    </div>
+    <p class="lead">Ik voer 22 van de 24 kerntaken uit het voorgestelde functieprofiel al structureel uit. Bij de andere 2 analyseer, specificeer en test ik al, maar richt ik nog niet zelf in. Zelf inrichten in Dynamics 365 is mijn groeigebied, en daarvoor zijn de extra rechten bedoeld.</p>
+  </header>
+
+  <section aria-labelledby="h-dekking">
+    <div class="section-head">
+      <h2 id="h-dekking">Dekking van het functieprofiel</h2>
+      <p class="meta">De 24 kerntaken uit het functieprofiel, per gebied</p>
+    </div>
+    <div class="cover" role="figure" aria-label="22 van de 24 kerntaken voer ik al structureel uit, 2 deels">
+      <div class="cover-top">
+        <span class="big">22<small>/24</small></span>
+        <p>kerntaken voer ik al structureel uit, 2 deels</p>
+      </div>
+      <div class="cover-rows">
+        <div class="cover-row">
+          <div class="cover-name">Operations &amp; Service Management <span class="tag">Huidige titel</span></div>
+          <div class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div>
+          <div class="count">6/6</div>
+        </div>
+        <div class="cover-split">Gaat verder dan Medewerker Operations</div>
+        <div class="cover-row">
+          <div class="cover-name">Functioneel applicatiebeheer</div>
+          <div class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell part"></span><span class="cell"></span></div>
+          <div class="count">5/6</div>
+        </div>
+        <div class="cover-row">
+          <div class="cover-name">Customer Insights &amp; klantprocessen</div>
+          <div class="cells"><span class="cell"></span><span class="cell part"></span><span class="cell"></span></div>
+          <div class="count">2/3</div>
+        </div>
+        <div class="cover-row">
+          <div class="cover-name">Procesoptimalisatie &amp; automatisering</div>
+          <div class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div>
+          <div class="count">5/5</div>
+        </div>
+        <div class="cover-row">
+          <div class="cover-name">Data &amp; rapportages</div>
+          <div class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div>
+          <div class="count">4/4</div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span class="cell"></span>Voer ik structureel uit</span>
+        <span><span class="cell part"></span>Deels: analyse en test wel, zelf inrichten nog niet</span>
+      </div>
+    </div>
+    <p>Alleen het eerste gebied past bij mijn huidige titel. De andere vier gebieden, samen 18 taken, gaan over applicatiebeheer, automatisering en stuurinformatie. Dat werk doe ik al, maar het staat niet in mijn huidige functie.</p>
+  </section>
+
+  <section aria-labelledby="h-taken">
+    <div class="section-head">
+      <h2 id="h-taken">Hoe ik elke taak nu invul</h2>
+    </div>
+    <div class="areas">
+
+      <div class="area">
+        <div class="area-head"><h3>Operations &amp; Service Management</h3><span class="count">6 van 6</span></div>
+        <p class="area-note">Kern van mijn huidige functie, uitgevoerd in het SkillsTown-platform.</p>
+        <div class="task"><span class="what">Zakelijke inboxen en workflowverzoeken beheren</span><span class="pill done">Structureel</span></div>
+        <div class="task"><span class="what">Inschrijvingen verwerken, monitoren en afhandelen, waaronder Positieve Gezondheid, Centraal Beheer, Bloomville en Archipel</span><span class="pill done">Structureel</span></div>
+        <div class="task"><span class="what">Demo-accounts aanmaken en beheren</span><span class="pill done">Structureel</span></div>
+        <div class="task"><span class="what">Unieke bundels en productconfiguraties aanmaken en onderhouden</span><span class="pill done">Structureel</span></div>
+        <div class="task"><span class="what">Operationele processen bewaken en verzoeken tijdig opvolgen</span><span class="pill done">Structureel</span></div>
+        <div class="task"><span class="what">Problemen in processen en portalen oplossen</span><span class="pill done">Structureel</span></div>
+      </div>
+
+      <div class="area">
+        <div class="area-head"><h3>Functioneel applicatiebeheer</h3><span class="count">5 van 6 · 1 deels</span></div>
+        <div class="task"><span class="what">Functioneel beheer van Microsoft Dynamics 365</span><span class="pill done">Structureel</span><span class="why">Aanspreekpunt aan de businesskant voor Sales, Customer Insights - Journeys en Case Management</span></div>
+        <div class="task"><span class="what">Gebruikersissues inventariseren, analyseren en coördineren</span><span class="pill done">Structureel</span><span class="why">Ik help gebruikers en zet issues uit bij IT of de externe partner</span></div>
+        <div class="task"><span class="what">Changes en verbeterverzoeken opstellen, prioriteren en begeleiden</span><span class="pill done">Structureel</span><span class="why">Met specificaties, een wijzigingslog en acceptatietests na oplevering</span></div>
+        <div class="task"><span class="what">Projecten en implementaties ondersteunen</span><span class="pill done">Structureel</span><span class="why">Het Sales-proces van lead tot contract heb ik mee ontworpen</span></div>
+        <div class="task"><span class="what">Nieuwe of gewijzigde functionaliteit inrichten, testen en documenteren</span><span class="pill part">Deels</span><span class="why">Testen en documenteren doe ik; zelf inrichten nog niet. Hier zit mijn groeistap.</span></div>
+        <div class="task"><span class="what">Aanspreekpunt voor gebruikers, IT en leveranciers</span><span class="pill done">Structureel</span><span class="why">Ook richting de externe partner die een deel van het technisch beheer doet</span></div>
+      </div>
+
+      <div class="area">
+        <div class="area-head"><h3>Customer Insights &amp; klantprocessen</h3><span class="count">2 van 3 · 1 deels</span></div>
+        <div class="task"><span class="what">Customer Insights - Journeys ondersteunen</span><span class="pill done">Structureel</span><span class="why">Ik maak zelfstandig e-mails, segmenten, journeys, formulieren en events</span></div>
+        <div class="task"><span class="what">Ondersteunen bij de inrichting en werking van klantprocessen en journeys</span><span class="pill part">Deels</span><span class="why">Journeys bouwen doe ik; instellingen als toestemming en afzenderdomeinen ken ik alleen als begrip</span></div>
+        <div class="task"><span class="what">Verbetermogelijkheden in marketing- en klantprocessen signaleren en uitwerken</span><span class="pill done">Structureel</span></div>
+      </div>
+
+      <div class="area">
+        <div class="area-head"><h3>Procesoptimalisatie &amp; automatisering</h3><span class="count">5 van 5</span></div>
+        <div class="task"><span class="what">Repeterend, handmatig of inefficiënt werk signaleren</span><span class="pill done">Structureel</span></div>
+        <div class="task"><span class="what">Oplossingen met Power Automate ontwerpen, bouwen, testen en beheren</span><span class="pill done">Structureel</span><span class="why">Meerdere flows die ik zelf heb gebouwd draaien in productie</span></div>
+        <div class="task"><span class="what">Wensen voor robotisering inventariseren en concreet maken</span><span class="pill done">Structureel</span><span class="why">Ik schrijf de flow volledig uit voor team RPA</span></div>
+        <div class="task"><span class="what">Robots uitwerken en testen, zoals voor uitschrijven en verzoeken indienen</span><span class="pill done">Structureel</span><span class="why">Uitwerking en test doe ik; de bouw ligt bij team RPA</span></div>
+        <div class="task"><span class="what">Processen, oplossingen en werkinstructies documenteren</span><span class="pill done">Structureel</span></div>
+      </div>
+
+      <div class="area">
+        <div class="area-head"><h3>Data &amp; rapportages</h3><span class="count">4 van 4</span></div>
+        <div class="task"><span class="what">Salesrapportages vanuit Dynamics 365 opstellen en onderhouden</span><span class="pill done">Structureel</span><span class="why">Power BI-rapport, dashboards in Dynamics en Excel-exports</span></div>
+        <div class="task"><span class="what">Proces- en prestatiegegevens analyseren</span><span class="pill done">Structureel</span><span class="why">Zoals de analyse van leads en verkoopkansen hieronder</span></div>
+        <div class="task"><span class="what">Management en stakeholders voorzien van betrouwbare stuurinformatie</span><span class="pill done">Structureel</span></div>
+        <div class="task"><span class="what">Trends, risico's en verbetermogelijkheden signaleren</span><span class="pill done">Structureel</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section aria-labelledby="h-resultaten">
+    <div class="section-head">
+      <h2 id="h-resultaten">Concrete resultaten</h2>
+    </div>
+    <ul class="results">
+      <li class="wide">
+        <span class="k">Stuurinformatie</span>
+        <h3>Sales-analyse van leads en verkoopkansen</h3>
+        <p>Een analyse van de aangemaakte potentiële klanten en hun status, gecombineerd met een analyse van de verkoopkansen. Beide staan overzichtelijk in één Excel-bestand voor het management.</p>
+      </li>
+      <li>
+        <span class="k">Rapportage</span>
+        <h3>Power BI-salesrapport</h3>
+        <p>Rapport op Dynamics 365-data met een eigen datamodel (sterschema) en DAX-metingen, met onder meer forecast, actuals versus target en leadgeneratie.</p>
+      </li>
+      <li>
+        <span class="k">Automatisering</span>
+        <h3>Power Automate-flows in productie</h3>
+        <p>Meerdere flows met voorwaarden die ik zelf heb ontworpen, gebouwd en getest draaien in productie.</p>
+      </li>
+      <li>
+        <span class="k">Robotisering</span>
+        <h3>Robotprocessen uitgeschreven</h3>
+        <p>Processen voor onder meer uitschrijven en verzoeken indienen volledig uitgeschreven voor team RPA, en mee getest.</p>
+      </li>
+      <li>
+        <span class="k">Procesontwerp</span>
+        <h3>Sales-proces in Dynamics 365</h3>
+        <p>Het proces van lead via kans naar offerte en contract mee ontworpen, inclusief de wensen voor business rules en procesflows.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-kaart">
+    <div class="section-head">
+      <h2 id="h-kaart">Vaardighedenkaart</h2>
+      <p class="meta">Zelfbeoordeling, 18 onderdelen, schaal 1 tot 5</p>
+    </div>
+    <div class="chart" role="figure" aria-label="Niveau per onderdeel op een schaal van 1 tot 5">
+      <div class="chart-grid">
+        <div class="scale" aria-hidden="true">
+          <span style="left:20%"><b>1</b><span class="w">Bekend</span></span>
+          <span style="left:40%"><b>2</b><span class="w">Begrip</span></span>
+          <span style="left:60%"><b>3</b><span class="w">Met hulp</span></span>
+          <span style="left:80%"><b>4</b><span class="w">Zelfstandig</span></span>
+          <span style="left:100%"><b>5</b><span class="w">Expert</span></span>
+        </div>
+
+        <div class="group-label">Werk dat ik nu al doe <span>gemiddeld 3,8</span></div>
+        <div class="item">Sales-proces ontwerpen</div><div class="track lvl-5" style="--lvl:5"><span class="bar"></span><span class="val">5</span></div>
+        <div class="item">Operations: inschrijvingen, accounts, bundels</div><div class="track" style="--lvl:4"><span class="bar"></span><span class="val">4</span></div>
+        <div class="item">Power Automate-flows bouwen en beheren</div><div class="track" style="--lvl:4"><span class="bar"></span><span class="val">4</span></div>
+        <div class="item">Robotisering: processen uitschrijven en testen</div><div class="track" style="--lvl:4"><span class="bar"></span><span class="val">4</span></div>
+        <div class="item">Salesrapportages en analyses</div><div class="track" style="--lvl:4"><span class="bar"></span><span class="val">4</span></div>
+        <div class="item">Specificeren, testen, wijzigingslog</div><div class="track" style="--lvl:4"><span class="bar"></span><span class="val">4</span></div>
+        <div class="item">Gegevensbeheer: import, bulk, dubbelen</div><div class="track" style="--lvl:4"><span class="bar"></span><span class="val">4</span></div>
+        <div class="item">Journeys: campagnes uitvoeren</div><div class="track" style="--lvl:4"><span class="bar"></span><span class="val">4</span></div>
+        <div class="item">Cases en wachtrijen gebruiken</div><div class="track" style="--lvl:4"><span class="bar"></span><span class="val">4</span></div>
+        <div class="item">Datamodel en relaties begrijpen</div><div class="track" style="--lvl:3"><span class="bar"></span><span class="val">3</span></div>
+        <div class="item">Koppelingen en hun velden kennen</div><div class="track" style="--lvl:3"><span class="bar"></span><span class="val">3</span></div>
+        <div class="item">Case: routering en rechten uitleggen</div><div class="track" style="--lvl:3"><span class="bar"></span><span class="val">3</span></div>
+
+        <div class="group-label">Zelf inrichten in Dynamics 365 <span>gemiddeld 1,7</span></div>
+        <div class="item">Kolommen, formulieren, views aanpassen</div><div class="track config" style="--lvl:2"><span class="bar"></span><span class="val">2</span></div>
+        <div class="item">Business rules en procesflows bouwen</div><div class="track config" style="--lvl:2"><span class="bar"></span><span class="val">2</span></div>
+        <div class="item">Gebruikers aanmaken, rollen toekennen</div><div class="track config" style="--lvl:2"><span class="bar"></span><span class="val">2</span></div>
+        <div class="item">Journeys: consent en compliance inrichten</div><div class="track config" style="--lvl:2"><span class="bar"></span><span class="val">2</span></div>
+        <div class="item">Maker portal, solutions, omgevingen</div><div class="track config" style="--lvl:1"><span class="bar"></span><span class="val">1</span></div>
+        <div class="item">Case: e-mailregels, routering, SLA's</div><div class="track config" style="--lvl:1"><span class="bar"></span><span class="val">1</span></div>
+      </div>
+      <p class="chart-foot">1 Bekend: gezien of van gehoord · 2 Begrip: kan het uitleggen, nooit zelf gedaan · 3 Met hulp: met handleiding of meekijker, of beperkt zelf gedaan · 4 Zelfstandig · 5 Expert: ontwerpt het en kan het anderen leren</p>
+    </div>
+    <p>Wat ik in Power Automate al zelfstandig doe, ontwerpen, bouwen, testen en in productie beheren, is dezelfde manier van werken die zelf inrichten in Dynamics 365 vraagt. Daarom verwacht ik dat het groeigebied snel te overbruggen is.</p>
+  </section>
+
+  <section aria-labelledby="h-groei">
+    <div class="section-head">
+      <span class="eyebrow">Groeigebied</span>
+      <h2 id="h-groei">Zelf inrichten in Dynamics 365</h2>
+    </div>
+    <p>De inhoud ken ik: ik weet wat er moet veranderen en waarom. Wat ik nog moet leren is hoe ik dat zelf en veilig in het systeem doorvoer.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Onderdeel</th><th>Wat ik al doe</th><th>Volgende stap</th></tr></thead>
+        <tbody>
+          <tr><td>Platform</td><td>Maker portal verkend; ik weet wat solutions en omgevingen zijn</td><td>Een eerste solution maken in ontwikkel en het transport naar productie leren</td></tr>
+          <tr><td>Sales</td><td>Proces mee ontworpen; ik ken de stappen voor een nieuw verplicht veld</td><td>Kolommen, formulieren, views en business rules zelf inrichten</td></tr>
+          <tr><td>Gebruikers en rechten</td><td>Meegedacht over rollen; ik ken de volgorde voor een nieuwe collega: licentie, omgeving, business unit, rol</td><td>Gebruikers zelf aanmaken en rollen toekennen</td></tr>
+          <tr><td>Gegevensbeheer</td><td>Importeren, bulk bewerken, dubbelen samenvoegen, geavanceerd zoeken</td><td>Regels voor duplicaatdetectie en importtoewijzingen instellen</td></tr>
+          <tr><td>Koppelingen</td><td>Ik weet welke velden de koppelingen met andere systemen lezen of vullen</td><td>Bij elke kolomwijziging de impact op koppelingen checken</td></tr>
+          <tr><td>Customer Insights - Journeys</td><td>E-mails, segmenten, journeys en formulieren zelfstandig</td><td>Toestemming, compliance-profielen en afzenderdomeinen inrichten</td></tr>
+          <tr><td>Case Management</td><td>Cases en wachtrijen gebruiken; routering en rechten uitleggen</td><td>E-mailregels, wachtrijen en SLA's inrichten</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <h3>Aandachtspunt: toestemming in Journeys</h3>
+      <p>Nieuwsbrieven gaan nu alleen naar aangemelde contacten doordat het segment op een veld filtert. De officiële toestemmingscontrole in Journeys loopt via het compliance-profiel en het doel van de e-mail. Leunt alles op een segmentfilter, dan hangt de AVG-naleving af van iedereen die segmenten bouwt. Dit wil ik goed begrijpen voordat ik deze instellingen wijzig.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-groeipad">
+    <div class="section-head">
+      <h2 id="h-groeipad">Groeipad</h2>
+    </div>
+    <p>Eerst leg ik de basis voor veilig werken. Daarna pak ik de twee taken op die als eerste op mij afkomen: Sales inrichten en gebruikers en rechten. Die stappen kunnen naast elkaar lopen. Journeys en Case Management volgen daarna.</p>
+    <ol class="steps">
+      <li><div class="body">
+        <h3>Veilig werken</h3>
+        <ul>
+          <li>Met IT, de externe partner en team RPA vastleggen wie wat beheert</li>
+          <li>Leren hoe het transport tussen omgevingen loopt</li>
+          <li>In de ontwikkelomgeving een eerste eigen solution maken</li>
+          <li>Afspreken wat ik zelf naar productie mag zetten en wat via een ander loopt</li>
+        </ul>
+      </div></li>
+      <li><div class="body">
+        <h3>Sales inrichten</h3>
+        <ul>
+          <li>In ontwikkel een nieuw verplicht keuzeveld toevoegen: kolom, keuzelijst, formulier, view, publiceren</li>
+          <li>Bij elke kolomwijziging checken of een koppeling die kolom gebruikt</li>
+          <li>Daarna een business rule maken en een fase in de procesflow aanpassen</li>
+        </ul>
+      </div></li>
+      <li><div class="body">
+        <h3>Gebruikers en rechten</h3>
+        <ul>
+          <li>In ontwikkel een testgebruiker opzetten: licentie, omgeving, business unit, rol</li>
+          <li>Leren hoe een beveiligingsrol is opgebouwd: rechten per tabel en toegangsniveaus</li>
+          <li>Standaard zo min mogelijk rechten geven</li>
+        </ul>
+      </div></li>
+      <li><div class="body">
+        <h3>Journeys inrichten</h3>
+        <ul>
+          <li>In kaart brengen hoe de compliance-profielen en doelen zijn ingericht</li>
+          <li>Begrijpen hoe de afzenderdomeinen werken en wie ze beheert</li>
+          <li>Pas daarna instellingen aanpassen die voor alle gebruikers gelden</li>
+        </ul>
+      </div></li>
+      <li><div class="body">
+        <h3>Case Management inrichten</h3>
+        <ul>
+          <li>De regels voor cases uit e-mail laten uitleggen voordat ik ze wijzig</li>
+          <li>Beginnen met wachtrijen en routeringsregels in ontwikkel</li>
+          <li>SLA's als laatste oppakken, omdat die op meerdere onderdelen tegelijk ingrijpen</li>
+        </ul>
+      </div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-afspraken">
+    <div class="section-head">
+      <span class="eyebrow">Voorstel</span>
+      <h2 id="h-afspraken">Afspraken om te maken</h2>
+    </div>
+    <ul class="agree">
+      <li>Mijn functie herbeoordelen op basis van het voorgestelde functieprofiel</li>
+      <li>Toegang tot een ontwikkelomgeving, vóór rechten in productie</li>
+      <li>Een duidelijke taakverdeling tussen mij, IT, de externe partner en team RPA</li>
+      <li>Afspraken over welke automatiseringen ik zelf met Power Automate mag bouwen</li>
+      <li>Een vaste meekijker voor de eerste wijzigingen</li>
+      <li>Vaste leertijd per week, zodat dit niet naast het gewone werk hoeft</li>
+      <li>Rechten stap voor stap uitbreiden, gelijk met het groeipad</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-leren">
+    <div class="section-head">
+      <h2 id="h-leren">Leerbronnen en certificeringen</h2>
+    </div>
+    <p>De snelste route is oefenen in de eigen ontwikkelomgeving met een meekijker, aangevuld met gratis modules op <a href="https://learn.microsoft.com/training/" target="_blank" rel="noopener">Microsoft Learn</a>. Een certificering is optioneel, maar geeft structuur en sluit aan bij het ontwikkelperspectief uit het functieprofiel.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Examen</th><th>Onderwerp</th><th>Past bij</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>AB-410</code></td><td>Power Platform: Dataverse, model-driven apps, flows, solutions en ALM</td><td>Stap 1–3 en Power Automate</td><td>Opvolger van PL-200, dat op 31 augustus 2026 stopte. Beste eerste keuze.</td></tr>
+          <tr><td><code>MB-230</code></td><td>Dynamics 365 Customer Service: cases, SLA's, kennisbeheer</td><td>Stap 5</td><td>Nog actief</td></tr>
+          <tr><td><code>AB-210</code></td><td>Dynamics 365 Sales, met nadruk op Copilot en AI</td><td>Later</td><td>Opvolger van MB-280; nog in bèta. Minder passend zolang Copilot niet wordt gebruikt.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sources">
+      <strong>Bronnen</strong>
+      <ul>
+        <li>Functieprofiel Business Operations &amp; Applications Specialist (september 2026)</li>
+        <li><a href="https://www.certcrush.app/blog/dynamics-365-certification-path-2026-mb-retired" target="_blank" rel="noopener">CertCrush: Dynamics 365 certification path 2026</a></li>
+        <li><a href="https://www.aguidetocloud.com/cert-tracker/ab-410/" target="_blank" rel="noopener">A Guide to Cloud: AB-410</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
