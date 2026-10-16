@@ -102,6 +102,73 @@ header { display: grid; gap: 0.85rem; }
 .legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
 .legend .cell { width: 0.85rem; height: 0.85rem; }
 
+.time { display: grid; gap: 0.45rem; padding-top: 0.8rem; border-top: 1px dashed var(--line); }
+.time-head { display: flex; justify-content: space-between; gap: 1rem; font-weight: 600; font-size: 0.92rem; }
+.time-head .meta { font-weight: 400; font-size: 0.85rem; }
+.time-bar { display: flex; height: 1.9rem; border-radius: 4px; overflow: hidden; font-size: 0.82rem; font-weight: 600; }
+.seg { display: flex; align-items: center; padding: 0 0.6rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.seg.ops { background: var(--bar); color: var(--fg); }
+.seg.rest { background: var(--accent); color: var(--surface); }
+
+/* Operations-cijfers */
+.ops-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 0.9rem; }
+.ops-stats > div { background: var(--bg); padding: 0.7rem 0.85rem; display: grid; gap: 0.1rem; min-width: 0; }
+.ops-stats b { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.ops-stats span { font-size: 0.85rem; color: var(--muted); line-height: 1.3; }
+.ops-note { font-size: 0.85rem; color: var(--muted); margin: -0.45rem 0 0.9rem; }
+
+/* Waarderingsaspecten */
+.aspects { margin: 0; display: grid; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.aspects > div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 1rem; padding: 0.9rem 1.25rem; border-top: 1px solid var(--line); }
+.aspects > div:first-child { border-top: 0; }
+.aspects dt { font-weight: 700; }
+.aspects dd { margin: 0; min-width: 0; }
+
+/* Schakelkaart */
+.hub { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
+.hub svg { display: block; width: 100%; height: auto; }
+.hub .ln { stroke: var(--bar); stroke-width: 1.5; fill: none; }
+.hub .node { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+.hub .center { fill: var(--accent); }
+.hub .t1 { fill: var(--fg); font: 600 15px var(--font-body); }
+.hub .t2 { fill: var(--muted); font: 400 13px var(--font-body); }
+.hub .tc1 { fill: var(--surface); font: 700 18px var(--font-display); }
+.hub .tc2 { fill: var(--surface); font: 400 13px var(--font-body); }
+.hub-list { display: none; list-style: none; gap: 0.5rem; }
+.hub-list li { display: grid; gap: 0.05rem; padding: 0.6rem 0.8rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.hub-list li b { font-weight: 600; }
+.hub-list li span { color: var(--muted); font-size: 0.9rem; }
+.hub-list .hub-me { background: var(--accent); border-color: transparent; color: var(--surface); }
+.hub-list .hub-me span { color: var(--surface); }
+
+/* Wijzigingsroute */
+.route { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.4rem; display: grid; gap: 1.3rem; }
+.lane { display: grid; gap: 0.55rem; }
+.lane-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.2rem 1rem; }
+.lane-head .meta { font-size: 0.88rem; }
+.steps-row { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.1rem; }
+.steps-row li { position: relative; border-radius: 8px; padding: 0.55rem 0.65rem; display: grid; gap: 0.1rem; align-content: start; background: var(--bg); border: 1px solid var(--line); min-width: 0; }
+.steps-row li.me { background: var(--accent-soft); border-color: var(--accent); }
+.steps-row li:not(:last-child)::after { content: "→"; position: absolute; right: -0.95rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; }
+.steps-row .s { font-weight: 600; font-size: 0.9rem; line-height: 1.25; }
+.steps-row .o { font-size: 0.8rem; color: var(--muted); line-height: 1.25; }
+.steps-row li.me .o { color: var(--accent); font-weight: 600; }
+.route-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.85rem; color: var(--muted); padding-top: 0.8rem; border-top: 1px dashed var(--line); }
+.route-legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.sw { width: 0.9rem; height: 0.9rem; border-radius: 3px; background: var(--bg); border: 1px solid var(--line); }
+.sw.me { background: var(--accent-soft); border-color: var(--accent); }
+
+/* Winst */
+.ops-stats.three { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 0; }
+.ops-stats.three > div { background: var(--surface); }
+.bullets { list-style: none; display: grid; gap: 0.3rem; }
+.sub { font-size: 1.05rem; }
+
+/* Oefeningen */
+.oef { background: var(--accent-soft); border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.95rem; max-width: none; }
+.oef b { color: var(--accent); }
+.cont { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; gap: 0.5rem; }
+
 /* Per taak */
 .areas { display: grid; gap: 1rem; }
 .area { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem 0.4rem; display: grid; }
@@ -187,6 +254,14 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
   .cover-row .cells { grid-row: 2; grid-column: 1 / -1; }
   .cover-row .count { grid-row: 1; grid-column: 2; }
   .results { grid-template-columns: minmax(0, 1fr); }
+  .hub svg { display: none; }
+  .hub-list { display: grid; }
+  .route { padding: 1rem; }
+  .steps-row { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+  .steps-row li:not(:last-child)::after { content: "↓"; right: auto; left: 1rem; top: auto; bottom: -0.95rem; transform: none; }
+  .ops-stats.three { grid-template-columns: minmax(0, 1fr); }
+  .ops-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aspects > div { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; padding: 0.85rem 1rem; }
   .chart { padding: 1rem; }
   .chart-grid { grid-template-columns: minmax(0, 1fr); row-gap: 0.2rem; }
   .scale { grid-column: 1; }
@@ -202,13 +277,14 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
   <header>
     <div class="eyebrow">SkillsTown · Onderbouwing functiewaardering</div>
     <h1>Vaardighedenprofiel Business Operations</h1>
-    <p class="meta">Bob Andringa · 15 oktober 2026</p>
+    <p class="meta">Bob Andringa · 15 oktober 2026 · Concept voor gesprek met mijn manager</p>
     <div class="shift">
       <div><span class="k">Huidige titel</span><span class="v">Medewerker Operations</span></div>
       <div class="arrow" aria-hidden="true">→</div>
       <div class="to"><span class="k">Voorgestelde functie</span><span class="v">Business Operations &amp; Applications Specialist</span></div>
     </div>
-    <p class="lead">Ik voer 22 van de 24 kerntaken uit het voorgestelde functieprofiel al structureel uit. Bij de andere 2 analyseer, specificeer en test ik al, maar richt ik nog niet zelf in. Zelf inrichten in Dynamics 365 is mijn groeigebied, en daarvoor zijn de extra rechten bedoeld.</p>
+    <p class="lead">Ik voer 22 van de 24 kerntaken uit het voorgestelde functieprofiel al structureel uit. De taken buiten operations doe ik al langer dan twee jaar, en ze vragen ongeveer de helft van mijn tijd. Bij de andere 2 taken analyseer, specificeer en test ik al, maar richt ik nog niet zelf in, omdat ik daar tot nu toe geen rechten voor had.</p>
+    <p class="lead">Met die rechten voer ik kleine wijzigingen zelf door. Die duren nu 1 tot 4 weken en vragen soms inhuur. Zelf doorgevoerd gaat dat sneller en is er minder inhuur nodig, zodat FAB en de externe partner ruimte houden voor de grote projecten.</p>
   </header>
 
   <section aria-labelledby="h-dekking">
@@ -249,12 +325,105 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
           <div class="count">4/4</div>
         </div>
       </div>
+      <div class="time">
+        <div class="time-head"><span>Tijdsbesteding</span><span class="meta">schatting</span></div>
+        <div class="time-bar" role="img" aria-label="Ongeveer de helft operations, de helft de andere vier gebieden"><span class="seg ops" style="width:50%">Operations ±50%</span><span class="seg rest" style="width:50%">Overig ±50%</span></div>
+      </div>
       <div class="legend">
         <span><span class="cell"></span>Voer ik structureel uit</span>
         <span><span class="cell part"></span>Deels: analyse en test wel, zelf inrichten nog niet</span>
       </div>
     </div>
-    <p>Alleen het eerste gebied past bij mijn huidige titel. De andere vier gebieden, samen 18 taken, gaan over applicatiebeheer, automatisering en stuurinformatie. Dat werk doe ik al, maar het staat niet in mijn huidige functie.</p>
+    <p>Er is geen officiële functiebeschrijving voor Medewerker Operations. Afgaand op de titel sluit alleen het eerste gebied daarop aan. De andere vier gebieden, samen 18 taken, gaan over applicatiebeheer, automatisering en stuurinformatie. Dat werk doe ik al langer dan twee jaar, maar het is nergens in mijn functie vastgelegd.</p>
+  </section>
+
+  <section aria-labelledby="h-route">
+    <div class="section-head">
+      <h2 id="h-route">De weg van een kleine wijziging</h2>
+      <p class="meta">Bijvoorbeeld een nieuw veld of een aangepaste view</p>
+    </div>
+    <div class="route">
+      <div class="lane">
+        <div class="lane-head"><h3>Nu</h3><span class="meta">Doorlooptijd 1 tot 4 weken</span></div>
+        <ul class="steps-row">
+          <li><span class="s">Verzoek</span><span class="o">Gebruiker</span></li>
+          <li class="me"><span class="s">Analyse en specificatie</span><span class="o">Ik</span></li>
+          <li><span class="s">Bouw</span><span class="o">FAB, anders ingehuurde externe partner</span></li>
+          <li class="me"><span class="s">Test en acceptatie</span><span class="o">Ik</span></li>
+          <li><span class="s">Naar productie</span><span class="o">FAB of externe partner</span></li>
+        </ul>
+      </div>
+      <div class="lane">
+        <div class="lane-head"><h3>Straks</h3><span class="meta">Geen overdracht meer voor kleine wijzigingen</span></div>
+        <ul class="steps-row">
+          <li><span class="s">Verzoek</span><span class="o">Gebruiker</span></li>
+          <li class="me"><span class="s">Analyse en specificatie</span><span class="o">Ik</span></li>
+          <li class="me"><span class="s">Bouw in ontwikkel</span><span class="o">Ik</span></li>
+          <li class="me"><span class="s">Test en acceptatie</span><span class="o">Ik</span></li>
+          <li><span class="s">Naar productie</span><span class="o">Volgens afspraak met FAB</span></li>
+        </ul>
+      </div>
+      <div class="lane">
+        <div class="lane-head"><h3>Robots</h3><span class="meta">Blijft zo; eenvoudige flows bouw ik straks zelf</span></div>
+        <ul class="steps-row">
+          <li class="me"><span class="s">Wens signaleren</span><span class="o">Ik</span></li>
+          <li class="me"><span class="s">Proces uitschrijven</span><span class="o">Ik</span></li>
+          <li><span class="s">Robot bouwen</span><span class="o">Team RPA</span></li>
+          <li class="me"><span class="s">Testen</span><span class="o">Ik</span></li>
+          <li><span class="s">Live zetten</span><span class="o">Team RPA</span></li>
+        </ul>
+      </div>
+      <div class="route-legend">
+        <span><span class="sw me"></span>Doe ik zelf</span>
+        <span><span class="sw"></span>Doet een ander</span>
+      </div>
+    </div>
+    <p>Grote projecten blijven bij FAB en de externe partner. Het verschil zit in de kleine wijzigingen: die hoeven straks niet meer te worden overgedragen of ingehuurd.</p>
+  </section>
+
+  <section aria-labelledby="h-winst">
+    <div class="section-head">
+      <span class="eyebrow">Voor SkillsTown</span>
+      <h2 id="h-winst">Wat de organisatie eraan heeft</h2>
+    </div>
+    <div class="ops-stats three">
+      <div><b>1–4 weken</b><span>doorlooptijd van een kleine wijziging nu</span></div>
+      <div><b>2–5 uur</b><span>per week bespaard door mijn flows en robots</span></div>
+      <div><b>±90–230 uur</b><span>bespaard per jaar, bij 46 werkweken</span></div>
+    </div>
+    <ul class="results">
+      <li>
+        <h3>Snellere wijzigingen</h3>
+        <p>Kleine wijzigingen staan nu na 1 tot 4 weken live, vooral door de overdracht. Bouw en test ik ze zelf in ontwikkel, dan valt die overdracht weg.</p>
+      </li>
+      <li>
+        <h3>Minder inhuur</h3>
+        <p>Kan FAB een wijziging niet zelf doen, dan wordt de externe partner ingehuurd. Kleine wijzigingen die ik zelf doe, hoeven niet meer te worden ingehuurd. FAB en de partner houden tijd over voor de grote projecten.</p>
+      </li>
+      <li>
+        <h3>Meer automatisering</h3>
+        <p>Mijn flows en robots besparen nu al 2 tot 5 uur per week. Met afspraken over wat ik zelf mag bouwen komen er meer bij, zonder de wachtrij bij team RPA te vergroten.</p>
+      </li>
+      <li>
+        <h3>Minder vertaalverlies</h3>
+        <p>Wie het proces kent, bouwt het ook. Er gaat minder verloren tussen specificatie en bouw, en de kans op herstelrondes wordt kleiner.</p>
+      </li>
+      <li>
+        <h3>Toestemming centraal geregeld</h3>
+        <p>Journeys kan toestemming centraal regelen. Ingericht via het compliance-profiel is de naleving bij nieuwsbrieven op één plek geborgd, voor iedereen die mailt.</p>
+      </li>
+      <li>
+        <h3>Continuïteit</h3>
+        <p>Een vastgelegde functie maakt duidelijk wie wat doet. Met werkinstructies, een wijzigingslog en een koppelingsoverzicht kan een collega het werk overnemen als ik afwezig ben, en blijft de kennis van ruim twee jaar behouden.</p>
+      </li>
+    </ul>
+    <h3 class="sub">Hoe we de winst meten</h3>
+    <ul class="bullets">
+      <li>Doorlooptijd van kleine wijzigingen, van verzoek tot live</li>
+      <li>Aantal wijzigingen dat zonder inhuur is opgelost</li>
+      <li>Uren bespaard door nieuwe automatiseringen</li>
+    </ul>
+    <p class="meta">Ik stel voor deze cijfers na drie en na zes maanden samen te bekijken.</p>
   </section>
 
   <section aria-labelledby="h-taken">
@@ -266,7 +435,14 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
       <div class="area">
         <div class="area-head"><h3>Operations &amp; Service Management</h3><span class="count">6 van 6</span></div>
         <p class="area-note">Kern van mijn huidige functie, uitgevoerd in het SkillsTown-platform.</p>
-        <div class="task"><span class="what">Zakelijke inboxen en workflowverzoeken beheren</span><span class="pill done">Structureel</span></div>
+        <div class="ops-stats" role="group" aria-label="Volumes per maand, schatting">
+          <div><b>200–500</b><span>inschrijvingen per maand</span></div>
+          <div><b>10–25</b><span>demo-accounts per maand</span></div>
+          <div><b>5–15</b><span>bundels en configuraties per maand</span></div>
+          <div><b>75–80</b><span>verzoeken per week in 3 inboxen</span></div>
+        </div>
+        <p class="ops-note">Verzoeken per week: zakelijk 15–20 · portalinschrijvingen 30 · inschrijvingen 30</p>
+        <div class="task"><span class="what">Zakelijke inboxen en workflowverzoeken beheren</span><span class="pill done">Structureel</span><span class="why">Drie inboxen: zakelijk, portalinschrijvingen en inschrijvingen</span></div>
         <div class="task"><span class="what">Inschrijvingen verwerken, monitoren en afhandelen, waaronder Positieve Gezondheid, Centraal Beheer, Bloomville en Archipel</span><span class="pill done">Structureel</span></div>
         <div class="task"><span class="what">Demo-accounts aanmaken en beheren</span><span class="pill done">Structureel</span></div>
         <div class="task"><span class="what">Unieke bundels en productconfiguraties aanmaken en onderhouden</span><span class="pill done">Structureel</span></div>
@@ -294,7 +470,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
       <div class="area">
         <div class="area-head"><h3>Procesoptimalisatie &amp; automatisering</h3><span class="count">5 van 5</span></div>
         <div class="task"><span class="what">Repeterend, handmatig of inefficiënt werk signaleren</span><span class="pill done">Structureel</span></div>
-        <div class="task"><span class="what">Oplossingen met Power Automate ontwerpen, bouwen, testen en beheren</span><span class="pill done">Structureel</span><span class="why">Meerdere flows die ik zelf heb gebouwd draaien in productie</span></div>
+        <div class="task"><span class="what">Oplossingen met Power Automate ontwerpen, bouwen, testen en beheren</span><span class="pill done">Structureel</span><span class="why">Twee tot drie flows die ik zelf heb gebouwd draaien in productie</span></div>
         <div class="task"><span class="what">Wensen voor robotisering inventariseren en concreet maken</span><span class="pill done">Structureel</span><span class="why">Ik schrijf de flow volledig uit voor team RPA</span></div>
         <div class="task"><span class="what">Robots uitwerken en testen, zoals voor uitschrijven en verzoeken indienen</span><span class="pill done">Structureel</span><span class="why">Uitwerking en test doe ik; de bouw ligt bij team RPA</span></div>
         <div class="task"><span class="what">Processen, oplossingen en werkinstructies documenteren</span><span class="pill done">Structureel</span></div>
@@ -304,7 +480,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
         <div class="area-head"><h3>Data &amp; rapportages</h3><span class="count">4 van 4</span></div>
         <div class="task"><span class="what">Salesrapportages vanuit Dynamics 365 opstellen en onderhouden</span><span class="pill done">Structureel</span><span class="why">Power BI-rapport, dashboards in Dynamics en Excel-exports</span></div>
         <div class="task"><span class="what">Proces- en prestatiegegevens analyseren</span><span class="pill done">Structureel</span><span class="why">Zoals de analyse van leads en verkoopkansen hieronder</span></div>
-        <div class="task"><span class="what">Management en stakeholders voorzien van betrouwbare stuurinformatie</span><span class="pill done">Structureel</span></div>
+        <div class="task"><span class="what">Management en stakeholders voorzien van betrouwbare stuurinformatie</span><span class="pill done">Structureel</span><span class="why">Als ik afwezig ben, komt deze informatie niet</span></div>
         <div class="task"><span class="what">Trends, risico's en verbetermogelijkheden signaleren</span><span class="pill done">Structureel</span></div>
       </div>
 
@@ -329,7 +505,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
       <li>
         <span class="k">Automatisering</span>
         <h3>Power Automate-flows in productie</h3>
-        <p>Meerdere flows met voorwaarden die ik zelf heb ontworpen, gebouwd en getest draaien in productie.</p>
+        <p>Twee tot drie flows met voorwaarden die ik zelf heb ontworpen, gebouwd en getest, draaien in productie en worden door mij beheerd.</p>
       </li>
       <li>
         <span class="k">Robotisering</span>
@@ -342,6 +518,63 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
         <p>Het proces van lead via kans naar offerte en contract mee ontworpen, inclusief de wensen voor business rules en procesflows.</p>
       </li>
     </ul>
+  </section>
+
+  <section aria-labelledby="h-schakel">
+    <div class="section-head">
+      <h2 id="h-schakel">Mijn schakelrol</h2>
+    </div>
+    <p>Het functieprofiel noemt de schakel tussen operatie, business en IT de kern van de functie. Dit zijn de partijen waar ik dagelijks tussen schakel, en wat er tussen ons loopt.</p>
+    <div class="hub">
+      <svg viewBox="0 0 760 400" role="img" aria-label="Schakelrol: ik verbind management, gebruikers, partners en portalen, FAB en IT, de externe partner en team RPA">
+        <path class="ln" d="M280 200 C 255 200 255 70 230 70"/>
+        <path class="ln" d="M280 200 L 230 200"/>
+        <path class="ln" d="M280 200 C 255 200 255 330 230 330"/>
+        <path class="ln" d="M480 200 C 505 200 505 70 530 70"/>
+        <path class="ln" d="M480 200 L 530 200"/>
+        <path class="ln" d="M480 200 C 505 200 505 330 530 330"/>
+        <rect class="node" x="20" y="38" width="210" height="64" rx="8"/>
+        <text class="t1" x="38" y="65">Management</text><text class="t2" x="38" y="86">Stuurinformatie en advies</text>
+        <rect class="node" x="20" y="168" width="210" height="64" rx="8"/>
+        <text class="t1" x="38" y="195">Gebruikers</text><text class="t2" x="38" y="216">Vragen, issues en wensen</text>
+        <rect class="node" x="20" y="298" width="210" height="64" rx="8"/>
+        <text class="t1" x="38" y="325">Partners en portalen</text><text class="t2" x="38" y="346">Inschrijvingen</text>
+        <rect class="node" x="530" y="38" width="210" height="64" rx="8"/>
+        <text class="t1" x="548" y="65">FAB en IT</text><text class="t2" x="548" y="86">Changes en escalaties</text>
+        <rect class="node" x="530" y="168" width="210" height="64" rx="8"/>
+        <text class="t1" x="548" y="195">Externe partner</text><text class="t2" x="548" y="216">Specificaties en tests</text>
+        <rect class="node" x="530" y="298" width="210" height="64" rx="8"/>
+        <text class="t1" x="548" y="325">Team RPA</text><text class="t2" x="548" y="346">Robotprocessen en tests</text>
+        <rect class="center" x="280" y="158" width="200" height="84" rx="10"/>
+        <text class="tc1" x="380" y="196" text-anchor="middle">Bob</text>
+        <text class="tc2" x="380" y="219" text-anchor="middle">Business Operations</text>
+      </svg>
+      <ul class="hub-list">
+        <li class="hub-me"><b>Bob</b><span>Schakel tussen alle partijen</span></li>
+        <li><b>Management</b><span>Stuurinformatie en advies</span></li>
+        <li><b>Gebruikers</b><span>Vragen, issues en wensen</span></li>
+        <li><b>Partners en portalen</b><span>Inschrijvingen</span></li>
+        <li><b>FAB en IT</b><span>Changes en escalaties</span></li>
+        <li><b>Externe partner</b><span>Specificaties en tests</span></li>
+        <li><b>Team RPA</b><span>Robotprocessen en tests</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-waardering">
+    <div class="section-head">
+      <span class="eyebrow">Voor de functiewaardering</span>
+      <h2 id="h-waardering">Waarderingsaspecten</h2>
+    </div>
+    <p>Het functieprofiel vraagt om de functie op vijf aspecten te beoordelen. Per aspect laat ik zien waar het in mijn werk zit.</p>
+    <dl class="aspects">
+      <div><dt>Zelfstandigheid</dt><dd>Ik prioriteer verzoeken binnen mijn eigen gebied, adviseer over oplossingen en automatiseringskansen, en coördineer testen en acceptatie zelf. Mijn flows bouw en beheer ik zonder begeleiding.</dd></div>
+      <div><dt>Complexiteit</dt><dd>Ik werk over vijf gebieden en drie Dynamics 365-onderdelen, met koppelingen naar andere systemen. Daarbij schakel ik tussen gebruikers, IT, een externe partner, team RPA en management.</dd></div>
+      <div><dt>Impact</dt><dd>Als ik een week afwezig ben, liggen Dynamics-issues en changes stil en krijgt het management geen stuurinformatie. In Journeys raakt mijn werk aan de AVG-naleving bij nieuwsbrieven.</dd></div>
+      <div><dt>Kennis</dt><dd>Dynamics 365 Sales, Customer Insights - Journeys en Case Management; Power Automate; Power BI met een eigen datamodel en DAX; procesontwerp en requirements.</dd></div>
+      <div><dt>Eigenaarschap</dt><dd>Ik escaleer risico's en verstoringen naar de juiste eigenaar, houd een wijzigingslog bij en documenteer werkinstructies. Het Sales-proces heb ik mee ontworpen.</dd></div>
+    </dl>
+    <p class="meta">Van de bevoegdheden in het functieprofiel oefen ik er al vier zelf uit: verzoeken prioriteren, oplossingen adviseren, testen coördineren en escaleren.</p>
   </section>
 
   <section aria-labelledby="h-kaart">
@@ -388,10 +621,10 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
 
   <section aria-labelledby="h-groei">
     <div class="section-head">
-      <span class="eyebrow">Groeigebied</span>
+      <span class="eyebrow">Ontwikkelperspectief</span>
       <h2 id="h-groei">Zelf inrichten in Dynamics 365</h2>
     </div>
-    <p>De inhoud ken ik: ik weet wat er moet veranderen en waarom. Wat ik nog moet leren is hoe ik dat zelf en veilig in het systeem doorvoer.</p>
+    <p>De inhoud ken ik: ik weet wat er moet veranderen en waarom. Dat ik het nog niet zelf in het systeem doorvoer, komt doordat ik daar tot nu toe geen rechten voor had. Met de extra rechten en het groeipad hieronder groei ik dit deel van de functie in.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Onderdeel</th><th>Wat ik al doe</th><th>Volgende stap</th></tr></thead>
@@ -407,8 +640,8 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
       </table>
     </div>
     <div class="callout">
-      <h3>Aandachtspunt: toestemming in Journeys</h3>
-      <p>Nieuwsbrieven gaan nu alleen naar aangemelde contacten doordat het segment op een veld filtert. De officiële toestemmingscontrole in Journeys loopt via het compliance-profiel en het doel van de e-mail. Leunt alles op een segmentfilter, dan hangt de AVG-naleving af van iedereen die segmenten bouwt. Dit wil ik goed begrijpen voordat ik deze instellingen wijzig.</p>
+      <h3>Kans: toestemming centraal regelen</h3>
+      <p>Nieuwsbrieven gaan nu naar aangemelde contacten via een filter in het segment. Journeys kan toestemming ook centraal regelen, via het compliance-profiel en het doel van de e-mail. Dan is de naleving op één plek geborgd, voor iedereen die segmenten bouwt. Dit wil ik eerst goed begrijpen voordat ik deze instellingen wijzig.</p>
     </div>
   </section>
 
@@ -426,6 +659,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
           <li>In de ontwikkelomgeving een eerste eigen solution maken</li>
           <li>Afspreken wat ik zelf naar productie mag zetten en wat via een ander loopt</li>
         </ul>
+        <p class="oef"><b>Oefening:</b> ik maak een eigen solution met een eigen voorvoegsel, voeg alleen de tabel Kans toe met de onderdelen die ik nodig heb, en exporteer hem. Zo zie ik wat er straks naar productie gaat.</p>
       </div></li>
       <li><div class="body">
         <h3>Sales inrichten</h3>
@@ -434,6 +668,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
           <li>Bij elke kolomwijziging checken of een koppeling die kolom gebruikt</li>
           <li>Daarna een business rule maken en een fase in de procesflow aanpassen</li>
         </ul>
+        <p class="oef"><b>Oefening:</b> ik voeg het verplichte keuzeveld Productbundel als globale keuzelijst toe aan de kans, zet het op het formulier en maak de view Open kansen per bundel. Daarna bouw ik de business rule: is de kans gewonnen, dan wordt de contractdatum verplicht. Ook maak ik een overzicht van alle kolommen die koppelingen lezen of vullen.</p>
       </div></li>
       <li><div class="body">
         <h3>Gebruikers en rechten</h3>
@@ -442,6 +677,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
           <li>Leren hoe een beveiligingsrol is opgebouwd: rechten per tabel en toegangsniveaus</li>
           <li>Standaard zo min mogelijk rechten geven</li>
         </ul>
+        <p class="oef"><b>Oefening:</b> ik kopieer een standaardrol, zet het toegangsniveau op Kans van gebruiker naar business unit, ken de rol toe aan een testgebruiker en kijk wat die wel en niet ziet.</p>
       </div></li>
       <li><div class="body">
         <h3>Journeys inrichten</h3>
@@ -450,6 +686,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
           <li>Begrijpen hoe de afzenderdomeinen werken en wie ze beheert</li>
           <li>Pas daarna instellingen aanpassen die voor alle gebruikers gelden</li>
         </ul>
+        <p class="oef"><b>Oefening:</b> ik maak twee testcontacten, één met en één zonder toestemming, en verstuur een test-e-mail met een gekoppeld doel. Dan zie ik precies wat het segmentfilter nu wel en niet afdekt.</p>
       </div></li>
       <li><div class="body">
         <h3>Case Management inrichten</h3>
@@ -458,8 +695,16 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
           <li>Beginnen met wachtrijen en routeringsregels in ontwikkel</li>
           <li>SLA's als laatste oppakken, omdat die op meerdere onderdelen tegelijk ingrijpen</li>
         </ul>
+        <p class="oef"><b>Oefening:</b> ik beschrijf de bestaande regel voor cases uit e-mail in mijn eigen woorden, wat meteen documentatie oplevert. Daarna maak ik in ontwikkel een SLA met één doel: eerste reactie binnen 8 werkuren.</p>
       </div></li>
     </ol>
+    <div class="cont">
+      <h3>Doorlopend, vanaf de eerste week</h3>
+      <ul class="bullets">
+        <li>Meekijken bij FAB of de externe partner bij de volgende change, of die change zelf bouwen terwijl zij meekijken</li>
+        <li>Een oefenlogboek bijhouden met per week wat ik heb geoefend, zodat na drie maanden in één overzicht te zien is hoe ik ben gegroeid</li>
+      </ul>
+    </div>
   </section>
 
   <section aria-labelledby="h-afspraken">
@@ -468,13 +713,15 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
       <h2 id="h-afspraken">Afspraken om te maken</h2>
     </div>
     <ul class="agree">
-      <li>Mijn functie herbeoordelen op basis van het voorgestelde functieprofiel</li>
+      <li>Het functieprofiel eerst samen vaststellen, omdat er voor Medewerker Operations nog geen functiebeschrijving bestaat</li>
+      <li>Daarna mijn functie herbeoordelen op basis van dat profiel</li>
       <li>Toegang tot een ontwikkelomgeving, vóór rechten in productie</li>
-      <li>Een duidelijke taakverdeling tussen mij, IT, de externe partner en team RPA</li>
+      <li>Een duidelijke taakverdeling tussen mij, FAB, IT, de externe partner en team RPA</li>
       <li>Afspraken over welke automatiseringen ik zelf met Power Automate mag bouwen</li>
       <li>Een vaste meekijker voor de eerste wijzigingen</li>
       <li>Vaste leertijd per week, zodat dit niet naast het gewone werk hoeft</li>
       <li>Rechten stap voor stap uitbreiden, gelijk met het groeipad</li>
+      <li>Na drie en na zes maanden samen de cijfers van de winst bekijken</li>
     </ul>
   </section>
 
@@ -482,7 +729,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
     <div class="section-head">
       <h2 id="h-leren">Leerbronnen en certificeringen</h2>
     </div>
-    <p>De snelste route is oefenen in de eigen ontwikkelomgeving met een meekijker, aangevuld met gratis modules op <a href="https://learn.microsoft.com/training/" target="_blank" rel="noopener">Microsoft Learn</a>. Een certificering is optioneel, maar geeft structuur en sluit aan bij het ontwikkelperspectief uit het functieprofiel.</p>
+    <p>De snelste route is oefenen in de eigen ontwikkelomgeving met een meekijker, aangevuld met gratis modules op <a href="https://learn.microsoft.com/training/" target="_blank" rel="noopener">Microsoft Learn</a>. Is er nog geen ontwikkelomgeving, dan kan ik de platformonderdelen oefenen in een gratis ontwikkelomgeving via het Power Apps Developer Plan. Een certificering is optioneel, maar geeft structuur en sluit aan bij het ontwikkelperspectief uit het functieprofiel.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Examen</th><th>Onderwerp</th><th>Past bij</th><th>Status</th></tr></thead>
@@ -496,7 +743,7 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
     <div class="sources">
       <strong>Bronnen</strong>
       <ul>
-        <li>Functieprofiel Business Operations &amp; Applications Specialist (september 2026)</li>
+        <li>Functieprofiel Business Operations &amp; Applications Specialist, eigen concept van september 2026, nog af te stemmen met mijn manager</li>
         <li><a href="https://www.certcrush.app/blog/dynamics-365-certification-path-2026-mb-retired" target="_blank" rel="noopener">CertCrush: Dynamics 365 certification path 2026</a></li>
         <li><a href="https://www.aguidetocloud.com/cert-tracker/ab-410/" target="_blank" rel="noopener">A Guide to Cloud: AB-410</a></li>
       </ul>
