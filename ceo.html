@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kosten en opbrengst: doorontwikkeling Business Operations</title>
+<title>Van operations naar Dynamics en salesinzichten</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;600&display=swap">
@@ -496,6 +496,56 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
   .wk-bar > div { font-size: 0.74rem; }
   .dv-head, .dv-row { grid-template-columns: 3.6rem minmax(0, 1fr) 2px minmax(0, 1fr); }
 }
+
+/* ---------- CEO v2: vier vragen ---------- */
+.qnav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.qnav a { display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.5rem; align-items: center; text-decoration: none; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.6rem 0.75rem; font-size: 0.9rem; font-weight: 600; line-height: 1.25; }
+.qnav a:hover, .qnav a:focus-visible { border-color: var(--accent); outline: none; }
+.qnav b, .qnum { width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: inline-grid; place-items: center; font: 700 0.95rem var(--font-display); }
+.qhead { display: flex; align-items: center; gap: 0.7rem; }
+.qhead h2 { margin: 0; }
+.proof { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.proof > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem 1rem; display: grid; gap: 0.3rem; align-content: start; min-width: 0; }
+.proof h3 { font-size: 0.98rem; }
+.proof p { margin: 0; font-size: 0.92rem; }
+.proof .big { font-family: var(--font-display); font-size: 1.25rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+.proof .wide { grid-column: span 3; }
+.notyet { border-left: 4px solid var(--warn); background: var(--warn-soft); border-radius: 0 10px 10px 0; padding: 0.8rem 1rem; }
+.notyet p { margin: 0; }
+.need { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.need > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.need h3 { font-size: 1.02rem; }
+.need ul { list-style: none; display: grid; gap: 0.55rem; margin: 0; padding: 0; font-size: 0.94rem; }
+.need li { display: grid; gap: 0.1rem; }
+.need li b { font-weight: 700; }
+.need li small { color: var(--muted); font-size: 0.86rem; }
+.stays { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.stays span { font-size: 0.86rem; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.7rem; }
+.stays span b { font-weight: 600; }
+.ins { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.ins > div { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--ins); border-radius: 0 10px 10px 0; padding: 0.85rem 1rem; display: grid; gap: 0.25rem; min-width: 0; }
+.ins h3 { font-size: 0.98rem; }
+.ins p { margin: 0; font-size: 0.93rem; }
+.ins small { color: var(--muted); font-size: 0.84rem; }
+.phase { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+.phase.p2 { background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+.honest { background: var(--surface); border: 1px dashed var(--bar); border-radius: 10px; padding: 1.05rem 1.2rem; display: grid; gap: 0.45rem; }
+.honest ul { list-style: none; display: grid; gap: 0.4rem; font-size: 0.94rem; margin: 0; padding: 0; }
+.honest li { display: grid; grid-template-columns: 1rem minmax(0, 1fr); gap: 0.3rem; }
+.honest li::before { content: "–"; color: var(--muted); }
+.honest h3 { font-size: 1rem; }
+.appendix { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.appendix > summary { cursor: pointer; list-style: none; padding: 1rem 1.2rem; display: grid; gap: 0.2rem; }
+.appendix > summary::-webkit-details-marker { display: none; }
+.appendix > summary::after { content: "Openen ▾"; font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+.appendix[open] > summary::after { content: "Sluiten ▴"; }
+.appx-t { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+.appx-s { color: var(--muted); font-size: 0.92rem; }
+.appx-body { padding: 0 1.2rem 1.2rem; display: grid; gap: 1.2rem; }
+@media (max-width: 700px) {
+  .qnav, .proof, .need, .ins { grid-template-columns: minmax(0, 1fr); }
+  .proof .wide { grid-column: auto; }
+}
 </style>
 </head>
 <body>
@@ -504,35 +554,150 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
 
   <header>
     <div class="eyebrow">SkillsTown · Voorstel voor de directie</div>
-    <h1>Wat het kost en wat het oplevert</h1>
-    <p class="meta">Doorontwikkeling naar Business Operations &amp; Applications Specialist · Bob Andringa · 18 november 2026</p>
-    <p class="lead">Ik vraag rechten om kleine wijzigingen in Dynamics 365 zelf door te voeren. Dat kost eenmalig ongeveer €918 en 59 uur leertijd, rustig verspreid over 3 tot 6 maanden. Het levert elk jaar ongeveer €3.168 minder inhuur en 204 uur minder handwerk op. Kleine wijzigingen staan dan dezelfde dag live in plaats van na 1 tot 4 weken. Over 1 tot 2 jaar wil ik alleen nog met Dynamics en salesrapportages bezig zijn. Het operationele werk bouw ik stap voor stap af, via automatisering en in overleg met mijn manager.</p>
-    <p class="meta">Alle getallen zijn middenwaardes uit mijn eigen cijfers; de bandbreedte staat er klein onder.</p>
+    <h1>Van operations naar Dynamics en salesinzichten</h1>
+    <p class="meta">Doorontwikkeling naar Business Operations &amp; Applications Specialist · Bob Andringa · 25 november 2026</p>
+    <p class="lead">Ruim twee jaar doe ik naast operations al het functionele werk rond Dynamics 365 en de salesrapportages, ongeveer de helft van mijn tijd. Ik vraag de rechten om kleine wijzigingen zelf door te voeren (fase 1). Over 1 tot 2 jaar wil ik alleen nog met Dynamics en salesinzichten bezig zijn (fase 2).</p>
+    <nav class="qnav" aria-label="Vier vragen">
+      <a href="#h-nu"><b>1</b>Wat ik nu al kan</a>
+      <a href="#h-nodig"><b>2</b>Wat er nog nodig is</a>
+      <a href="#h-ideaal"><b>3</b>Het ideale scenario</a>
+      <a href="#h-geld"><b>4</b>Wat het kost en oplevert</a>
+    </nav>
   </header>
 
   <div class="kpis">
-    <div class="cost"><span class="k">Investering, eenmalig</span><b>€918 + 59 uur</b><small>€654 – €1.182 · 26 – 104 uur</small></div>
-    <div class="gain"><span class="k">Besparing per jaar</span><b>€3.168 + 204 uur</b><small>€1.584 – €9.504 · 72 – 336 uur</small></div>
-    <div class="gain"><span class="k">Terugverdiend</span><b>Maand 10</b><small>tussen maand 7 en maand 15</small></div>
-    <div class="gain"><span class="k">Kleine wijziging live</span><b>Dezelfde dag</b><small>nu 1 tot 4 weken</small></div>
+    <div class="gain"><span class="k">Al bewezen</span><b>2 – 5 uur per week</b><small>bespaard door mijn eigen flows, al in productie</small></div>
+    <div class="cost"><span class="k">Investering fase 1</span><b>€918 + 119 uur</b><small>€654 – €1.182 · 66 – 184 uur</small></div>
+    <div class="gain"><span class="k">Minder inhuur</span><b>€3.168 per jaar</b><small>€1.584 – €9.504 · terugverdiend in maand 10</small></div>
+    <div class="gain"><span class="k">Vaste lijst live</span><b>Dezelfde dag</b><small>4 soorten wijzigingen; nu 1 tot 4 weken</small></div>
   </div>
 
-  <section aria-labelledby="h-kb">
+  <section aria-labelledby="h-nu">
     <div class="section-head">
-      <span class="eyebrow">Geld en tijd</span>
-      <h2 id="h-kb">Kosten tegenover besparing</h2>
+      <div class="qhead"><span class="qnum">1</span><h2 id="h-nu">Wat ik nu al kan</h2></div>
+      <p class="meta">Dit doe ik al, zonder de rechten om zelf in te richten</p>
     </div>
+    <div class="proof">
+      <div><h3>Automatisering</h3><span class="big">2 – 5 uur per week</span><p>bespaard door 2 tot 3 eigen Power Automate-flows die in productie draaien: 90 tot 230 uur per jaar.</p></div>
+      <div><h3>Salesrapportage</h3><span class="big">Power BI</span><p>Een rapport van meerdere pagina's op Dynamics-data, gebruikt door het salesteam, de salesmanager en de directie.</p></div>
+      <div><h3>Customer Insights - Journeys</h3><p>E-mails, segmenten, journeys, formulieren en events opzetten en uitvoeren.</p></div>
+      <div><h3>Sales-proces</h3><p>Het proces van lead tot contract mee ontworpen.</p></div>
+      <div><h3>Specificeren en testen</h3><p>Wensen ophalen en uitwerken voor FAB en de partner, acceptatietests doen, en robotprocessen uitschrijven en testen voor team RPA.</p></div>
+      <div><h3>Gegevensbeheer</h3><p>Importeren, bulk bewerken en dubbelen samenvoegen.</p></div>
+      <div class="wide"><h3>Operations, de andere helft van mijn tijd</h3><p>200 tot 500 inschrijvingen, 10 tot 25 demo-accounts en 5 tot 15 bundels per maand, en drie inboxen met samen 75 tot 80 mails per week.</p></div>
+    </div>
+    <div class="notyet"><p><b>Wat ik nog niet kan:</b> zelf iets inrichten in Dynamics. Dat heb ik nooit gedaan, omdat ik er de rechten niet voor had. Op dat onderdeel geef ik mezelf een 1,7 op een schaal van 5. Daar is het groeipad voor.</p></div>
+  </section>
+
+  <section aria-labelledby="h-nodig">
+    <div class="section-head">
+      <div class="qhead"><span class="qnum">2</span><h2 id="h-nodig">Wat er nog nodig is</h2></div>
+      <p class="meta">Voor fase 1: kleine wijzigingen zelf doorvoeren</p>
+    </div>
+    <div class="need">
+      <div>
+        <h3>Van SkillsTown</h3>
+        <ul>
+          <li><b>Rechten om te bouwen en te testen</b><small>In de bestaande testomgeving. Er is nog geen eenduidige OTAP-straat, dus we spreken af hoe een wijziging van test naar productie gaat.</small></li>
+          <li><b>Een vaste lijst die ik zelf doorzet</b><small>Views aanpassen; labels en volgorde op formulieren; bestaande rollen toekennen; een waarde toevoegen aan een keuzelijst, als geen koppeling die gebruikt. Al het andere gaat pas na akkoord naar productie.</small></li>
+          <li><b>2 tot 4 uur leertijd per week, 3 tot 6 maanden</b><small>Met FAB of de partner als meekijker.</small></li>
+          <li><b>Tijd om eerst de inschrijvingen te automatiseren</b><small>Ruwe schatting: 40 tot 80 uur bouwen en testen. Dat maakt de tijd vrij voor het groeipad.</small></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Van mij</h3>
+        <ul>
+          <li><b>Het groeipad volgen</b><small>Eerst veilig werken (testomgeving, solutions, overbrengen naar productie), dan Sales inrichten (kolommen, formulieren, views, business rules, procesflows), dan gebruikers en rollen. Daarna Journeys-toestemming en Case Management.</small></li>
+          <li><b>Alles vastleggen</b><small>Een wijzigingslog en werkinstructies, zodat een collega het kan overnemen.</small></li>
+          <li><b>Eén examen halen</b><small>Welk examen precies, kies ik nog.</small></li>
+        </ul>
+      </div>
+    </div>
+    <p class="meta">Blijft bij anderen:</p>
+    <div class="stays"><span><b>Code</b> · partner</span><span><b>Koppelingen</b> · partner en IT</span><span><b>Rollen ontwerpen</b> · FAB</span><span><b>Robots bouwen</b> · team RPA</span><span><b>Grote projecten</b> · FAB en partner</span></div>
+  </section>
+
+  <section aria-labelledby="h-ideaal">
+    <div class="section-head">
+      <div class="qhead"><span class="qnum">3</span><h2 id="h-ideaal">Het ideale scenario</h2></div>
+      <p class="meta">Fase 2, over 1 tot 2 jaar: alleen nog Dynamics en salesinzichten</p>
+    </div>
+    <div class="month" id="m-wk">
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--nu)"></i>Handwerk operations</span><span><i style="background:var(--ops2)"></i>Inboxen en overige operations</span><span><i style="background:var(--warn)"></i>Leertijd</span><span><i style="background:var(--accent)"></i>Dynamics (nu ook automatisering en rapportage)</span><span><i style="background:var(--ins)"></i>Salesrapportages en inzichten</span></div>
+      <div class="wk">
+        <div class="wk-row"><div class="lab">Nu<small>50% operations</small></div><div class="wk-bar"><div class="s-hw" style="flex:7.8 1 0" tabindex="0" data-tip="Handwerk operations|7,8 uur per week (2,8 – 12,8): inschrijvingen, demo-accounts, bundels">7,8 u</div><div class="s-ib" style="flex:12.2 1 0" tabindex="0" data-tip="Inboxen en overige operations|12,2 uur per week: de rest van de 20 uur operations">12,2 u</div><div class="s-bh" style="flex:20 1 0" tabindex="0" data-tip="Dynamics-beheer, automatisering en rapportage|20 uur per week: de andere helft van mijn tijd">20 u</div></div></div>
+        <div class="wk-row"><div class="lab">Maand 1 tot 6<small>tijdens het groeipad</small></div><div class="wk-bar"><div class="s-hw" style="flex:3.9 1 0" tabindex="0" data-tip="Handwerk operations|3,9 uur per week: de helft geautomatiseerd">3,9 u</div><div class="s-ib" style="flex:12.2 1 0" tabindex="0" data-tip="Inboxen en overige operations|12,2 uur per week: blijft bij mij">12,2 u</div><div class="s-bh" style="flex:20.9 1 0" tabindex="0" data-tip="Dynamics-beheer, automatisering en rapportage|20,9 uur per week: inclusief de 0,9 uur die overblijft">20,9 u</div><div class="s-lt" style="flex:3 1 0" tabindex="0" data-tip="Leertijd|3 uur per week (2 – 4)">3 u</div></div></div>
+        <div class="wk-row future"><div class="lab">Over 1 tot 2 jaar<small>het ideaalbeeld</small></div><div class="wk-bar"><div class="s-bh" style="flex:20 1 0" tabindex="0" data-tip="Dynamics: beheer en inrichten|20 uur per week, ongeveer de helft; kan per periode verschillen">Dynamics · 20 u</div><div class="s-in" style="flex:20 1 0" tabindex="0" data-tip="Salesrapportages en inzichten|20 uur per week, ongeveer de helft; kan per periode verschillen">Salesinzichten · 20 u</div></div></div>
+        <div class="wk-axis" aria-hidden="true"><div></div><div><span>0</span><span>10</span><span>20</span><span>30</span><span>40 uur</span></div></div>
+      </div>
+      <p class="wk-note"><b>Nu</b> werk ik de helft van mijn tijd in operations. Het handwerk daarin, ongeveer 8 uur per week, bestaat uit 200 tot 500 inschrijvingen, 10 tot 25 demo-accounts en 5 tot 15 bundels per maand. De rest zijn drie inboxen met samen 75 tot 80 mails per week en ander operationeel werk. De andere helft gaat naar beheer, automatisering en rapportage: specificeren en testen, flows bouwen, Journeys-campagnes, Power BI en robotprocessen voor team RPA.</p>
+      <p class="wk-note"><b>Over 1 tot 2 jaar</b> werk ik alleen nog aan Dynamics (beheer en inrichten) en aan salesrapportages en inzichten, ongeveer half om half. Die verdeling kan per periode verschillen. Automatisering en robotprocessen pak ik erbij als dat nodig is.</p>
+      <p class="meta">Middenwaardes. Het handwerk is 2,8 tot 12,8 uur per week, de leertijd 2 tot 4 uur.</p>
+      <details>
+        <summary>Bekijk als tabel</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Uur per week</th><th class="num">Nu</th><th class="num">Maand 1–6</th><th class="num">Over 1 tot 2 jaar</th></tr></thead>
+          <tbody>
+            <tr><td>Handwerk operations</td><td class="num">7,8</td><td class="num">3,9</td><td class="num">0</td></tr>
+            <tr><td>Inboxen en overige operations</td><td class="num">12,2</td><td class="num">12,2</td><td class="num">0</td></tr>
+            <tr><td>Leertijd</td><td class="num">0</td><td class="num">3</td><td class="num">0</td></tr>
+            <tr><td>Dynamics (nu ook automatisering en rapportage)</td><td class="num">20</td><td class="num">20,9</td><td class="num">20</td></tr>
+            <tr><td>Salesrapportages en inzichten</td><td class="num">–</td><td class="num">–</td><td class="num">20</td></tr>
+            <tr><td>Bij een collega of nog te verdelen</td><td class="num">0</td><td class="num">0 (alleen als vangnet)</td><td class="num">±16,1</td></tr>
+            <tr><td>Geautomatiseerd</td><td class="num">0</td><td class="num">3,9</td><td class="num">≥ 3,9</td></tr>
+          </tbody>
+        </table></div>
+      </details>
+      <div class="mtip" role="status"></div>
+    </div>
+
+    <div class="month" id="m-ops">
+      <h4>Waar mijn 20 uur operations over 1 tot 2 jaar heen gaan</h4>
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--surface);border:2px dashed var(--accent)"></i>Automatisering</span><span><i style="background:var(--ops2)"></i>Nog samen te verdelen</span></div>
+      <div class="wk">
+        <div class="wk-row"><div class="lab">20 uur operations<small>over 1 tot 2 jaar</small></div><div class="wk-bar"><div class="s-au" style="flex:3.9 1 0" tabindex="0" data-tip="Automatisering|3,9 uur per week: minstens de helft van het handwerk; het doel is meer">≥ 3,9 u</div><div class="s-ib" style="flex:16.1 1 0" tabindex="0" data-tip="Nog samen te verdelen|16,1 uur per week: inboxen, de rest van het handwerk en overig werk">Nog te verdelen ± 16,1 u</div></div></div>
+        <div class="wk-axis" aria-hidden="true"><div></div><div><span>0</span><span>5</span><span>10</span><span>15</span><span>20 uur</span></div></div>
+      </div>
+      <p class="wk-note">Na de eerste automatisering blijft er ongeveer 16 uur per week over. Dat zijn vooral de drie inboxen (75 tot 80 mails per week) en de rest van het handwerk. Elk uur dat we extra automatiseren, bijvoorbeeld door inboxverzoeken automatisch te herkennen en door te zetten, hoeft niemand meer te doen. Hoe we de rest verdelen, zoek ik samen met mijn manager uit. Tot die tijd blijf ik het doen, dus er valt geen gat.</p>
+      <div class="mtip" role="status"></div>
+    </div>
+
+    <h3 class="sub">Wat de directie daarvoor terugkrijgt</h3>
+    <p>Mijn rapporten worden nu al gebruikt door het salesteam, de salesmanager en de directie. Een nieuwe analyse is soms binnen 2 weken klaar, maar heeft vaak meer tijd nodig, omdat er naast operations weinig ruimte voor is. Met 20 uur per week kan ik deze vragen structureel beantwoorden:</p>
+    <div class="ins">
+      <div><h3>Pipeline en forecast</h3><p>Wat komt er de komende maanden binnen, en hoe zeker is dat?</p><small>Voor de directie en de salesmanager</small></div>
+      <div><h3>Conversie per fase en kanaal</h3><p>Waar haken leads en kansen af, en welke bron levert het meest op?</p><small>Voor de salesmanager en het salesteam</small></div>
+      <div><h3>Klanten en verlengingen</h3><p>Welke klanten groeien, en welke dreigen weg te gaan?</p><small>Voor de accountmanagers en de directie</small></div>
+      <div><h3>Effect van campagnes</h3><p>Wat leveren Journeys en nieuwsbrieven op in leads en omzet?</p><small>Voor de salesmanager en de directie</small></div>
+    </div>
+    <p>Voor veel van deze inzichten zijn velden of instellingen in Dynamics nodig. Met de rechten uit fase 1 kan ik die zelf toevoegen, zonder wachttijd.</p>
+
+    <h3 class="sub">Tijdpad</h3>
+    <ol class="plan">
+      <li><span class="when">Vóór de start</span><h3>Inschrijvingen automatiseren</h3><p>Het grootste handwerk (2,3 tot 9,6 uur per week). Ruwe schatting: 40 tot 80 uur bouwen en testen. Neemt de automatisering de helft over, dan komt er ongeveer 4 uur per week vrij.</p></li>
+      <li><span class="when">Maand 1 tot 6 · <span class="phase">Fase 1</span></span><h3>Groeipad, rustig naast het werk</h3><p>2 tot 4 uur leertijd per week, binnen de tijd die de automatisering vrijmaakt. Operations blijft bij mij. Lukt dat niet, dan is er een overgangsafspraak als vangnet.</p></li>
+      <li><span class="when">Na het groeipad</span><h3>Zelf kleine wijzigingen doorvoeren</h3><p>De vaste lijst dezelfde dag, al het andere na akkoord. Operations bouw ik stap voor stap af: een blok gaat pas over als het is geautomatiseerd of als er ruimte voor is.</p></li>
+      <li><span class="when">Over 1 tot 2 jaar · <span class="phase p2">Fase 2</span></span><h3>Alleen Dynamics en salesinzichten</h3><p>Ongeveer half om half. De automatiseringen die ik heb gebouwd, blijven bij mij in beheer.</p></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-geld">
+    <div class="section-head">
+      <div class="qhead"><span class="qnum">4</span><h2 id="h-geld">Wat het kost en wat het oplevert</h2></div>
+      <p class="meta">Middenwaardes uit mijn eigen cijfers; de bandbreedte staat erbij</p>
+    </div>
+    <h3 class="sub"><span class="phase">Fase 1</span> De rechten en het groeipad</h3>
     <div class="month" id="m-dv">
-      <div class="mkey" aria-hidden="true"><span><i style="background:var(--warn)"></i>Kosten, eenmalig</span><span><i style="background:var(--accent)"></i>Besparing</span></div>
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--warn)"></i>Kosten, eenmalig</span><span><i style="background:var(--accent)"></i>Opbrengst</span></div>
       <div class="dv-panels">
         <div class="dv">
           <h5>Geld: inhuur van de externe partner</h5>
-          <div class="dv-head"><span></span><span class="l">Kosten</span><span></span><span class="r">Besparing</span></div>
+          <div class="dv-head"><span></span><span class="l">Kosten</span><span></span><span class="r">Minder inhuur</span></div>
         <div class="dv-row">
           <span class="lab">Jaar 1</span>
           <div class="side l" tabindex="0" data-tip="Kosten, eenmalig|€918 midden (€654 – €1.182): examen en begeleiding door de partner"><div class="dvb" style="width:7.6%"></div><span class="v">€918</span></div>
           <span class="axis" aria-hidden="true"></span>
-          <div class="side r" tabindex="0" data-tip="Minder inhuur in jaar 1|€1.584 midden (€792 – €4.752), 6 maanden besparing"><div class="dvb" style="width:13.2%"></div><span class="v">€1.584</span></div>
+          <div class="side r" tabindex="0" data-tip="Minder inhuur in jaar 1|€1.584 midden (€792 – €4.752): 6 maanden, vanaf maand 7"><div class="dvb" style="width:13.2%"></div><span class="v">€1.584</span></div>
         </div>
         <div class="dv-row">
           <span class="lab">3 jaar</span>
@@ -540,36 +705,36 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
           <span class="axis" aria-hidden="true"></span>
           <div class="side r" tabindex="0" data-tip="Minder inhuur in 3 jaar|€7.920 midden (€3.960 – €23.760)"><div class="dvb" style="width:66.0%"></div><span class="v">€7.920</span></div>
         </div>
-          <p class="dv-net">Netto: <b>+€666</b> na jaar 1, <b>+€7.002</b> na 3 jaar</p>
+          <p class="dv-net">Netto: <b>+€666</b> na jaar 1, <b>+€7.002</b> na 3 jaar · terugverdiend in maand 10 (tussen maand 7 en 15)</p>
         </div>
         <div class="dv">
           <h5>Tijd: mijn uren</h5>
-          <div class="dv-head"><span></span><span class="l">Kosten</span><span></span><span class="r">Besparing</span></div>
+          <div class="dv-head"><span></span><span class="l">Kosten</span><span></span><span class="r">Vrijgekomen</span></div>
         <div class="dv-row">
           <span class="lab">Jaar 1</span>
-          <div class="side l" tabindex="0" data-tip="Leertijd, eenmalig|59 uur midden (26 – 104 uur), maand 1 tot 6"><div class="dvb" style="width:7.6%"></div><span class="v">59 u</span></div>
+          <div class="side l" tabindex="0" data-tip="Mijn uren, eenmalig|119 uur midden (66 – 184): 59 uur leertijd en 60 uur automatisering bouwen"><div class="dvb" style="width:12.8%"></div><span class="v">119 u</span></div>
           <span class="axis" aria-hidden="true"></span>
-          <div class="side r" tabindex="0" data-tip="Minder handwerk in jaar 1|102 uur midden (36 – 168 uur), 6 maanden besparing"><div class="dvb" style="width:13.2%"></div><span class="v">102 u</span></div>
+          <div class="side r" tabindex="0" data-tip="Vrijgekomen tijd in jaar 1|204 uur midden (72 – 336): de helft van het handwerk, vanaf maand 1"><div class="dvb" style="width:22.0%"></div><span class="v">204 u</span></div>
         </div>
         <div class="dv-row">
           <span class="lab">3 jaar</span>
-          <div class="side l" tabindex="0" data-tip="Leertijd, eenmalig|59 uur midden (26 – 104 uur)"><div class="dvb" style="width:7.6%"></div><span class="v">59 u</span></div>
+          <div class="side l" tabindex="0" data-tip="Mijn uren, eenmalig|119 uur midden (66 – 184)"><div class="dvb" style="width:12.8%"></div><span class="v">119 u</span></div>
           <span class="axis" aria-hidden="true"></span>
-          <div class="side r" tabindex="0" data-tip="Minder handwerk in 3 jaar|510 uur midden (180 – 840 uur)"><div class="dvb" style="width:66.0%"></div><span class="v">510 u</span></div>
+          <div class="side r" tabindex="0" data-tip="Vrijgekomen tijd in 3 jaar|612 uur midden (216 – 1.008)"><div class="dvb" style="width:66.0%"></div><span class="v">612 u</span></div>
         </div>
-          <p class="dv-net">Netto: <b>+43 uur</b> na jaar 1, <b>+451 uur</b> na 3 jaar</p>
+          <p class="dv-net">Netto: <b>+85 uur</b> na jaar 1, <b>+493 uur</b> na 3 jaar</p>
         </div>
       </div>
-      <p class="meta">Jaar 1 telt 6 maanden besparing, omdat de eerste 6 maanden het groeipad zijn. Geld en tijd staan apart en hebben elk hun eigen schaal.</p>
+      <p class="meta">Geld: de besparing op inhuur begint na het groeipad, dus jaar 1 telt 6 maanden. Tijd: de automatisering staat er vóór de start, dus het handwerk is vanaf maand 1 minder. Vrijgekomen tijd is geen besparing in geld: ik zet die uren eerst in voor de leertijd en daarna voor Dynamics. Geld en tijd hebben elk hun eigen schaal.</p>
       <details>
         <summary>Bekijk als tabel</summary>
         <div class="table-wrap"><table>
-          <thead><tr><th></th><th class="num">Kosten</th><th class="num">Besparing jaar 1</th><th class="num">Besparing 3 jaar</th></tr></thead>
+          <thead><tr><th></th><th class="num">Kosten</th><th class="num">Jaar 1</th><th class="num">3 jaar</th></tr></thead>
           <tbody>
             <tr><td>Geld, midden</td><td class="num">€918</td><td class="num">€1.584</td><td class="num">€7.920</td></tr>
             <tr><td>Geld, bandbreedte</td><td class="num">€654 – €1.182</td><td class="num">€792 – €4.752</td><td class="num">€3.960 – €23.760</td></tr>
-            <tr><td>Tijd, midden</td><td class="num">59 u</td><td class="num">102 u</td><td class="num">510 u</td></tr>
-            <tr><td>Tijd, bandbreedte</td><td class="num">26 – 104 u</td><td class="num">36 – 168 u</td><td class="num">180 – 840 u</td></tr>
+            <tr><td>Tijd, midden</td><td class="num">119 u</td><td class="num">204 u</td><td class="num">612 u</td></tr>
+            <tr><td>Tijd, bandbreedte</td><td class="num">66 – 184 u</td><td class="num">72 – 336 u</td><td class="num">216 – 1.008 u</td></tr>
           </tbody>
         </table></div>
       </details>
@@ -578,34 +743,67 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
 
     <div class="breakdown">
       <div class="bk-cost">
-        <h3>Wat het kost</h3>
+        <h3>Wat fase 1 kost</h3>
         <ul>
           <li><span>Examen</span><span>€126</span></li>
           <li><span>Begeleiding door de partner, 2 tot 4 sessies van 2 uur à €132</span><span>€528 – €1.056</span></li>
           <li><span>Mijn leertijd, 2 tot 4 uur per week, 3 tot 6 maanden</span><span>26 – 104 u</span></li>
-          <li><span>Over 1 tot 2 jaar: operationeel werk dat na automatisering overblijft, samen te verdelen</span><span>±16 u / week</span></li>
-          <li class="sub"><span>Niet meegeteld: meekijken door FAB en een eventuele nieuwe inschaling (dat loopt via HR)</span><span></span></li>
+          <li><span>Inschrijvingen automatiseren, ruwe schatting</span><span>40 – 80 u</span></li>
         </ul>
       </div>
       <div class="bk-gain">
-        <h3>Wat het oplevert</h3>
+        <h3>Wat fase 1 oplevert</h3>
         <ul>
           <li><span>Minder inhuur: de helft van de partnerwijzigingen, 2 tot 6 uur à €132</span><span>€264 / mnd</span></li>
-          <li><span>Minder handwerk: de helft van inschrijvingen, demo-accounts en bundels</span><span>17 u / mnd</span></li>
+          <li><span>Vrijgekomen tijd: de helft van het handwerk geautomatiseerd</span><span>17 u / mnd</span></li>
           <li><span>Kleine wijzigingen die FAB niet meer hoeft te doen</span><span>6 – 24 / jaar</span></li>
-          <li><span>Over 1 tot 2 jaar: al mijn tijd naar Dynamics en salesinzichten</span><span>+20 u / week</span></li>
-          <li class="sub"><span>Niet in geld uit te drukken: dezelfde dag live in plaats van 1 tot 4 weken, inzicht in datakwaliteit en de sales-funnel, en continuïteit door werkinstructies en een wijzigingslog</span><span></span></li>
+          <li><span>De vaste lijst live op dezelfde dag</span><span>i.p.v. 1 – 4 wk</span></li>
         </ul>
       </div>
     </div>
+
+    <h3 class="sub"><span class="phase p2">Fase 2</span> Het ideaalbeeld</h3>
+    <p>Fase 2 is geen besparing, maar een verschuiving van capaciteit. Ongeveer 16 uur operations per week (ruim 700 uur per jaar) moet worden geautomatiseerd of verdeeld. Daar staat tegenover dat er 20 uur per week structureel naar salesinzichten gaat. Die keuze verdedig ik op de waarde van die inzichten, niet op geld.</p>
+
+    <div class="honest">
+      <h3>Niet meegeteld, en wat dat betekent</h3>
+      <ul>
+        <li><span><b>Een eventuele nieuwe inschaling.</b> Die loopt via HR. Een hogere schaal kan de besparing in geld deels of helemaal opheffen. De winst van dit voorstel zit vooral in snelheid, continuïteit en inzicht; de besparing is mooi meegenomen.</span></li>
+        <li><span><b>Een volledige OTAP-straat.</b> Voor fase 1 is de testomgeving met goede afspraken genoeg. Een volledige straat kost meer, maar dat is een aparte keuze.</span></li>
+        <li><span><b>Uren van FAB</b> die meekijkt tijdens het groeipad.</span></li>
+        <li><span><b>Aannames zonder facturen.</b> De partneruren per wijziging (2 tot 6) en de bouwtijd van de automatisering (40 tot 80 uur) zijn schattingen. Na 3 maanden weten we meer.</span></li>
+      </ul>
+    </div>
+
+    <h3 class="sub">Als het tegenvalt</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Als het tegenvalt</th><th>Wat we dan doen</th></tr></thead>
+        <tbody>
+          <tr><td>De automatisering is later klaar</td><td>Dan geldt de overgangsafspraak als vangnet, of duurt het groeipad wat langer. Het tempo is bewust ruim gekozen.</td></tr>
+          <tr><td>Wijzigingen zitten elkaar in de weg, omdat er nog geen eenduidige OTAP-straat is</td><td>Ik bouw in de testomgeving, breng wijzigingen over via solutions en leg alles vast in het wijzigingslog. Met FAB spreek ik af wie wanneer wat naar productie zet.</td></tr>
+          <tr><td>De partner rekent minder uren dan geschat</td><td>De besparing in geld zit dan aan de onderkant, ongeveer €1.584 per jaar. De winst zit dan vooral in de doorlooptijd.</td></tr>
+          <tr><td>Er gaat iets mis in productie</td><td>Zonder akkoord zet ik alleen vier soorten kleine wijzigingen door die makkelijk terug te draaien zijn. Al het andere loopt via de testomgeving en akkoord.</td></tr>
+          <tr><td>Er is nog geen ruimte om operations over te dragen</td><td>Dan houd ik dat deel zelf langer en schuift het ideaalbeeld op. Het groeipad en de besparing gaan gewoon door.</td></tr>
+          <tr><td>Ik ben afwezig</td><td>Met werkinstructies en een wijzigingslog kan een collega het werk overnemen. FAB en de partner blijven het vangnet, en grote wijzigingen liggen daar al.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">Hoe we het meten</h3>
+    <ul class="bullets">
+      <li>Doorlooptijd van kleine wijzigingen, van verzoek tot live</li>
+      <li>Gefactureerde partneruren voor kleine wijzigingen, vóór en na</li>
+      <li>Uren handwerk in operations</li>
+      <li>Welke salesinzichten er bijkomen en wie ze gebruikt</li>
+    </ul>
+    <p class="meta">Ik stel voor deze cijfers na 3 en na 6 maanden samen te bekijken.</p>
   </section>
 
-  <section aria-labelledby="h-whatif">
-    <div class="section-head">
-      <span class="eyebrow">What-if</span>
-      <h2 id="h-whatif">Meer met de partner, of meer met FAB?</h2>
-      <p class="meta">Wat er verandert als ik voor het werk dat ik niet zelf doe vooral met de externe partner of juist vooral met FAB samenwerk</p>
-    </div>
+  <section aria-labelledby="h-whatif" class="appx">
+    <details class="appendix">
+      <summary><span class="eyebrow">Bijlage</span><span class="appx-t" id="h-whatif">Meer met de partner, of meer met FAB?</span><span class="appx-s">Wat er verandert als ik voor het werk dat ik niet zelf doe vooral met de partner of juist met FAB samenwerk</span></summary>
+      <div class="appx-body">
     <p>In elk scenario doe ik de helft van de kleine wijzigingen zelf, ongeveer 24 per jaar. Het gaat hier om de andere helft, ook ongeveer 24 per jaar: wie doet die? Code, koppelingen en grote projecten blijven in elk scenario bij de partner en FAB.</p>
     <div class="scen">
       <div class="sc-basis">
@@ -668,92 +866,8 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
       </div>
     </form>
 
-  </section>
-
-  <section aria-labelledby="h-wk">
-    <div class="section-head">
-      <span class="eyebrow">Wat ik nu doe</span>
-      <h2 id="h-wk">Mijn week van 40 uur: nu en over 1 tot 2 jaar</h2>
-    </div>
-    <div class="month" id="m-wk">
-      <div class="mkey" aria-hidden="true"><span><i style="background:var(--nu)"></i>Handwerk operations</span><span><i style="background:var(--ops2)"></i>Inboxen en overige operations</span><span><i style="background:var(--warn)"></i>Leertijd</span><span><i style="background:var(--accent)"></i>Dynamics (nu ook automatisering en rapportage)</span><span><i style="background:var(--ins)"></i>Salesrapportages en inzichten</span></div>
-      <div class="wk">
-        <div class="wk-row"><div class="lab">Nu<small>50% operations</small></div><div class="wk-bar"><div class="s-hw" style="flex:7.8 1 0" tabindex="0" data-tip="Handwerk operations|7,8 uur per week (2,8 – 12,8): inschrijvingen, demo-accounts, bundels">7,8 u</div><div class="s-ib" style="flex:12.2 1 0" tabindex="0" data-tip="Inboxen en overige operations|12,2 uur per week: de rest van de 20 uur operations">12,2 u</div><div class="s-bh" style="flex:20 1 0" tabindex="0" data-tip="Dynamics-beheer, automatisering en rapportage|20 uur per week: de andere helft van mijn tijd">20 u</div></div></div>
-        <div class="wk-row"><div class="lab">Maand 1 tot 6<small>tijdens het groeipad</small></div><div class="wk-bar"><div class="s-hw" style="flex:3.9 1 0" tabindex="0" data-tip="Handwerk operations|3,9 uur per week: de helft geautomatiseerd">3,9 u</div><div class="s-ib" style="flex:12.2 1 0" tabindex="0" data-tip="Inboxen en overige operations|12,2 uur per week: blijft bij mij">12,2 u</div><div class="s-bh" style="flex:20.9 1 0" tabindex="0" data-tip="Dynamics-beheer, automatisering en rapportage|20,9 uur per week: inclusief de 0,9 uur die overblijft">20,9 u</div><div class="s-lt" style="flex:3 1 0" tabindex="0" data-tip="Leertijd|3 uur per week (2 – 4)">3 u</div></div></div>
-        <div class="wk-row future"><div class="lab">Over 1 tot 2 jaar<small>het ideaalbeeld</small></div><div class="wk-bar"><div class="s-bh" style="flex:20 1 0" tabindex="0" data-tip="Dynamics: beheer en inrichten|20 uur per week, ongeveer de helft; kan per periode verschillen">Dynamics · 20 u</div><div class="s-in" style="flex:20 1 0" tabindex="0" data-tip="Salesrapportages en inzichten|20 uur per week, ongeveer de helft; kan per periode verschillen">Salesinzichten · 20 u</div></div></div>
-        <div class="wk-axis" aria-hidden="true"><div></div><div><span>0</span><span>10</span><span>20</span><span>30</span><span>40 uur</span></div></div>
       </div>
-      <p class="wk-note"><b>Nu</b> werk ik de helft van mijn tijd in operations. Het handwerk daarin, ongeveer 8 uur per week, bestaat uit 200 tot 500 inschrijvingen, 10 tot 25 demo-accounts en 5 tot 15 bundels per maand. De rest zijn drie inboxen met samen 75 tot 80 mails per week en ander operationeel werk. De andere helft gaat naar beheer, automatisering en rapportage: specificeren en testen, flows bouwen, Journeys-campagnes, Power BI en robotprocessen voor team RPA.</p>
-      <p class="wk-note"><b>Over 1 tot 2 jaar</b> werk ik alleen nog aan Dynamics (beheer en inrichten) en aan salesrapportages en inzichten, ongeveer half om half. Die verdeling kan per periode verschillen. Automatisering en robotprocessen pak ik erbij als dat nodig is.</p>
-      <p class="meta">Middenwaardes. Het handwerk is 2,8 tot 12,8 uur per week, de leertijd 2 tot 4 uur. In de jaarberekening hierboven tel ik de besparing op handwerk pas vanaf maand 7, voor de zekerheid.</p>
-      <details>
-        <summary>Bekijk als tabel</summary>
-        <div class="table-wrap"><table>
-          <thead><tr><th>Uur per week</th><th class="num">Nu</th><th class="num">Maand 1–6</th><th class="num">Over 1 tot 2 jaar</th></tr></thead>
-          <tbody>
-            <tr><td>Handwerk operations</td><td class="num">7,8</td><td class="num">3,9</td><td class="num">0</td></tr>
-            <tr><td>Inboxen en overige operations</td><td class="num">12,2</td><td class="num">12,2</td><td class="num">0</td></tr>
-            <tr><td>Leertijd</td><td class="num">0</td><td class="num">3</td><td class="num">0</td></tr>
-            <tr><td>Dynamics (nu ook automatisering en rapportage)</td><td class="num">20</td><td class="num">20,9</td><td class="num">20</td></tr>
-            <tr><td>Salesrapportages en inzichten</td><td class="num">–</td><td class="num">–</td><td class="num">20</td></tr>
-            <tr><td>Bij een collega of nog te verdelen</td><td class="num">0</td><td class="num">0 (alleen als vangnet)</td><td class="num">±16,1</td></tr>
-            <tr><td>Geautomatiseerd</td><td class="num">0</td><td class="num">3,9</td><td class="num">≥ 3,9</td></tr>
-          </tbody>
-        </table></div>
-      </details>
-      <div class="mtip" role="status"></div>
-    </div>
-
-    <div class="month" id="m-ops">
-      <h4>Waar mijn 20 uur operations over 1 tot 2 jaar heen gaan</h4>
-      <div class="mkey" aria-hidden="true"><span><i style="background:var(--surface);border:2px dashed var(--accent)"></i>Automatisering</span><span><i style="background:var(--ops2)"></i>Nog samen te verdelen</span></div>
-      <div class="wk">
-        <div class="wk-row"><div class="lab">20 uur operations<small>over 1 tot 2 jaar</small></div><div class="wk-bar"><div class="s-au" style="flex:3.9 1 0" tabindex="0" data-tip="Automatisering|3,9 uur per week: minstens de helft van het handwerk; het doel is meer">≥ 3,9 u</div><div class="s-ib" style="flex:16.1 1 0" tabindex="0" data-tip="Nog samen te verdelen|16,1 uur per week: inboxen, de rest van het handwerk en overig werk">Nog te verdelen ± 16,1 u</div></div></div>
-        <div class="wk-axis" aria-hidden="true"><div></div><div><span>0</span><span>5</span><span>10</span><span>15</span><span>20 uur</span></div></div>
-      </div>
-      <p class="wk-note">Na de eerste automatisering blijft er ongeveer 16 uur per week over. Dat zijn vooral de drie inboxen (75 tot 80 mails per week) en de rest van het handwerk. Elk uur dat we extra automatiseren, bijvoorbeeld door inboxverzoeken automatisch te herkennen en door te zetten, hoeft niemand meer te doen. Hoe we de rest verdelen, zoek ik samen met mijn manager uit. Tot die tijd blijf ik het doen, dus er valt geen gat.</p>
-      <div class="mtip" role="status"></div>
-    </div>
-  </section>
-
-  <section aria-labelledby="h-plan">
-    <div class="section-head">
-      <span class="eyebrow">Opvangen</span>
-      <h2 id="h-plan">Hoe we de tijd en de risico's opvangen</h2>
-    </div>
-    <ol class="plan">
-      <li><span class="when">Vóór de start</span><h3>Eerst het handwerk automatiseren</h3><p>Ik begin met de inschrijvingen, het grootste handwerk (2,3 tot 9,6 uur per week), en daarna demo-accounts en bundels. Neemt de automatisering de helft over, dan komt er ongeveer 4 uur per week vrij voor de leertijd.</p></li>
-      <li><span class="when">Maand 1 tot 6</span><h3>Rustig leren, met een vangnet</h3><p>2 tot 4 uur leertijd per week past binnen de tijd die de automatisering vrijmaakt, dus operations blijft gewoon bij mij. Is de automatisering later klaar of levert die minder op, dan is er een overgangsafspraak als vangnet: een collega neemt tijdelijk een klein deel over, of het groeipad gaat langzamer.</p></li>
-      <li><span class="when">Maand 1 tot 6</span><h3>Vaste leertijd in de agenda</h3><p>2 tot 4 uur per week, in een ontwikkelomgeving, met FAB of de partner als meekijker. Daarna doe ik de kleine wijzigingen zelfstandig.</p></li>
-      <li><span class="when">Na het groeipad, in eigen tempo</span><h3>Operations stap voor stap afbouwen</h3><p>Ik automatiseer verder: demo-accounts, bundels en het herkennen en doorzetten van inboxverzoeken. Ik schrijf werkinstructies, zodat het werk overdraagbaar is. Een blok gaat pas over als het is geautomatiseerd of als er ruimte voor is. Tot die tijd blijf ik het doen, dus er valt geen gat.</p></li>
-      <li><span class="when">Over 1 tot 2 jaar</span><h3>Alleen Dynamics en salesinzichten</h3><p>Operations is dan geautomatiseerd of in overleg verdeeld. Ik werk ongeveer half om half aan Dynamics en aan salesrapportages en inzichten. De automatiseringen die ik heb gebouwd, blijven bij mij in beheer.</p></li>
-    </ol>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Als het tegenvalt</th><th>Wat we dan doen</th></tr></thead>
-        <tbody>
-          <tr><td>De automatisering is later klaar</td><td>Dan geldt de overgangsafspraak als vangnet, of duurt het groeipad wat langer. Het tempo is bewust ruim gekozen.</td></tr>
-          <tr><td>De partner rekent minder uren dan geschat</td><td>De besparing in geld zit dan aan de onderkant, ongeveer €1.584 per jaar. De winst zit dan vooral in de doorlooptijd.</td></tr>
-          <tr><td>Er gaat iets mis in productie</td><td>Zonder akkoord zet ik alleen vier soorten kleine wijzigingen door die makkelijk terug te draaien zijn. Al het andere loopt via ontwikkel en akkoord.</td></tr>
-          <tr><td>Er is nog geen ruimte om operations over te dragen</td><td>Dan houd ik dat deel zelf langer en schuift het ideaalbeeld op. Het groeipad en de besparing gaan gewoon door.</td></tr>
-          <tr><td>Ik ben afwezig</td><td>Met werkinstructies en een wijzigingslog kan een collega het werk overnemen. FAB en de partner blijven het vangnet, en grote wijzigingen liggen daar al.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section aria-labelledby="h-ask">
-    <div class="section-head">
-      <span class="eyebrow">Volgende stappen</span>
-      <h2 id="h-ask">Wat ik voorstel</h2>
-    </div>
-    <ul class="ask">
-      <li>Rechten om in een ontwikkelomgeving te bouwen en te testen, en een vaste lijst van kleine wijzigingen die ik zelf doorzet</li>
-      <li>2 tot 4 uur leertijd per week, 3 tot 6 maanden lang</li>
-      <li>Een overgangsafspraak als vangnet, voor als de automatisering later klaar is of minder oplevert</li>
-      <li>Samen met mijn manager uitzoeken hoe we het operationele werk stap voor stap afbouwen en verdelen, op weg naar het ideaalbeeld over 1 tot 2 jaar</li>
-      <li>Samen evalueren na 3 en na 6 maanden: doorlooptijd, gefactureerde partneruren en uren handwerk</li>
-    </ul>
+    </details>
   </section>
 
 </main>
