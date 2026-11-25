@@ -244,6 +244,112 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
 .sources { font-size: 0.92rem; color: var(--muted); display: grid; gap: 0.3rem; }
 .sources ul { list-style: none; display: grid; gap: 0.2rem; }
 
+/* Wel en niet kunnen */
+.cando { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.cando > div { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 10px; padding: 1rem 1.15rem; display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.cando > .c-next { border-top-color: var(--warn); }
+.cando > .c-not { border-top-color: var(--bar); }
+.cando h3 { font-size: 1.02rem; }
+.cando ul { list-style: none; display: grid; gap: 0.35rem; font-size: 0.95rem; }
+.cando li { display: grid; gap: 0.05rem; }
+.cando li small { color: var(--muted); font-size: 0.85rem; }
+.cando .later { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 0.5rem; }
+.callout ul.bullets { font-size: 0.97rem; }
+.callout ul.bullets li::before { background: var(--warn); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.total td { font-weight: 700; background: var(--bg); }
+.honest { background: var(--surface); border: 1px dashed var(--bar); border-radius: 10px; padding: 1.05rem 1.2rem; display: grid; gap: 0.45rem; }
+.honest ul { list-style: none; display: grid; gap: 0.35rem; font-size: 0.96rem; }
+.honest li::before { content: "– "; color: var(--muted); }
+
+/* Per maand in beeld */
+:root { --nu: #7F8C8F; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --nu: #66777B; } }
+:root[data-theme="dark"] { --nu: #66777B; }
+.month { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; gap: 1rem; min-width: 0; }
+.month h4 { font-family: var(--font-body); font-size: 1rem; margin: 0; }
+.mkey { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; font-size: 0.88rem; color: var(--muted); }
+.mkey span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.mkey i { display: inline-block; width: 0.85rem; height: 0.6rem; border-radius: 2px; }
+.mkey i.ln { height: 2px; border-radius: 1px; }
+.prow { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: 0.4rem 1rem; align-items: center; padding-top: 0.85rem; border-top: 1px solid var(--line); }
+.prow:first-of-type { border-top: 0; padding-top: 0; }
+.pname { font-weight: 600; font-size: 0.95rem; line-height: 1.3; }
+.pname small { display: block; font-weight: 400; color: var(--muted); font-size: 0.82rem; }
+.pbars { display: grid; gap: 4px; min-width: 0; }
+.pbar { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+.pbar > span { color: var(--muted); }
+.ptrack { display: flex; align-items: center; gap: 0.5rem; min-width: 0; border-radius: 4px; outline: none; cursor: default; }
+.ptrack:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pfill { width: calc(var(--w, 0) * var(--scale, 72%)); height: 14px; border-radius: 0 4px 4px 0; background: var(--nu); flex: none; min-width: 2px; transition: filter .15s; }
+.pbar.straks .pfill { background: var(--accent); }
+.ptrack:hover .pfill, .ptrack:focus-visible .pfill { filter: brightness(1.15); }
+.pval { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+.pval small { font-weight: 400; color: var(--muted); }
+.pnote { grid-column: 2; font-size: 0.82rem; color: var(--muted); }
+.net { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.net > div { background: var(--bg); padding: 0.7rem 0.85rem; display: grid; gap: 0.1rem; }
+.net b { font-family: var(--font-display); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.net span { font-size: 0.85rem; color: var(--muted); line-height: 1.3; }
+.cum svg { width: 100%; height: auto; display: block; overflow: visible; touch-action: pan-y; }
+.cum svg:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+.cum .ax { font: 12px var(--font-body); fill: var(--muted); font-variant-numeric: tabular-nums; }
+.cum .lbl { font: 600 12px var(--font-body); fill: var(--fg); font-variant-numeric: tabular-nums; }
+.mtip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0.5rem 0.7rem; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(0,0,0,.12); display: none; z-index: 2; min-width: 10rem; }
+.mtip .t { color: var(--muted); font-size: 0.8rem; margin-bottom: 0.2rem; }
+.mtip .r { display: grid; grid-template-columns: 0.9rem auto 1fr; gap: 0.4rem; align-items: center; }
+.mtip .r i { height: 2px; border-radius: 1px; }
+.mtip .r b { font-variant-numeric: tabular-nums; }
+.mtip .r span { color: var(--muted); }
+.month details { font-size: 0.92rem; }
+.month summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+.month details table { min-width: 28rem; margin-top: 0.6rem; }
+
+/* Besparing per jaar */
+.sav-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.sav-panel { display: grid; gap: 0.6rem; min-width: 0; }
+.sav-panel h5 { margin: 0; font-size: 0.92rem; font-weight: 600; color: var(--muted); font-family: var(--font-body); }
+.sav-plot { position: relative; height: 200px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; border-bottom: 1px solid var(--muted); }
+.sav-col { position: relative; height: 100%; outline: none; border-radius: 4px; cursor: default; }
+.sav-col:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sav-bar { position: absolute; bottom: 0; left: 28%; right: 28%; background: var(--accent); border-radius: 4px 4px 0 0; transition: filter .15s; }
+.sav-col:hover .sav-bar, .sav-col:focus-visible .sav-bar { filter: brightness(1.15); }
+.sav-wh { position: absolute; left: calc(72% + 8px); width: 2px; background: var(--fg); opacity: .55; }
+.sav-wh::before, .sav-wh::after { content: ""; position: absolute; left: -5px; width: 12px; height: 2px; background: inherit; }
+.sav-wh::before { top: 0; } .sav-wh::after { bottom: 0; }
+.sav-val { position: absolute; left: 28%; right: 28%; text-align: center; color: var(--surface); font-weight: 700; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+.sav-x { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; text-align: center; font-size: 0.85rem; color: var(--muted); }
+.sav-x small { display: block; font-size: 0.78rem; }
+.sav-tot { font-size: 0.9rem; }
+.sav-tot b { font-variant-numeric: tabular-nums; }
+
+/* Week nu en over 1 tot 2 jaar */
+:root { --ops2: #C2CACC; --ins: #8CC3CB; --on-nu: #FFFFFF; --on-ops2: #162124; --on-accent: #FFFFFF; --on-warn: #FFFFFF; --on-ins: #10282D; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ops2: #46555A; --ins: #2C6670; --on-nu: #F2F6F7; --on-ops2: #E8EEEF; --on-accent: #0E1A1D; --on-warn: #1A1206; --on-ins: #E6F3F5; } }
+:root[data-theme="dark"] { --ops2: #46555A; --ins: #2C6670; --on-nu: #F2F6F7; --on-ops2: #E8EEEF; --on-accent: #0E1A1D; --on-warn: #1A1206; --on-ins: #E6F3F5; }
+.tipbox div:first-child { font-weight: 700; }
+.tipbox div + div { color: var(--muted); }
+[data-tip] { outline: none; cursor: default; }
+[data-tip]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wk { display: grid; gap: 0.6rem; }
+.wk-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.8rem; align-items: center; }
+.wk-row > .lab { font-weight: 600; font-size: 0.92rem; line-height: 1.25; }
+.wk-row > .lab small { display: block; font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+.wk-row.future > .lab { color: var(--accent); }
+.wk-bar { display: flex; gap: 2px; height: 2.1rem; min-width: 0; }
+.wk-bar > div { display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; min-width: 0; transition: filter .15s; }
+.wk-bar > div:first-child { border-radius: 4px 0 0 4px; } .wk-bar > div:last-child { border-radius: 0 4px 4px 0; }
+.wk-bar > div:hover, .wk-bar > div:focus-visible { filter: brightness(1.12); }
+.s-hw { background: var(--nu); color: var(--on-nu); }
+.s-ib { background: var(--ops2); color: var(--on-ops2); }
+.s-bh { background: var(--accent); color: var(--on-accent); }
+.s-lt { background: var(--warn); color: var(--on-warn); }
+.s-in { background: var(--ins); color: var(--on-ins); }
+.s-au { background: var(--surface); color: var(--fg); border: 2px dashed var(--accent); }
+.wk-axis { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.8rem; }
+.wk-axis > div:last-child { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); padding-top: 0.25rem; }
+.wk-note { font-size: 0.93rem; }
+
 @media (max-width: 600px) {
   .page { padding-block: 2rem 3rem; gap: 2.5rem; }
   .shift { grid-template-columns: minmax(0, 1fr); }
@@ -267,6 +373,20 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
   .scale { grid-column: 1; }
   .scale .w { display: none; }
   .item { margin-top: 0.45rem; }
+  .prow { grid-template-columns: minmax(0, 1fr); }
+  .pnote { grid-column: 1; }
+  .net { grid-template-columns: minmax(0, 1fr); }
+  .sav-panels { grid-template-columns: minmax(0, 1fr); }
+  .sav-bar, .sav-val { left: 16%; right: 22%; }
+  .sav-wh { left: calc(78% + 6px); }
+  .sav-val { font-size: 0.82rem; }
+  .pfill { --scale: 52%; }
+  .pval small { display: block; }
+  .pbar { grid-template-columns: 3rem minmax(0, 1fr); }
+  .cando { grid-template-columns: minmax(0, 1fr); }
+  .wk-row, .wk-axis { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+  .wk-axis > div:first-child { display: none; }
+  .wk-bar > div { font-size: 0.74rem; }
 }
 </style>
 </head>
@@ -277,14 +397,14 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
   <header>
     <div class="eyebrow">SkillsTown · Functiewaardering</div>
     <h1>Onderbouwing Business Operations &amp; Applications Specialist</h1>
-    <p class="meta">Bob Andringa · 15 oktober 2026</p>
+    <p class="meta">Bob Andringa · 18 november 2026</p>
     <div class="shift">
       <div><span class="k">Huidige titel</span><span class="v">Medewerker Operations</span></div>
       <div class="arrow" aria-hidden="true">→</div>
       <div class="to"><span class="k">Voorgestelde functie</span><span class="v">Business Operations &amp; Applications Specialist</span></div>
     </div>
     <p class="lead">Ik voer 22 van de 24 kerntaken uit het voorgestelde functieprofiel al structureel uit. De taken buiten operations doe ik al langer dan twee jaar, en ze vragen ongeveer de helft van mijn tijd. Bij de andere 2 taken analyseer, specificeer en test ik al, maar richt ik nog niet zelf in, omdat ik daar tot nu toe geen rechten voor had.</p>
-    <p class="lead">Met die rechten voer ik kleine wijzigingen zelf door. Die duren nu 1 tot 4 weken en vragen soms inhuur. Zelf doorgevoerd gaat dat sneller en is er minder inhuur nodig, zodat FAB en de externe partner ruimte houden voor de grote projecten.</p>
+    <p class="lead">Met die rechten voer ik ongeveer de helft van de kleine wijzigingen zelf door. Een deel daarvan staat dan dezelfde dag live in plaats van na 1 tot 4 weken. Dat scheelt naar schatting €1.600 tot €9.500 per jaar aan inhuur, tegen een investering van ongeveer €650 tot €1.200 en 3 tot 6 maanden leertijd. Code en koppelingen blijven bij de externe partner. Over 1 tot 2 jaar wil ik alleen nog aan Dynamics en salesrapportages werken. Operations bouw ik stap voor stap af, via automatisering en in overleg met mijn manager.</p>
   </header>
 
   <section aria-labelledby="h-dekking">
@@ -505,13 +625,13 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
         </ul>
       </div>
       <div class="lane">
-        <div class="lane-head"><h3>Straks</h3><span class="meta">Geen overdracht meer voor kleine wijzigingen</span></div>
+        <div class="lane-head"><h3>Straks</h3><span class="meta">Vaste lijst: dezelfde dag live. Overige kleine wijzigingen: na akkoord</span></div>
         <ul class="steps-row">
           <li><span class="s">Verzoek</span><span class="o">Gebruiker</span></li>
           <li class="me"><span class="s">Analyse en specificatie</span><span class="o">Ik</span></li>
           <li class="me"><span class="s">Bouw in ontwikkel</span><span class="o">Ik</span></li>
           <li class="me"><span class="s">Test en acceptatie</span><span class="o">Ik</span></li>
-          <li><span class="s">Naar productie</span><span class="o">Volgens afspraak met FAB</span></li>
+          <li class="me"><span class="s">Naar productie</span><span class="o">Vaste lijst: ik. Overig: na akkoord</span></li>
         </ul>
       </div>
       <div class="lane">
@@ -529,52 +649,200 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
         <span><span class="sw"></span>Doet een ander</span>
       </div>
     </div>
-    <p>Grote projecten blijven bij FAB en de externe partner. Het verschil zit in de kleine wijzigingen: die hoeven straks niet meer te worden overgedragen of ingehuurd.</p>
+    <p>Grote projecten blijven bij FAB en de externe partner. Het verschil zit in de kleine wijzigingen: die hoeven straks niet meer te worden overgedragen of ingehuurd. Wat ik niet zelf kan, zoals code of koppelingen, zet ik voortaan rechtstreeks uit bij de externe partner, in plaats van eerst via FAB.</p>
+  </section>
+
+  <section aria-labelledby="h-kan">
+    <div class="section-head">
+      <span class="eyebrow">Afbakening</span>
+      <h2 id="h-kan">Wat ik wel en niet kan</h2>
+      <p class="meta">Wat ik nu zelfstandig doe, wat ik na het groeipad kan en wat bij anderen blijft</p>
+    </div>
+    <div class="cando">
+      <div class="c-now">
+        <h3>Nu al zelfstandig</h3>
+        <ul>
+          <li>Sales-proces ontwerpen</li>
+          <li>Power Automate-flows bouwen en beheren</li>
+          <li>Journeys-campagnes uitvoeren</li>
+          <li>Gegevensbeheer: import, bulk, dubbelen</li>
+          <li>Specificeren, testen, wijzigingslog</li>
+          <li>Rapportages en Power BI</li>
+          <li>Robotprocessen uitschrijven en testen</li>
+        </ul>
+      </div>
+      <div class="c-next">
+        <h3>Na het groeipad</h3>
+        <ul>
+          <li>Kolommen, formulieren en views</li>
+          <li>Keuzelijsten en business rules</li>
+          <li>Procesflows aanpassen</li>
+          <li>Gebruikers aanmaken en bestaande rollen toekennen</li>
+          <li>Impact op koppelingen checken</li>
+        </ul>
+        <p class="later"><b>Duur:</b> 3 tot 6 maanden, bij 2 tot 4 uur per week. <b>Daarna:</b> Journeys- en Case Management-instellingen.</p>
+      </div>
+      <div class="c-not">
+        <h3>Blijft bij anderen</h3>
+        <ul>
+          <li>Code schrijven<small>Externe partner</small></li>
+          <li>Koppelingen bouwen of wijzigen<small>Externe partner en IT</small></li>
+          <li>Beveiligingsrollen ontwerpen<small>FAB</small></li>
+          <li>Robots bouwen<small>Team RPA</small></li>
+          <li>Grote projecten<small>FAB en externe partner</small></li>
+        </ul>
+      </div>
+    </div>
+    <p>Zelf inrichten in Dynamics 365 heb ik nog nooit gedaan, omdat ik er geen rechten voor had. Op dat onderdeel geef ik mezelf gemiddeld een 1,7 op een schaal van 5. Het groeipad hieronder is bedoeld om dat gat te dichten.</p>
+    <div class="callout">
+      <h3>Zelfstandigheid: wat ik zonder akkoord doorzet</h3>
+      <ul class="bullets">
+        <li>Systeemviews aanpassen: kolommen, filters en sortering</li>
+        <li>Formulieren: labels en volgorde, zonder nieuwe of verplichte velden</li>
+        <li>Bestaande rollen toekennen aan gebruikers, op verzoek van hun leidinggevende</li>
+        <li>Een waarde toevoegen aan een bestaande keuzelijst, als geen koppeling die lijst gebruikt</li>
+      </ul>
+      <p>Alle andere wijzigingen bouw en test ik in ontwikkel en zet ik pas na akkoord door. Alles komt in het wijzigingslog.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-week">
+    <div class="section-head">
+      <span class="eyebrow">Ideaalbeeld</span>
+      <h2 id="h-week">Mijn week: nu en over 1 tot 2 jaar</h2>
+      <p class="meta">Binnen 1 tot 2 jaar werk ik alleen nog aan Dynamics en aan salesrapportages en inzichten</p>
+    </div>
+    <div class="month" id="m-wk">
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--nu)"></i>Handwerk operations</span><span><i style="background:var(--ops2)"></i>Inboxen en overige operations</span><span><i style="background:var(--warn)"></i>Leertijd</span><span><i style="background:var(--accent)"></i>Dynamics (nu ook automatisering en rapportage)</span><span><i style="background:var(--ins)"></i>Salesrapportages en inzichten</span></div>
+      <div class="wk">
+        <div class="wk-row"><div class="lab">Nu<small>50% operations</small></div><div class="wk-bar"><div class="s-hw" style="flex:7.8 1 0" tabindex="0" data-tip="Handwerk operations|7,8 uur per week (2,8 – 12,8): inschrijvingen, demo-accounts, bundels">7,8 u</div><div class="s-ib" style="flex:12.2 1 0" tabindex="0" data-tip="Inboxen en overige operations|12,2 uur per week: de rest van de 20 uur operations">12,2 u</div><div class="s-bh" style="flex:20 1 0" tabindex="0" data-tip="Dynamics-beheer, automatisering en rapportage|20 uur per week: de andere helft van mijn tijd">20 u</div></div></div>
+        <div class="wk-row"><div class="lab">Maand 1 tot 6<small>tijdens het groeipad</small></div><div class="wk-bar"><div class="s-hw" style="flex:3.9 1 0" tabindex="0" data-tip="Handwerk operations|3,9 uur per week: de helft geautomatiseerd">3,9 u</div><div class="s-ib" style="flex:12.2 1 0" tabindex="0" data-tip="Inboxen en overige operations|12,2 uur per week: blijft bij mij">12,2 u</div><div class="s-bh" style="flex:20.9 1 0" tabindex="0" data-tip="Dynamics-beheer, automatisering en rapportage|20,9 uur per week: inclusief de 0,9 uur die overblijft">20,9 u</div><div class="s-lt" style="flex:3 1 0" tabindex="0" data-tip="Leertijd|3 uur per week (2 – 4)">3 u</div></div></div>
+        <div class="wk-row future"><div class="lab">Over 1 tot 2 jaar<small>het ideaalbeeld</small></div><div class="wk-bar"><div class="s-bh" style="flex:20 1 0" tabindex="0" data-tip="Dynamics: beheer en inrichten|20 uur per week, ongeveer de helft; kan per periode verschillen">Dynamics · 20 u</div><div class="s-in" style="flex:20 1 0" tabindex="0" data-tip="Salesrapportages en inzichten|20 uur per week, ongeveer de helft; kan per periode verschillen">Salesinzichten · 20 u</div></div></div>
+        <div class="wk-axis" aria-hidden="true"><div></div><div><span>0</span><span>10</span><span>20</span><span>30</span><span>40 uur</span></div></div>
+      </div>
+      <p class="wk-note"><b>Nu</b> werk ik de helft van mijn tijd in operations. Het handwerk daarin, ongeveer 8 uur per week, bestaat uit 200 tot 500 inschrijvingen, 10 tot 25 demo-accounts en 5 tot 15 bundels per maand. De rest zijn drie inboxen met samen 75 tot 80 mails per week en ander operationeel werk. De andere helft gaat naar beheer, automatisering en rapportage: specificeren en testen, flows bouwen, Journeys-campagnes, Power BI en robotprocessen voor team RPA.</p>
+      <p class="wk-note"><b>Over 1 tot 2 jaar</b> werk ik alleen nog aan Dynamics (beheer en inrichten) en aan salesrapportages en inzichten, ongeveer half om half. Die verdeling kan per periode verschillen. Automatisering en robotprocessen pak ik erbij als dat nodig is.</p>
+      <p class="meta">Middenwaardes. Het handwerk is 2,8 tot 12,8 uur per week, de leertijd 2 tot 4 uur. In de jaarberekening verderop tel ik de besparing op handwerk pas vanaf maand 7, voor de zekerheid.</p>
+      <details>
+        <summary>Bekijk als tabel</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Uur per week</th><th class="num">Nu</th><th class="num">Maand 1–6</th><th class="num">Over 1 tot 2 jaar</th></tr></thead>
+          <tbody>
+            <tr><td>Handwerk operations</td><td class="num">7,8</td><td class="num">3,9</td><td class="num">0</td></tr>
+            <tr><td>Inboxen en overige operations</td><td class="num">12,2</td><td class="num">12,2</td><td class="num">0</td></tr>
+            <tr><td>Leertijd</td><td class="num">0</td><td class="num">3</td><td class="num">0</td></tr>
+            <tr><td>Dynamics (nu ook automatisering en rapportage)</td><td class="num">20</td><td class="num">20,9</td><td class="num">20</td></tr>
+            <tr><td>Salesrapportages en inzichten</td><td class="num">–</td><td class="num">–</td><td class="num">20</td></tr>
+            <tr><td>Bij een collega of nog te verdelen</td><td class="num">0</td><td class="num">0 (alleen als vangnet)</td><td class="num">±16,1</td></tr>
+            <tr><td>Geautomatiseerd</td><td class="num">0</td><td class="num">3,9</td><td class="num">≥ 3,9</td></tr>
+          </tbody>
+        </table></div>
+      </details>
+      <div class="mtip tipbox" role="status"></div>
+    </div>
+
+    <div class="month" id="m-ops">
+      <h4>Waar mijn 20 uur operations over 1 tot 2 jaar heen gaan</h4>
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--surface);border:2px dashed var(--accent)"></i>Automatisering</span><span><i style="background:var(--ops2)"></i>Nog samen te verdelen</span></div>
+      <div class="wk">
+        <div class="wk-row"><div class="lab">20 uur operations<small>over 1 tot 2 jaar</small></div><div class="wk-bar"><div class="s-au" style="flex:3.9 1 0" tabindex="0" data-tip="Automatisering|3,9 uur per week: minstens de helft van het handwerk; het doel is meer">≥ 3,9 u</div><div class="s-ib" style="flex:16.1 1 0" tabindex="0" data-tip="Nog samen te verdelen|16,1 uur per week: inboxen, de rest van het handwerk en overig werk">Nog te verdelen ± 16,1 u</div></div></div>
+        <div class="wk-axis" aria-hidden="true"><div></div><div><span>0</span><span>5</span><span>10</span><span>15</span><span>20 uur</span></div></div>
+      </div>
+      <p class="wk-note">Na de eerste automatisering blijft er ongeveer 16 uur per week over. Dat zijn vooral de drie inboxen (75 tot 80 mails per week) en de rest van het handwerk. Elk uur dat we extra automatiseren, bijvoorbeeld door inboxverzoeken automatisch te herkennen en door te zetten, hoeft niemand meer te doen. Hoe we de rest verdelen, zoek ik samen met mijn manager uit. Tot die tijd blijf ik het doen, dus er valt geen gat.</p>
+      <div class="mtip tipbox" role="status"></div>
+    </div>
+    <p>Operations bouw ik dus stap voor stap af, in het tempo dat automatisering en de ruimte in het team toelaten. Hoe we het werk verdelen dat dan nog overblijft, zoek ik samen met mijn manager uit. Is er nog geen ruimte, dan houd ik dat deel zelf langer en schuift het ideaalbeeld op. Het groeipad en de besparing gaan gewoon door.</p>
   </section>
 
   <section aria-labelledby="h-winst">
     <div class="section-head">
       <span class="eyebrow">Voor SkillsTown</span>
-      <h2 id="h-winst">Wat de organisatie eraan heeft</h2>
+      <h2 id="h-winst">Wat het oplevert: tijd, kosten en inzichten</h2>
+      <p class="meta">Schattingen op basis van mijn eigen cijfers</p>
     </div>
     <div class="ops-stats three">
-      <div><b>1–4 weken</b><span>doorlooptijd van een kleine wijziging nu</span></div>
-      <div><b>2–5 uur</b><span>per week bespaard door mijn flows en robots</span></div>
-      <div><b>±90–230 uur</b><span>bespaard per jaar, bij 46 werkweken</span></div>
+      <div><b>Dezelfde dag</b><span>live in plaats van na 1 tot 4 weken, voor wijzigingen op de vaste lijst</span></div>
+      <div><b>±€1.600–€9.500</b><span>per jaar minder inhuur van de externe partner</span></div>
+      <div><b>±€650–€1.200</b><span>investering, plus 26 tot 104 uur eigen leertijd</span></div>
+    </div>
+
+    <h3 class="sub">Per maand in beeld</h3>
+    <div class="month" id="m-pairs">
+      <h4>Nu en straks, per maand</h4>
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--nu)"></i>Nu</span><span><i style="background:var(--accent)"></i>Straks</span><span>Balk = middenwaarde, tussen haakjes de bandbreedte</span></div>
+      <div class="prows"></div>
+      <div class="net">
+        <div><b>± 4 uur over</b><span>per maand in maand 1 tot 6: de automatisering maakt meer tijd vrij dan de leertijd kost. De overgangsafspraak is alleen een vangnet.</span></div>
+        <div><b>± 17 uur en €264 winst</b><span>per maand vanaf maand 7, in het middenscenario</span></div>
+      </div>
+      <p class="meta">Aannames: automatisering neemt de helft van het handwerk over, en ik neem de helft van de partnerwijzigingen over à 2 tot 6 uur. Neem ik alle partnerwijzigingen over, dan worden de inhuurkosten €0. Mijn eigen tijd per wijziging is niet meegeteld.</p>
+      <div class="mtip" role="status"></div>
+    </div>
+
+    <div class="month cum" id="m-cum">
+      <h4>Terugverdienen: euro's opgeteld, maand voor maand</h4>
+      <div class="mkey" aria-hidden="true"><span><i class="ln" style="background:var(--accent)"></i>Middenscenario</span><span><i style="background:var(--accent);opacity:.2"></i>Van voorzichtig tot ruim</span><span><i style="background:var(--warn-soft);border:1px solid var(--warn)"></i>Groeipad</span></div>
+      <svg viewBox="0 0 640 270" role="img" tabindex="0" aria-label="Opgetelde euro's over 18 maanden. Middenscenario: min 918 euro na maand 6, terugverdiend in maand 10, plus 2.250 euro na 18 maanden. Voorzichtig terugverdiend in maand 15, ruim in maand 7."></svg>
+      <p class="meta">Aannames: de investering (€654 tot €1.182) is verdeeld over maand 1 tot 6; de besparing op inhuur begint in maand 7. Midden: €264 per maand, voorzichtig €132, ruim €792. Gebruik de pijltjestoetsen om per maand te bladeren.</p>
+      <details>
+        <summary>Bekijk als tabel</summary>
+        <div class="table-wrap"><table><thead><tr><th>Maand</th><th class="num">Voorzichtig</th><th class="num">Midden</th><th class="num">Ruim</th></tr></thead><tbody></tbody></table></div>
+      </details>
+      <div class="mtip" role="status"></div>
+    </div>
+
+    <div class="month" id="m-sav">
+      <h4>Besparing per jaar, drie jaar vooruit</h4>
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--accent)"></i>Middenscenario</span><span><i class="ln" style="background:var(--fg);opacity:.55;width:2px;height:0.9rem"></i>Van voorzichtig tot ruim</span></div>
+      <div class="sav-panels">
+        <div class="sav-panel" data-k="eur"><h5>Minder inhuur, in euro's</h5><div class="sav-plot"></div><div class="sav-x"></div><p class="sav-tot"></p></div>
+        <div class="sav-panel" data-k="uur"><h5>Minder handwerk, in uren</h5><div class="sav-plot"></div><div class="sav-x"></div><p class="sav-tot"></p></div>
+      </div>
+      <p class="meta">Dit is de brutobesparing: de investering is er niet van afgetrokken. Jaar 1 telt 6 maanden besparing, omdat de eerste 6 maanden het groeipad zijn. Netto blijft er in jaar 1 in het middenscenario €666 en 43 uur over, na aftrek van de investering (€918) en mijn leertijd (59 uur). Daarnaast hoeft FAB 6 tot 24 kleine wijzigingen per jaar niet meer te doen; die uren zijn hier niet meegeteld.</p>
+      <details>
+        <summary>Bekijk als tabel</summary>
+        <div class="table-wrap"><table><thead><tr><th>Jaar</th><th class="num">Euro's (voorzichtig – ruim)</th><th class="num">Euro's midden</th><th class="num">Uren (voorzichtig – ruim)</th><th class="num">Uren midden</th></tr></thead><tbody></tbody></table></div>
+      </details>
+      <div class="mtip" role="status"></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Onderwerp</th><th>Onderbouwing</th></tr></thead>
+        <tbody>
+          <tr><td>Kleine wijzigingen</td><td>3 tot 5 per maand. Ongeveer de helft, 18 tot 30 per jaar, doe ik straks zelf; 6 tot 24 daarvan hoeft FAB niet meer te doen.</td></tr>
+          <tr><td>Inhuur</td><td>Ongeveer 1 wijziging per maand gaat nu naar de partner, à €132 per uur. Bij 6 tot 12 overgenomen wijzigingen van 2 tot 6 uur is dat €1.584 tot €9.504 per jaar.</td></tr>
+          <tr><td>Leertijd</td><td>2 tot 4 uur per week, 3 tot 6 maanden. Die tijd komt vooral uit verdere automatisering van inschrijvingen, demo-accounts en bundels: nu samen 2,8 tot 12,8 uur handwerk per week.</td></tr>
+          <tr><td>Investering</td><td>Een examen (ongeveer €126 excl. btw) en 2 tot 4 begeleidingssessies van 2 uur met de partner (€528 tot €1.056), plus interne uren van FAB.</td></tr>
+          <tr class="total"><td>Terugverdientijd</td><td>Binnen 1 tot 9 maanden na het groeipad; vanaf de start gerekend tussen maand 7 en maand 15, in het middenscenario maand 10. De eigen uren en de FAB-uren zijn niet meegeteld.</td></tr>
+        </tbody>
+      </table>
     </div>
     <ul class="results">
       <li>
-        <h3>Snellere wijzigingen</h3>
-        <p>Kleine wijzigingen staan nu na 1 tot 4 weken live, vooral door de overdracht. Bouw en test ik ze zelf in ontwikkel, dan valt die overdracht weg.</p>
+        <h3>Inzicht in datakwaliteit</h3>
+        <p>Een dashboard met dubbelen en lege verplichte velden, met regels voor duplicaatdetectie die ik zelf instel.</p>
       </li>
       <li>
-        <h3>Minder inhuur</h3>
-        <p>Kan FAB een wijziging niet zelf doen, dan wordt de externe partner ingehuurd. Kleine wijzigingen die ik zelf doe, hoeven niet meer te worden ingehuurd. FAB en de partner houden tijd over voor de grote projecten.</p>
+        <h3>Inzicht in de sales-funnel</h3>
+        <p>Ontbrekende velden toevoegen aan mijn Power BI-rapport, zodat zichtbaar wordt in welke fase kansen blijven hangen.</p>
       </li>
       <li>
-        <h3>Meer automatisering</h3>
-        <p>Mijn flows en robots besparen nu al 2 tot 5 uur per week. Met afspraken over wat ik zelf mag bouwen komen er meer bij, zonder de wachtrij bij team RPA te vergroten.</p>
-      </li>
-      <li>
-        <h3>Minder vertaalverlies</h3>
-        <p>Wie het proces kent, bouwt het ook. Er gaat minder verloren tussen specificatie en bouw, en de kans op herstelrondes wordt kleiner.</p>
-      </li>
-      <li>
-        <h3>Toestemming centraal geregeld</h3>
-        <p>Journeys kan toestemming centraal regelen. Ingericht via het compliance-profiel is de naleving bij nieuwsbrieven op één plek geborgd, voor iedereen die mailt.</p>
+        <h3>Inzicht in cases en SLA's</h3>
+        <p>Afhandeltijd en achterstand per wachtrij. Dit komt later, omdat eerst de SLA's moeten worden ingericht.</p>
       </li>
       <li>
         <h3>Continuïteit</h3>
-        <p>Een vastgelegde functie maakt duidelijk wie wat doet. Met werkinstructies, een wijzigingslog en een koppelingsoverzicht kan een collega het werk overnemen als ik afwezig ben, en blijft de kennis van ruim twee jaar behouden.</p>
+        <p>Met werkinstructies, een wijzigingslog en een koppelingsoverzicht kan een collega het werk overnemen als ik afwezig ben.</p>
       </li>
     </ul>
-    <h3 class="sub">Hoe we de winst meten</h3>
-    <ul class="bullets">
-      <li>Doorlooptijd van kleine wijzigingen, van verzoek tot live</li>
-      <li>Aantal wijzigingen dat zonder inhuur is opgelost</li>
-      <li>Uren bespaard door nieuwe automatiseringen</li>
-    </ul>
-    <p class="meta">Ik stel voor deze cijfers na drie en na zes maanden samen te bekijken.</p>
+    <div class="honest">
+      <h3>Wat deze cijfers niet zeggen</h3>
+      <ul>
+        <li>De partneruren per wijziging zijn een schatting; na drie maanden kennen we het echte getal uit de facturen.</li>
+        <li>Aan de onderkant is de besparing in geld bescheiden. De winst zit dan vooral in de doorlooptijd.</li>
+      </ul>
+    </div>
+    <p class="meta">De cijfers worden na drie en na zes maanden met mijn manager bekeken: doorlooptijd, zelf opgeloste wijzigingen, gefactureerde partneruren en uren handwerk.</p>
   </section>
 
   <section aria-labelledby="h-ontw">
@@ -582,11 +850,11 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
       <span class="eyebrow">Ontwikkelperspectief</span>
       <h2 id="h-ontw">Zelf inrichten in Dynamics 365</h2>
     </div>
-    <p>Twee van de 24 taken voer ik deels uit: ik analyseer, specificeer en test, maar richt nog niet zelf in. Dat komt doordat ik daar tot nu toe geen rechten voor had. Samen met mijn manager werk ik dit uit in een groeipad, in een ontwikkelomgeving en met een vaste meekijker.</p>
+    <p>Twee van de 24 taken voer ik deels uit: ik analyseer, specificeer en test, maar richt nog niet zelf in. Dat komt doordat ik daar tot nu toe geen rechten voor had. Samen met mijn manager werk ik dit uit in een groeipad, in een ontwikkelomgeving en met een vaste meekijker. De eerste drie stappen kosten 3 tot 6 maanden, bij 2 tot 4 uur per week. Dat tempo is bewust ruim, zodat het naast het gewone werk past.</p>
     <ol class="steps">
       <li><div class="body"><h3>Veilig werken</h3><p class="meta">Taakverdeling vastleggen en wijzigingen eerst in een ontwikkelomgeving bouwen</p></div></li>
       <li><div class="body"><h3>Sales inrichten</h3><p class="meta">Kolommen, formulieren, views en business rules</p></div></li>
-      <li><div class="body"><h3>Gebruikers en rechten</h3><p class="meta">Gebruikers aanmaken en rollen toekennen, met zo min mogelijk rechten</p></div></li>
+      <li><div class="body"><h3>Gebruikers en rechten</h3><p class="meta">Gebruikers aanmaken en bestaande rollen toekennen; rollen ontwerpen blijft bij FAB</p></div></li>
       <li><div class="body"><h3>Journeys inrichten</h3><p class="meta">Toestemming, compliance-profielen en afzenderdomeinen</p></div></li>
       <li><div class="body"><h3>Case Management inrichten</h3><p class="meta">E-mailregels, wachtrijen en SLA's</p></div></li>
     </ol>
@@ -602,7 +870,8 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
       <li>Een functiebeschrijving vastleggen, omdat er voor Medewerker Operations nog geen bestaat</li>
       <li>De functie herbeoordelen op basis van het profiel Business Operations &amp; Applications Specialist</li>
       <li>Verantwoordelijkheid, zelfstandigheid, complexiteit, impact en kennis als afzonderlijke aspecten beoordelen</li>
-      <li>De afbakening met FAB, IT, team RPA en de externe partner expliciet vastleggen</li>
+      <li>De afbakening met FAB, IT, team RPA en de externe partner expliciet vastleggen, inclusief de vaste lijst van wijzigingen die ik zonder akkoord doorzet</li>
+      <li>Meenemen dat operations de komende 1 tot 2 jaar stap voor stap uit de functie gaat, zodat de functie straks bestaat uit Dynamics-beheer en salesrapportages en inzichten</li>
       <li>De uitkomst koppelen aan een passende functietitel, functiegroep en ontwikkelperspectief</li>
     </ul>
     <div class="sources">
@@ -614,5 +883,196 @@ td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; whi
   </section>
 
 </main>
+<script>
+(function () {
+  var nf = new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 1 });
+  function eur(v) { return (v < 0 ? '−' : '') + '€' + nf.format(Math.round(Math.abs(v))); }
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  function showTip(box, tip, x, y, title, rows) {
+    tip.textContent = '';
+    tip.appendChild(el('div', 't', title));
+    rows.forEach(function (r) {
+      var row = el('div', 'r'); var k = el('i'); k.style.background = r.c; row.appendChild(k);
+      row.appendChild(el('b', null, r.v)); row.appendChild(el('span', null, r.n)); tip.appendChild(row);
+    });
+    tip.style.display = 'block';
+    var bw = box.clientWidth, tw = tip.offsetWidth;
+    tip.style.left = Math.max(8, Math.min(bw - tw - 8, x + 12)) + 'px';
+    tip.style.top = Math.max(8, y - tip.offsetHeight - 10) + 'px';
+  }
+
+  /* 1. Nu en straks per maand */
+  var pairs = document.getElementById('m-pairs');
+  if (pairs) {
+    var tip1 = pairs.querySelector('.mtip'), wrap = pairs.querySelector('.prows');
+    var data = [
+      { n: 'Handwerk operations', u: 'uur per maand', nu: [12, 55], st: [6, 28], f: function (v) { return nf.format(v) + ' u'; } },
+      { n: 'Mijn leertijd', u: 'uur per maand, alleen maand 1 tot 6', nu: [0, 0], st: [9, 17], f: function (v) { return nf.format(v) + ' u'; } },
+      { n: 'Partneruren kleine wijzigingen', u: 'uur per maand', nu: [2, 6], st: [1, 3], f: function (v) { return nf.format(v) + ' u'; } },
+      { n: 'Inhuurkosten kleine wijzigingen', u: 'euro per maand', nu: [264, 792], st: [132, 396], f: eur },
+      { n: 'Wijzigingen via FAB of partner', u: 'aantal per maand', nu: [3, 5], st: [1.5, 2.5], f: function (v) { return nf.format(v); } }
+    ];
+    data.forEach(function (d) {
+      var mid = function (r) { return (r[0] + r[1]) / 2; };
+      var max = Math.max(mid(d.nu), mid(d.st)) || 1;
+      var row = el('div', 'prow'); var nm = el('div', 'pname', d.n); nm.appendChild(el('small', null, d.u)); row.appendChild(nm);
+      var bars = el('div', 'pbars');
+      [['Nu', d.nu, ''], ['Straks', d.st, ' straks']].forEach(function (b) {
+        var m = mid(b[1]);
+        var line = el('div', 'pbar' + b[2]); line.appendChild(el('span', null, b[0]));
+        var tr = el('div', 'ptrack'); tr.tabIndex = 0;
+        var fill = el('div', 'pfill'); fill.style.setProperty('--w', m === 0 ? 0 : Math.max(0.015, m / max));
+        if (m === 0) fill.style.minWidth = '0';
+        var val = el('span', 'pval', d.f(m));
+        if (b[1][0] !== b[1][1]) val.appendChild(el('small', null, ' (' + d.f(b[1][0]) + ' – ' + d.f(b[1][1]) + ')'));
+        tr.appendChild(fill); tr.appendChild(val); line.appendChild(tr); bars.appendChild(line);
+        var title = d.n + ' · ' + b[0];
+        var rows = [{ c: b[0] === 'Nu' ? 'var(--nu)' : 'var(--accent)', v: d.f(m), n: b[1][0] !== b[1][1] ? 'midden, ' + d.f(b[1][0]) + ' – ' + d.f(b[1][1]) : d.u }];
+        function show() { var pr = pairs.getBoundingClientRect(), r = tr.getBoundingClientRect(); showTip(pairs, tip1, r.left - pr.left + fill.offsetWidth, r.top - pr.top, title, rows); }
+        tr.addEventListener('pointerenter', show); tr.addEventListener('focus', show);
+        tr.addEventListener('pointerleave', function () { tip1.style.display = 'none'; });
+        tr.addEventListener('blur', function () { tip1.style.display = 'none'; });
+      });
+      row.appendChild(bars); wrap.appendChild(row);
+    });
+  }
+
+  /* 2. Opgeteld over 12 maanden */
+  var cum = document.getElementById('m-cum');
+  if (cum) {
+    var svg = cum.querySelector('svg'), tip2 = cum.querySelector('.mtip'), NS = 'http://www.w3.org/2000/svg';
+    var NM = 18, GP = 6;
+    function series(inv, save) { var out = [0], t = 0; for (var m = 1; m <= NM; m++) { t += m <= GP ? -inv / GP : save; out.push(t); } return out; }
+    var lo = series(1182, 132), md = series(918, 264), hi = series(654, 792);
+    var W = 640, H = 270, L = 62, R = 108, T = 12, B = 30, y0 = -2000, y1 = 9500;
+    function X(m) { return L + m / NM * (W - L - R); }
+    function Y(v) { return T + (y1 - v) / (y1 - y0) * (H - T - B); }
+    function sv(tag, a) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; }
+    sv('rect', { x: X(0), y: T, width: X(GP) - X(0), height: H - T - B, fill: 'var(--warn-soft)' });
+    var gp = sv('text', { x: X(GP / 2), y: T + 14, 'text-anchor': 'middle', class: 'ax' }); gp.textContent = 'Groeipad';
+    [-2000, 0, 2000, 4000, 6000, 8000].forEach(function (v) {
+      sv('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: v === 0 ? 'var(--muted)' : 'var(--line)', 'stroke-width': 1 });
+      var t = sv('text', { x: L - 8, y: Y(v) + 4, 'text-anchor': 'end', class: 'ax' }); t.textContent = eur(v);
+    });
+    for (var m = 0; m <= NM; m += 3) { var t = sv('text', { x: X(m), y: H - 8, 'text-anchor': 'middle', class: 'ax' }); t.textContent = m === 0 ? 'Start' : 'Mnd ' + m; }
+    var band = 'M' + hi.map(function (v, i) { return X(i) + ',' + Y(v); }).join('L') + 'L' + lo.slice().reverse().map(function (v, i) { return X(NM - i) + ',' + Y(v); }).join('L') + 'Z';
+    sv('path', { d: band, fill: 'var(--accent)', 'fill-opacity': 0.16 });
+    sv('path', { d: 'M' + md.map(function (v, i) { return X(i) + ',' + Y(v); }).join('L'), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-linejoin': 'round' });
+    sv('circle', { cx: X(10), cy: Y(md[10]), r: 4.5, fill: 'var(--accent)', stroke: 'var(--surface)', 'stroke-width': 2 });
+    var be = sv('text', { x: X(10) + 8, y: Y(md[10]) + 16, class: 'lbl' }); be.textContent = 'Terugverdiend in maand 10';
+    [['Ruim', hi[NM]], ['Midden', md[NM]], ['Voorzichtig', lo[NM]]].forEach(function (l) {
+      var t = sv('text', { x: X(NM) + 8, y: Y(l[1]) + 4, class: l[0] === 'Midden' ? 'lbl' : 'ax' }); t.textContent = l[0] + ' ' + eur(l[1]);
+    });
+    var cross = sv('line', { x1: 0, x2: 0, y1: T, y2: H - B, stroke: 'var(--muted)', 'stroke-width': 1, 'stroke-dasharray': '3 3', visibility: 'hidden' });
+    var dot = sv('circle', { r: 4.5, fill: 'var(--accent)', stroke: 'var(--surface)', 'stroke-width': 2, visibility: 'hidden' });
+    var cur = 10;
+    function at(m) {
+      cur = m; var x = X(m);
+      cross.setAttribute('x1', x); cross.setAttribute('x2', x); cross.setAttribute('visibility', 'visible');
+      dot.setAttribute('cx', x); dot.setAttribute('cy', Y(md[m])); dot.setAttribute('visibility', 'visible');
+      var r = svg.getBoundingClientRect(), cr = cum.getBoundingClientRect(), sc = r.width / W;
+      showTip(cum, tip2, r.left - cr.left + x * sc, r.top - cr.top + Y(hi[m]) * sc,
+        m === 0 ? 'Start' : 'Na maand ' + m + (m <= GP ? ' (groeipad)' : ''),
+        [{ c: 'var(--accent)', v: eur(hi[m]), n: 'ruim' }, { c: 'var(--accent)', v: eur(md[m]), n: 'midden' }, { c: 'var(--accent)', v: eur(lo[m]), n: 'voorzichtig' }]);
+    }
+    function hide() { cross.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); tip2.style.display = 'none'; }
+    svg.addEventListener('pointermove', function (e) {
+      var r = svg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W;
+      at(Math.max(0, Math.min(NM, Math.round((x - L) / (W - L - R) * NM))));
+    });
+    svg.addEventListener('pointerleave', hide);
+    svg.addEventListener('focus', function () { at(cur); });
+    svg.addEventListener('blur', hide);
+    svg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { at(Math.min(NM, cur + 1)); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { at(Math.max(0, cur - 1)); e.preventDefault(); }
+    });
+    var tb = cum.querySelector('tbody');
+    for (var i = 1; i <= NM; i++) {
+      var tr = el('tr'); tr.appendChild(el('td', null, 'Maand ' + i + (i <= GP ? ' (groeipad)' : '')));
+      [lo, md, hi].forEach(function (s) { tr.appendChild(el('td', 'num', eur(s[i]))); });
+      tb.appendChild(tr);
+    }
+  }
+})();
+</script>
+<script>
+(function () {
+  var box = document.getElementById('m-sav');
+  if (!box) return;
+  var tip = box.querySelector('.mtip');
+  var nf = new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 0 });
+  var fmt = { eur: function (v) { return '€' + nf.format(v); }, uur: function (v) { return nf.format(v) + ' u'; } };
+  var perMonth = { eur: [132, 264, 792], uur: [6, 17, 28] };
+  var months = [6, 12, 12];
+  var years = ['Jaar 1', 'Jaar 2', 'Jaar 3'];
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  var vals = {};
+  ['eur', 'uur'].forEach(function (k) {
+    vals[k] = months.map(function (m) { return perMonth[k].map(function (v) { return v * m; }); });
+    var panel = box.querySelector('[data-k="' + k + '"]'), plot = panel.querySelector('.sav-plot'), xs = panel.querySelector('.sav-x');
+    var max = Math.max.apply(null, vals[k].map(function (r) { return r[2]; })) * 1.08;
+    vals[k].forEach(function (r, i) {
+      var col = el('div', 'sav-col'); col.tabIndex = 0;
+      col.setAttribute('aria-label', years[i] + ': midden ' + fmt[k](r[1]) + ', van ' + fmt[k](r[0]) + ' tot ' + fmt[k](r[2]));
+      var bar = el('div', 'sav-bar'); bar.style.height = (r[1] / max * 100) + '%';
+      var wh = el('div', 'sav-wh'); wh.style.bottom = (r[0] / max * 100) + '%'; wh.style.height = ((r[2] - r[0]) / max * 100) + '%';
+      var lab = el('div', 'sav-val', fmt[k](r[1])); lab.style.bottom = 'calc(' + (r[1] / max * 100) + '% - 1.5rem)';
+      col.appendChild(bar); col.appendChild(wh); col.appendChild(lab); plot.appendChild(col);
+      var x = el('div', null, years[i]); x.appendChild(el('small', null, months[i] + ' maanden')); xs.appendChild(x);
+      function show() {
+        tip.textContent = '';
+        tip.appendChild(el('div', 't', years[i] + ' · ' + (k === 'eur' ? 'minder inhuur' : 'minder handwerk')));
+        [['ruim', r[2]], ['midden', r[1]], ['voorzichtig', r[0]]].forEach(function (q) {
+          var row = el('div', 'r'); var key = el('i'); key.style.background = 'var(--accent)'; row.appendChild(key);
+          row.appendChild(el('b', null, fmt[k](q[1]))); row.appendChild(el('span', null, q[0])); tip.appendChild(row);
+        });
+        tip.style.display = 'block';
+        var br = box.getBoundingClientRect(), cr = col.getBoundingClientRect();
+        tip.style.left = Math.max(8, Math.min(box.clientWidth - tip.offsetWidth - 8, cr.left - br.left + cr.width / 2 + 10)) + 'px';
+        tip.style.top = Math.max(8, cr.top - br.top + cr.height * (1 - r[2] / max) - tip.offsetHeight - 6) + 'px';
+      }
+      col.addEventListener('pointerenter', show); col.addEventListener('focus', show);
+      col.addEventListener('pointerleave', function () { tip.style.display = 'none'; });
+      col.addEventListener('blur', function () { tip.style.display = 'none'; });
+    });
+    var tot = [0, 1, 2].map(function (j) { return vals[k].reduce(function (a, r) { return a + r[j]; }, 0); });
+    var p = panel.querySelector('.sav-tot');
+    p.appendChild(document.createTextNode('Samen in drie jaar: '));
+    p.appendChild(el('b', null, fmt[k](tot[1])));
+    p.appendChild(document.createTextNode(' (van ' + fmt[k](tot[0]) + ' tot ' + fmt[k](tot[2]) + ')'));
+  });
+  var tb = box.querySelector('tbody');
+  years.forEach(function (y, i) {
+    var tr = el('tr'); tr.appendChild(el('td', null, y + ' (' + months[i] + ' mnd)'));
+    tr.appendChild(el('td', 'num', fmt.eur(vals.eur[i][0]) + ' – ' + fmt.eur(vals.eur[i][2])));
+    tr.appendChild(el('td', 'num', fmt.eur(vals.eur[i][1])));
+    tr.appendChild(el('td', 'num', fmt.uur(vals.uur[i][0]) + ' – ' + fmt.uur(vals.uur[i][2])));
+    tr.appendChild(el('td', 'num', fmt.uur(vals.uur[i][1])));
+    tb.appendChild(tr);
+  });
+})();
+</script>
+<script>
+(function () {
+  ['m-wk', 'm-ops'].forEach(function (id) {
+    var box = document.getElementById(id); if (!box) return;
+    var tip = box.querySelector('.tipbox'); if (!tip) return;
+    box.querySelectorAll('[data-tip]').forEach(function (t) {
+      function show() {
+        tip.textContent = '';
+        t.getAttribute('data-tip').split('|').forEach(function (line) { var d = document.createElement('div'); d.textContent = line; tip.appendChild(d); });
+        tip.style.display = 'block';
+        var br = box.getBoundingClientRect(), r = t.getBoundingClientRect();
+        tip.style.left = Math.max(8, Math.min(box.clientWidth - tip.offsetWidth - 8, r.left - br.left + r.width / 2 - tip.offsetWidth / 2)) + 'px';
+        tip.style.top = Math.max(8, r.top - br.top - tip.offsetHeight - 8) + 'px';
+      }
+      function hide() { tip.style.display = 'none'; }
+      t.addEventListener('pointerenter', show); t.addEventListener('focus', show);
+      t.addEventListener('pointerleave', hide); t.addEventListener('blur', hide);
+    });
+  });
+})();
+</script>
 </body>
 </html>

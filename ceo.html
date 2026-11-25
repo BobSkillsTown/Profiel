@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kosten en opbrengst: doorontwikkeling Business Operations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+/* CEO-samenvatting. Oorspronkelijke layout: één leeskolom als onderbouwingsrapport; dekkingsmatrix van het functieprofiel bovenaan, daarna bewijs per taak, resultaten, vaardighedenkaart en het groeigebied */
+:root {
+  --bg: #F5F7F7;
+  --surface: #FFFFFF;
+  --fg: #162124;
+  --muted: #56676B;
+  --line: #DCE2E3;
+  --accent: #1C6470;
+  --accent-soft: #E0EDEF;
+  --bar: #C2CACC;
+  --warn: #8E5410;
+  --warn-soft: #FAF0E1;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101719; --surface: #172124; --fg: #E4EBEC; --muted: #98AAAE; --line: #2A373A;
+    --accent: #62B6C3; --accent-soft: #15313A; --bar: #46555A; --warn: #E3A65B; --warn-soft: #2C2316;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101719; --surface: #172124; --fg: #E4EBEC; --muted: #98AAAE; --line: #2A373A;
+  --accent: #62B6C3; --accent-soft: #15313A; --bar: #46555A; --warn: #E3A65B; --warn-soft: #2C2316;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+.page {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 3rem 4rem;
+  display: grid;
+  gap: 3.25rem;
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1rem; font-weight: 700; font-family: var(--font-body); }
+p { margin: 0; max-width: 65ch; }
+ul, ol { margin: 0; padding: 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+.eyebrow { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+.meta { color: var(--muted); font-size: 0.95rem; }
+section { display: grid; gap: 1.1rem; }
+.section-head { display: grid; gap: 0.35rem; }
+.lead { font-size: 1.12rem; }
+
+/* Kop */
+header { display: grid; gap: 0.85rem; }
+.shift {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; margin-top: 0.4rem;
+}
+.shift > div { padding: 0.9rem 1.15rem; display: grid; gap: 0.15rem; min-width: 0; }
+.shift .k { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; }
+.shift .v { font-weight: 700; font-size: 1.05rem; line-height: 1.3; }
+.shift .to { background: var(--accent-soft); }
+.shift .to .v { color: var(--accent); }
+.shift .arrow { display: grid; place-items: center; padding: 0 0.6rem; color: var(--muted); font-size: 1.2rem; border-inline: 1px solid var(--line); }
+
+/* Dekking */
+.cover { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.3rem 1.4rem; display: grid; gap: 1.1rem; }
+.cover-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; }
+.big { font-family: var(--font-display); font-weight: 700; font-size: 3rem; line-height: 1; font-variant-numeric: tabular-nums; color: var(--accent); }
+.big small { font-size: 1.3rem; color: var(--muted); font-weight: 600; }
+.cover-top p { font-weight: 600; }
+.cover-rows { display: grid; gap: 0.15rem; }
+.cover-row { display: grid; grid-template-columns: minmax(0, 1fr) auto 3rem; gap: 1rem; align-items: center; padding-block: 0.55rem; }
+.cover-name { font-weight: 600; font-size: 0.98rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; min-width: 0; }
+.tag { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.05rem 0.5rem; }
+.cells { display: flex; gap: 0.3rem; }
+.cell { width: 1.15rem; height: 1.15rem; border-radius: 3px; background: var(--accent); }
+.cell.part { background: linear-gradient(135deg, var(--accent) 50%, transparent 50%); box-shadow: inset 0 0 0 1.5px var(--accent); }
+.count { font-family: var(--font-mono); font-weight: 600; font-size: 0.9rem; text-align: right; font-variant-numeric: tabular-nums; }
+.cover-split { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; padding-top: 0.7rem; margin-top: 0.3rem; border-top: 1px dashed var(--line); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-size: 0.88rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.legend .cell { width: 0.85rem; height: 0.85rem; }
+
+.time { display: grid; gap: 0.45rem; padding-top: 0.8rem; border-top: 1px dashed var(--line); }
+.time-head { display: flex; justify-content: space-between; gap: 1rem; font-weight: 600; font-size: 0.92rem; }
+.time-head .meta { font-weight: 400; font-size: 0.85rem; }
+.time-bar { display: flex; height: 1.9rem; border-radius: 4px; overflow: hidden; font-size: 0.82rem; font-weight: 600; }
+.seg { display: flex; align-items: center; padding: 0 0.6rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.seg.ops { background: var(--bar); color: var(--fg); }
+.seg.rest { background: var(--accent); color: var(--surface); }
+
+/* Operations-cijfers */
+.ops-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 0.9rem; }
+.ops-stats > div { background: var(--bg); padding: 0.7rem 0.85rem; display: grid; gap: 0.1rem; min-width: 0; }
+.ops-stats b { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.ops-stats span { font-size: 0.85rem; color: var(--muted); line-height: 1.3; }
+.ops-note { font-size: 0.85rem; color: var(--muted); margin: -0.45rem 0 0.9rem; }
+
+/* Waarderingsaspecten */
+.aspects { margin: 0; display: grid; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.aspects > div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 1rem; padding: 0.9rem 1.25rem; border-top: 1px solid var(--line); }
+.aspects > div:first-child { border-top: 0; }
+.aspects dt { font-weight: 700; }
+.aspects dd { margin: 0; min-width: 0; }
+
+/* Schakelkaart */
+.hub { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
+.hub svg { display: block; width: 100%; height: auto; }
+.hub .ln { stroke: var(--bar); stroke-width: 1.5; fill: none; }
+.hub .node { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+.hub .center { fill: var(--accent); }
+.hub .t1 { fill: var(--fg); font: 600 15px var(--font-body); }
+.hub .t2 { fill: var(--muted); font: 400 13px var(--font-body); }
+.hub .tc1 { fill: var(--surface); font: 700 18px var(--font-display); }
+.hub .tc2 { fill: var(--surface); font: 400 13px var(--font-body); }
+.hub-list { display: none; list-style: none; gap: 0.5rem; }
+.hub-list li { display: grid; gap: 0.05rem; padding: 0.6rem 0.8rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.hub-list li b { font-weight: 600; }
+.hub-list li span { color: var(--muted); font-size: 0.9rem; }
+.hub-list .hub-me { background: var(--accent); border-color: transparent; color: var(--surface); }
+.hub-list .hub-me span { color: var(--surface); }
+
+/* Wijzigingsroute */
+.route { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.4rem; display: grid; gap: 1.3rem; }
+.lane { display: grid; gap: 0.55rem; }
+.lane-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.2rem 1rem; }
+.lane-head .meta { font-size: 0.88rem; }
+.steps-row { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.1rem; }
+.steps-row li { position: relative; border-radius: 8px; padding: 0.55rem 0.65rem; display: grid; gap: 0.1rem; align-content: start; background: var(--bg); border: 1px solid var(--line); min-width: 0; }
+.steps-row li.me { background: var(--accent-soft); border-color: var(--accent); }
+.steps-row li:not(:last-child)::after { content: "→"; position: absolute; right: -0.95rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; }
+.steps-row .s { font-weight: 600; font-size: 0.9rem; line-height: 1.25; }
+.steps-row .o { font-size: 0.8rem; color: var(--muted); line-height: 1.25; }
+.steps-row li.me .o { color: var(--accent); font-weight: 600; }
+.route-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.85rem; color: var(--muted); padding-top: 0.8rem; border-top: 1px dashed var(--line); }
+.route-legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.sw { width: 0.9rem; height: 0.9rem; border-radius: 3px; background: var(--bg); border: 1px solid var(--line); }
+.sw.me { background: var(--accent-soft); border-color: var(--accent); }
+
+/* Winst */
+.ops-stats.three { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 0; }
+.ops-stats.three > div { background: var(--surface); }
+.bullets { list-style: none; display: grid; gap: 0.3rem; }
+.sub { font-size: 1.05rem; }
+
+/* Oefeningen */
+.oef { background: var(--accent-soft); border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.95rem; max-width: none; }
+.oef b { color: var(--accent); }
+.cont { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; gap: 0.5rem; }
+
+/* Per taak */
+.areas { display: grid; gap: 1rem; }
+.area { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem 0.4rem; display: grid; }
+.area-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.3rem 1rem; padding-bottom: 0.55rem; }
+.area-head .count { text-align: left; color: var(--muted); font-family: var(--font-body); font-weight: 600; font-size: 0.9rem; }
+.area-note { color: var(--muted); font-size: 0.92rem; padding-bottom: 0.5rem; margin-top: -0.3rem; }
+.task { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.15rem 1rem; padding-block: 0.7rem; border-top: 1px solid var(--line); align-items: start; }
+.task .what { font-size: 0.98rem; min-width: 0; }
+.task .why { grid-column: 1; color: var(--muted); font-size: 0.92rem; min-width: 0; }
+.pill { font-size: 0.75rem; font-weight: 600; padding: 0.12rem 0.6rem; border-radius: 999px; white-space: nowrap; margin-top: 0.15rem; }
+.pill.done { background: var(--accent-soft); color: var(--accent); }
+.pill.part { background: var(--warn-soft); color: var(--warn); }
+
+/* Resultaten */
+.results { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.results li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.05rem 1.2rem; display: grid; gap: 0.35rem; align-content: start; min-width: 0; }
+.results li .k { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); font-weight: 600; }
+.results li h3 { font-size: 1.02rem; }
+.results li p { font-size: 0.96rem; color: var(--muted); }
+.results li.wide { grid-column: 1 / -1; }
+
+/* Vaardighedenkaart */
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.25rem 1.4rem 1.4rem; display: grid; gap: 0.25rem; }
+.chart-grid { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); column-gap: 1rem; row-gap: 0.55rem; align-items: center; }
+.scale { grid-column: 2; position: relative; height: 1.4rem; font-size: 0.75rem; color: var(--muted); }
+.scale > span { position: absolute; top: 0; transform: translateX(-100%); white-space: nowrap; padding-right: 2px; }
+.scale b { font-family: var(--font-mono); font-weight: 600; color: var(--fg); margin-right: 0.3rem; }
+.group-label { grid-column: 1 / -1; font-weight: 700; font-size: 0.95rem; margin-top: 0.9rem; padding-bottom: 0.15rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.2rem 1rem; }
+.group-label span { font-weight: 400; color: var(--muted); font-size: 0.88rem; }
+.group-label:first-of-type { margin-top: 0.2rem; }
+.item { font-size: 0.97rem; min-width: 0; line-height: 1.35; }
+.track {
+  position: relative; height: 1.25rem;
+  background-image: repeating-linear-gradient(to right, transparent 0, transparent calc(20% - 1px), var(--line) calc(20% - 1px), var(--line) 20%);
+  border-left: 1px solid var(--muted);
+}
+.bar { position: absolute; left: 0; top: 0.15rem; height: 0.95rem; width: calc(var(--lvl) * 20%); background: var(--bar); border-radius: 0 3px 3px 0; }
+.config .bar { background: var(--accent); }
+.val { position: absolute; top: -0.05rem; left: calc(var(--lvl) * 20% + 0.45rem); font-family: var(--font-mono); font-weight: 600; font-size: 0.85rem; }
+.lvl-5 .val { left: auto; right: 0.4rem; color: var(--fg); }
+.chart-foot { margin-top: 1rem; color: var(--muted); font-size: 0.9rem; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 36rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--line); }
+th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 600; }
+td code { font-family: var(--font-mono); font-size: 0.9em; font-weight: 600; white-space: nowrap; }
+
+.callout { background: var(--warn-soft); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; gap: 0.4rem; }
+.callout h3 { color: var(--warn); }
+
+/* Groeipad */
+.steps { list-style: none; display: grid; counter-reset: stap; }
+.steps > li { counter-increment: stap; display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.9rem; padding-block: 1rem; border-top: 1px solid var(--line); }
+.steps > li:last-child { border-bottom: 1px solid var(--line); }
+.steps > li::before {
+  content: counter(stap); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem;
+  width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent);
+}
+.steps .body { display: grid; gap: 0.4rem; min-width: 0; }
+.steps h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.6rem; }
+.steps ul { list-style: none; display: grid; gap: 0.3rem; }
+.steps ul li, .bullets li { padding-left: 1rem; position: relative; font-size: 0.98rem; }
+.steps ul li::before, .bullets li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 0.4rem; height: 1px; background: var(--muted); }
+
+.agree { list-style: none; display: grid; gap: 0.55rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; }
+.agree li { display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: 0.7rem; align-items: start; }
+.agree li::before { content: ""; width: 0.95rem; height: 0.95rem; margin-top: 0.3rem; border: 1.5px solid var(--accent); border-radius: 3px; }
+
+.sources { font-size: 0.92rem; color: var(--muted); display: grid; gap: 0.3rem; }
+.sources ul { list-style: none; display: grid; gap: 0.2rem; }
+
+/* Wel en niet kunnen */
+.cando { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.cando > div { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 10px; padding: 1rem 1.15rem; display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.cando > .c-next { border-top-color: var(--warn); }
+.cando > .c-not { border-top-color: var(--bar); }
+.cando h3 { font-size: 1.02rem; }
+.cando ul { list-style: none; display: grid; gap: 0.35rem; font-size: 0.95rem; }
+.cando li { display: grid; gap: 0.05rem; }
+.cando li small { color: var(--muted); font-size: 0.85rem; }
+.cando .later { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 0.5rem; }
+.callout ul.bullets { font-size: 0.97rem; }
+.callout ul.bullets li::before { background: var(--warn); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.total td { font-weight: 700; background: var(--bg); }
+.honest { background: var(--surface); border: 1px dashed var(--bar); border-radius: 10px; padding: 1.05rem 1.2rem; display: grid; gap: 0.45rem; }
+.honest ul { list-style: none; display: grid; gap: 0.35rem; font-size: 0.96rem; }
+.honest li::before { content: "– "; color: var(--muted); }
+
+/* Per maand in beeld */
+:root { --nu: #7F8C8F; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --nu: #66777B; } }
+:root[data-theme="dark"] { --nu: #66777B; }
+.month { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; gap: 1rem; min-width: 0; }
+.month h4 { font-family: var(--font-body); font-size: 1rem; margin: 0; }
+.mkey { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; font-size: 0.88rem; color: var(--muted); }
+.mkey span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.mkey i { display: inline-block; width: 0.85rem; height: 0.6rem; border-radius: 2px; }
+.mkey i.ln { height: 2px; border-radius: 1px; }
+.prow { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: 0.4rem 1rem; align-items: center; padding-top: 0.85rem; border-top: 1px solid var(--line); }
+.prow:first-of-type { border-top: 0; padding-top: 0; }
+.pname { font-weight: 600; font-size: 0.95rem; line-height: 1.3; }
+.pname small { display: block; font-weight: 400; color: var(--muted); font-size: 0.82rem; }
+.pbars { display: grid; gap: 4px; min-width: 0; }
+.pbar { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+.pbar > span { color: var(--muted); }
+.ptrack { display: flex; align-items: center; gap: 0.5rem; min-width: 0; border-radius: 4px; outline: none; cursor: default; }
+.ptrack:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pfill { width: calc(var(--w, 0) * var(--scale, 72%)); height: 14px; border-radius: 0 4px 4px 0; background: var(--nu); flex: none; min-width: 2px; transition: filter .15s; }
+.pbar.straks .pfill { background: var(--accent); }
+.ptrack:hover .pfill, .ptrack:focus-visible .pfill { filter: brightness(1.15); }
+.pval { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+.pval small { font-weight: 400; color: var(--muted); }
+.pnote { grid-column: 2; font-size: 0.82rem; color: var(--muted); }
+.net { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.net > div { background: var(--bg); padding: 0.7rem 0.85rem; display: grid; gap: 0.1rem; }
+.net b { font-family: var(--font-display); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.net span { font-size: 0.85rem; color: var(--muted); line-height: 1.3; }
+.cum svg { width: 100%; height: auto; display: block; overflow: visible; touch-action: pan-y; }
+.cum svg:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+.cum .ax { font: 12px var(--font-body); fill: var(--muted); font-variant-numeric: tabular-nums; }
+.cum .lbl { font: 600 12px var(--font-body); fill: var(--fg); font-variant-numeric: tabular-nums; }
+.mtip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0.5rem 0.7rem; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(0,0,0,.12); display: none; z-index: 2; min-width: 10rem; }
+.mtip .t { color: var(--muted); font-size: 0.8rem; margin-bottom: 0.2rem; }
+.mtip .r { display: grid; grid-template-columns: 0.9rem auto 1fr; gap: 0.4rem; align-items: center; }
+.mtip .r i { height: 2px; border-radius: 1px; }
+.mtip .r b { font-variant-numeric: tabular-nums; }
+.mtip .r span { color: var(--muted); }
+.month details { font-size: 0.92rem; }
+.month summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+.month details table { min-width: 28rem; margin-top: 0.6rem; }
+
+/* Besparing per jaar */
+.sav-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.sav-panel { display: grid; gap: 0.6rem; min-width: 0; }
+.sav-panel h5 { margin: 0; font-size: 0.92rem; font-weight: 600; color: var(--muted); font-family: var(--font-body); }
+.sav-plot { position: relative; height: 200px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; border-bottom: 1px solid var(--muted); }
+.sav-col { position: relative; height: 100%; outline: none; border-radius: 4px; cursor: default; }
+.sav-col:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sav-bar { position: absolute; bottom: 0; left: 28%; right: 28%; background: var(--accent); border-radius: 4px 4px 0 0; transition: filter .15s; }
+.sav-col:hover .sav-bar, .sav-col:focus-visible .sav-bar { filter: brightness(1.15); }
+.sav-wh { position: absolute; left: calc(72% + 8px); width: 2px; background: var(--fg); opacity: .55; }
+.sav-wh::before, .sav-wh::after { content: ""; position: absolute; left: -5px; width: 12px; height: 2px; background: inherit; }
+.sav-wh::before { top: 0; } .sav-wh::after { bottom: 0; }
+.sav-val { position: absolute; left: 28%; right: 28%; text-align: center; color: var(--surface); font-weight: 700; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+.sav-x { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; text-align: center; font-size: 0.85rem; color: var(--muted); }
+.sav-x small { display: block; font-size: 0.78rem; }
+.sav-tot { font-size: 0.9rem; }
+.sav-tot b { font-variant-numeric: tabular-nums; }
+
+/* What-if: partner of FAB */
+.scen { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.scen > div { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--sc); border-radius: 10px; padding: 1rem 1.1rem; display: grid; gap: 0.55rem; align-content: start; min-width: 0; }
+.scen h3 { font-size: 1.02rem; }
+.scen .one { font-size: 0.92rem; color: var(--muted); margin: 0; }
+.scen dl { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.25rem 0.8rem; margin: 0; font-size: 0.9rem; }
+.scen dt { color: var(--muted); }
+.scen dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+.scen ul { list-style: none; display: grid; gap: 0.25rem; font-size: 0.88rem; margin: 0; padding: 0; }
+.scen li { display: grid; grid-template-columns: 1rem minmax(0, 1fr); gap: 0.35rem; }
+.scen li.plus::before { content: "+"; color: var(--accent); font-weight: 700; }
+.scen li.min::before { content: "–"; color: var(--warn); font-weight: 700; }
+.sc-basis { --sc: var(--accent); } .sc-a { --sc: var(--warn); } .sc-b { --sc: var(--ins); } .sc-nu { --sc: var(--nu); }
+.smx { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
+.smx-p { display: grid; gap: 0.45rem; min-width: 0; }
+.smx-p h5 { margin: 0; font: 600 0.9rem var(--font-body); color: var(--muted); }
+.smx-r { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: 0.5rem; align-items: center; font-size: 0.85rem; }
+.smx-r > span { color: var(--muted); }
+.smx-t { display: flex; align-items: center; gap: 0.4rem; min-width: 0; height: 1.3rem; border-radius: 4px; }
+.smx-b { height: 14px; border-radius: 0 4px 4px 0; background: var(--sc); flex: none; min-width: 2px; transition: filter .15s; }
+.smx-t:hover .smx-b, .smx-t:focus-visible .smx-b { filter: brightness(1.15); }
+.smx-v { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wi { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; gap: 0.9rem; }
+.wi h3 { font-size: 1.02rem; }
+.wi-presets { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.wi-presets button { font: inherit; font-size: 0.88rem; padding: 0.35rem 0.75rem; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; }
+.wi-presets button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.wi-in { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1rem; align-items: end; }
+.wi-in label { display: grid; gap: 0.3rem; font-size: 0.9rem; font-weight: 600; min-width: 0; }
+.wi-in label small { font-weight: 400; color: var(--muted); }
+.wi-in input[type=range] { width: 100%; accent-color: var(--accent); }
+.wi-in input[type=number] { font: inherit; padding: 0.4rem 0.55rem; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); width: 100%; min-width: 0; }
+.wi-split { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.wi-out { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.wi-out > div { background: var(--bg); padding: 0.75rem 0.9rem; display: grid; gap: 0.15rem; }
+.wi-out b { font-family: var(--font-display); font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+.wi-out span { font-size: 0.85rem; color: var(--muted); }
+.wi-out em { font-style: normal; font-size: 0.85rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.wi-out em.good { color: var(--accent); } .wi-out em.bad { color: var(--warn); }
+
+@media (max-width: 600px) {
+  .scen, .smx, .wi-out, .wi-in { grid-template-columns: minmax(0, 1fr); }
+  .page { padding-block: 2rem 3rem; gap: 2.5rem; }
+  .shift { grid-template-columns: minmax(0, 1fr); }
+  .shift .arrow { display: none; }
+  .shift .to { border-top: 1px solid var(--line); }
+  .cover { padding: 1rem; }
+  .cover-row { grid-template-columns: minmax(0, 1fr) 2.6rem; row-gap: 0.4rem; }
+  .cover-row .cells { grid-row: 2; grid-column: 1 / -1; }
+  .cover-row .count { grid-row: 1; grid-column: 2; }
+  .results { grid-template-columns: minmax(0, 1fr); }
+  .hub svg { display: none; }
+  .hub-list { display: grid; }
+  .route { padding: 1rem; }
+  .steps-row { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+  .steps-row li:not(:last-child)::after { content: "↓"; right: auto; left: 1rem; top: auto; bottom: -0.95rem; transform: none; }
+  .ops-stats.three { grid-template-columns: minmax(0, 1fr); }
+  .ops-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aspects > div { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; padding: 0.85rem 1rem; }
+  .chart { padding: 1rem; }
+  .chart-grid { grid-template-columns: minmax(0, 1fr); row-gap: 0.2rem; }
+  .scale { grid-column: 1; }
+  .scale .w { display: none; }
+  .item { margin-top: 0.45rem; }
+  .prow { grid-template-columns: minmax(0, 1fr); }
+  .pnote { grid-column: 1; }
+  .net { grid-template-columns: minmax(0, 1fr); }
+  .sav-panels { grid-template-columns: minmax(0, 1fr); }
+  .sav-bar, .sav-val { left: 16%; right: 22%; }
+  .sav-wh { left: calc(78% + 6px); }
+  .sav-val { font-size: 0.82rem; }
+  .pfill { --scale: 52%; }
+  .pval small { display: block; }
+  .pbar { grid-template-columns: 3rem minmax(0, 1fr); }
+  .cando { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- CEO-pagina ---------- */
+:root { --nu: #7F8C8F; --ops2: #C2CACC; --ins: #8CC3CB; --on-nu: #FFFFFF; --on-ops2: #162124; --on-accent: #FFFFFF; --on-warn: #FFFFFF; --on-ins: #10282D; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --nu: #8A9A9E; --ops2: #46555A; --ins: #2C6670; --on-nu: #10181A; --on-ops2: #E8EEEF; --on-accent: #0E1A1D; --on-warn: #1A1206; --on-ins: #E6F3F5; } }
+:root[data-theme="dark"] { --nu: #8A9A9E; --ops2: #46555A; --ins: #2C6670; --on-nu: #10181A; --on-ops2: #E8EEEF; --on-accent: #0E1A1D; --on-warn: #1A1206; --on-ins: #E6F3F5; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.kpis > div { background: var(--surface); padding: 0.95rem 1rem; display: grid; gap: 0.2rem; align-content: start; min-width: 0; }
+.kpis .k { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+.kpis b { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpis .cost b { color: var(--warn); }
+.kpis .gain b { color: var(--accent); }
+.kpis small { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.month { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; gap: 1rem; min-width: 0; }
+.month h4 { font-family: var(--font-body); font-size: 1rem; margin: 0; }
+.mkey { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; font-size: 0.88rem; color: var(--muted); }
+.mkey span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.mkey i { display: inline-block; width: 0.85rem; height: 0.6rem; border-radius: 2px; }
+.mtip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0.5rem 0.7rem; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(0,0,0,.12); display: none; z-index: 2; max-width: 18rem; }
+.mtip div:first-child { font-weight: 700; }
+.mtip div + div { color: var(--muted); }
+[data-tip] { outline: none; cursor: default; }
+[data-tip]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.month details { font-size: 0.92rem; }
+.month summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+.month details table { min-width: 26rem; margin-top: 0.6rem; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Kosten tegenover besparing */
+.dv-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.dv { display: grid; gap: 0.55rem; min-width: 0; }
+.dv h5 { margin: 0; font: 600 0.92rem var(--font-body); color: var(--muted); }
+.dv-head, .dv-row { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr) 2px minmax(0, 1fr); align-items: center; column-gap: 0.4rem; }
+.dv-head { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+.dv-head .l { text-align: right; padding-right: 0.3rem; } .dv-head .r { padding-left: 0.3rem; }
+.dv-row > .lab { font-size: 0.9rem; font-weight: 600; }
+.dv-row > .axis { align-self: stretch; background: var(--muted); }
+.dv-row .side { display: flex; align-items: center; gap: 0.4rem; min-width: 0; height: 2.1rem; }
+.dv-row .side.l { flex-direction: row-reverse; }
+.dv-row .dvb { height: 18px; flex: none; min-width: 3px; }
+.dv-row .side.l .dvb { background: var(--warn); border-radius: 4px 0 0 4px; }
+.dv-row .side.r .dvb { background: var(--accent); border-radius: 0 4px 4px 0; }
+.dv-row .v { font-size: 0.86rem; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dv-net { font-size: 0.88rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 0.5rem; }
+.dv-net b { color: var(--fg); font-variant-numeric: tabular-nums; }
+.breakdown { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.breakdown > div { border-radius: 10px; padding: 0.9rem 1.05rem; display: grid; gap: 0.35rem; align-content: start; }
+.breakdown .bk-cost { background: var(--warn-soft); }
+.breakdown .bk-gain { background: var(--accent-soft); }
+.breakdown h3 { font-size: 1rem; }
+.breakdown .bk-cost h3 { color: var(--warn); } .breakdown .bk-gain h3 { color: var(--accent); }
+.breakdown ul { list-style: none; display: grid; gap: 0.3rem; font-size: 0.93rem; }
+.breakdown li { display: flex; justify-content: space-between; gap: 0.8rem; }
+.breakdown li span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+.breakdown li.sub { color: var(--muted); font-size: 0.86rem; }
+.breakdown li.sub span:last-child { font-weight: 400; }
+
+/* Week van 40 uur */
+.wk { display: grid; gap: 0.6rem; }
+.wk-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.8rem; align-items: center; }
+.wk-row > .lab { font-weight: 600; font-size: 0.92rem; line-height: 1.25; }
+.wk-row > .lab small { display: block; font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+.wk-bar { display: flex; gap: 2px; height: 2.1rem; min-width: 0; }
+.wk-bar > div { display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; min-width: 0; transition: filter .15s; }
+.wk-bar > div:first-child { border-radius: 4px 0 0 4px; } .wk-bar > div:last-child { border-radius: 0 4px 4px 0; }
+.wk-bar > div:hover, .wk-bar > div:focus-visible { filter: brightness(1.12); }
+.s-hw { background: var(--nu); color: var(--on-nu); }
+.s-ib { background: var(--ops2); color: var(--on-ops2); }
+.s-bh { background: var(--accent); color: var(--on-accent); }
+.s-lt { background: var(--warn); color: var(--on-warn); }
+.s-in { background: var(--ins); color: var(--on-ins); }
+.s-au { background: var(--surface); color: var(--fg); border: 2px dashed var(--accent); }
+.wk-gap { height: 0.4rem; }
+.wk-row.future > .lab { color: var(--accent); }
+.wk-axis { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.8rem; }
+.wk-axis > div:last-child { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); padding-top: 0.25rem; }
+.wk-note { font-size: 0.9rem; }
+
+/* Plan en risico's */
+.plan { list-style: none; counter-reset: p; display: grid; gap: 0.7rem; }
+.plan li { counter-increment: p; display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: 0.2rem 0.8rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.85rem 1rem; }
+.plan li::before { content: counter(p); grid-row: span 3; width: 2.1rem; height: 2.1rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font: 700 1.05rem var(--font-display); display: grid; place-items: center; }
+.plan h3 { font-size: 1rem; }
+.plan p { font-size: 0.94rem; margin: 0; }
+.plan .when { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+.ask { list-style: none; display: grid; gap: 0.45rem; }
+.ask li { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); gap: 0.6rem; }
+.ask li::before { content: "✓"; color: var(--accent); font-weight: 700; }
+
+@media (max-width: 700px) {
+  .scen, .smx, .wi-out, .wi-in { grid-template-columns: minmax(0, 1fr); }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-panels, .breakdown { grid-template-columns: minmax(0, 1fr); }
+  .wk-row, .wk-axis { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+  .wk-axis > div:first-child { display: none; }
+  .wk-bar > div { font-size: 0.74rem; }
+  .dv-head, .dv-row { grid-template-columns: 3.6rem minmax(0, 1fr) 2px minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <header>
+    <div class="eyebrow">SkillsTown · Voorstel voor de directie</div>
+    <h1>Wat het kost en wat het oplevert</h1>
+    <p class="meta">Doorontwikkeling naar Business Operations &amp; Applications Specialist · Bob Andringa · 18 november 2026</p>
+    <p class="lead">Ik vraag rechten om kleine wijzigingen in Dynamics 365 zelf door te voeren. Dat kost eenmalig ongeveer €918 en 59 uur leertijd, rustig verspreid over 3 tot 6 maanden. Het levert elk jaar ongeveer €3.168 minder inhuur en 204 uur minder handwerk op. Kleine wijzigingen staan dan dezelfde dag live in plaats van na 1 tot 4 weken. Over 1 tot 2 jaar wil ik alleen nog met Dynamics en salesrapportages bezig zijn. Het operationele werk bouw ik stap voor stap af, via automatisering en in overleg met mijn manager.</p>
+    <p class="meta">Alle getallen zijn middenwaardes uit mijn eigen cijfers; de bandbreedte staat er klein onder.</p>
+  </header>
+
+  <div class="kpis">
+    <div class="cost"><span class="k">Investering, eenmalig</span><b>€918 + 59 uur</b><small>€654 – €1.182 · 26 – 104 uur</small></div>
+    <div class="gain"><span class="k">Besparing per jaar</span><b>€3.168 + 204 uur</b><small>€1.584 – €9.504 · 72 – 336 uur</small></div>
+    <div class="gain"><span class="k">Terugverdiend</span><b>Maand 10</b><small>tussen maand 7 en maand 15</small></div>
+    <div class="gain"><span class="k">Kleine wijziging live</span><b>Dezelfde dag</b><small>nu 1 tot 4 weken</small></div>
+  </div>
+
+  <section aria-labelledby="h-kb">
+    <div class="section-head">
+      <span class="eyebrow">Geld en tijd</span>
+      <h2 id="h-kb">Kosten tegenover besparing</h2>
+    </div>
+    <div class="month" id="m-dv">
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--warn)"></i>Kosten, eenmalig</span><span><i style="background:var(--accent)"></i>Besparing</span></div>
+      <div class="dv-panels">
+        <div class="dv">
+          <h5>Geld: inhuur van de externe partner</h5>
+          <div class="dv-head"><span></span><span class="l">Kosten</span><span></span><span class="r">Besparing</span></div>
+        <div class="dv-row">
+          <span class="lab">Jaar 1</span>
+          <div class="side l" tabindex="0" data-tip="Kosten, eenmalig|€918 midden (€654 – €1.182): examen en begeleiding door de partner"><div class="dvb" style="width:7.6%"></div><span class="v">€918</span></div>
+          <span class="axis" aria-hidden="true"></span>
+          <div class="side r" tabindex="0" data-tip="Minder inhuur in jaar 1|€1.584 midden (€792 – €4.752), 6 maanden besparing"><div class="dvb" style="width:13.2%"></div><span class="v">€1.584</span></div>
+        </div>
+        <div class="dv-row">
+          <span class="lab">3 jaar</span>
+          <div class="side l" tabindex="0" data-tip="Kosten, eenmalig|€918 midden (€654 – €1.182)"><div class="dvb" style="width:7.6%"></div><span class="v">€918</span></div>
+          <span class="axis" aria-hidden="true"></span>
+          <div class="side r" tabindex="0" data-tip="Minder inhuur in 3 jaar|€7.920 midden (€3.960 – €23.760)"><div class="dvb" style="width:66.0%"></div><span class="v">€7.920</span></div>
+        </div>
+          <p class="dv-net">Netto: <b>+€666</b> na jaar 1, <b>+€7.002</b> na 3 jaar</p>
+        </div>
+        <div class="dv">
+          <h5>Tijd: mijn uren</h5>
+          <div class="dv-head"><span></span><span class="l">Kosten</span><span></span><span class="r">Besparing</span></div>
+        <div class="dv-row">
+          <span class="lab">Jaar 1</span>
+          <div class="side l" tabindex="0" data-tip="Leertijd, eenmalig|59 uur midden (26 – 104 uur), maand 1 tot 6"><div class="dvb" style="width:7.6%"></div><span class="v">59 u</span></div>
+          <span class="axis" aria-hidden="true"></span>
+          <div class="side r" tabindex="0" data-tip="Minder handwerk in jaar 1|102 uur midden (36 – 168 uur), 6 maanden besparing"><div class="dvb" style="width:13.2%"></div><span class="v">102 u</span></div>
+        </div>
+        <div class="dv-row">
+          <span class="lab">3 jaar</span>
+          <div class="side l" tabindex="0" data-tip="Leertijd, eenmalig|59 uur midden (26 – 104 uur)"><div class="dvb" style="width:7.6%"></div><span class="v">59 u</span></div>
+          <span class="axis" aria-hidden="true"></span>
+          <div class="side r" tabindex="0" data-tip="Minder handwerk in 3 jaar|510 uur midden (180 – 840 uur)"><div class="dvb" style="width:66.0%"></div><span class="v">510 u</span></div>
+        </div>
+          <p class="dv-net">Netto: <b>+43 uur</b> na jaar 1, <b>+451 uur</b> na 3 jaar</p>
+        </div>
+      </div>
+      <p class="meta">Jaar 1 telt 6 maanden besparing, omdat de eerste 6 maanden het groeipad zijn. Geld en tijd staan apart en hebben elk hun eigen schaal.</p>
+      <details>
+        <summary>Bekijk als tabel</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th></th><th class="num">Kosten</th><th class="num">Besparing jaar 1</th><th class="num">Besparing 3 jaar</th></tr></thead>
+          <tbody>
+            <tr><td>Geld, midden</td><td class="num">€918</td><td class="num">€1.584</td><td class="num">€7.920</td></tr>
+            <tr><td>Geld, bandbreedte</td><td class="num">€654 – €1.182</td><td class="num">€792 – €4.752</td><td class="num">€3.960 – €23.760</td></tr>
+            <tr><td>Tijd, midden</td><td class="num">59 u</td><td class="num">102 u</td><td class="num">510 u</td></tr>
+            <tr><td>Tijd, bandbreedte</td><td class="num">26 – 104 u</td><td class="num">36 – 168 u</td><td class="num">180 – 840 u</td></tr>
+          </tbody>
+        </table></div>
+      </details>
+      <div class="mtip" role="status"></div>
+    </div>
+
+    <div class="breakdown">
+      <div class="bk-cost">
+        <h3>Wat het kost</h3>
+        <ul>
+          <li><span>Examen</span><span>€126</span></li>
+          <li><span>Begeleiding door de partner, 2 tot 4 sessies van 2 uur à €132</span><span>€528 – €1.056</span></li>
+          <li><span>Mijn leertijd, 2 tot 4 uur per week, 3 tot 6 maanden</span><span>26 – 104 u</span></li>
+          <li><span>Over 1 tot 2 jaar: operationeel werk dat na automatisering overblijft, samen te verdelen</span><span>±16 u / week</span></li>
+          <li class="sub"><span>Niet meegeteld: meekijken door FAB en een eventuele nieuwe inschaling (dat loopt via HR)</span><span></span></li>
+        </ul>
+      </div>
+      <div class="bk-gain">
+        <h3>Wat het oplevert</h3>
+        <ul>
+          <li><span>Minder inhuur: de helft van de partnerwijzigingen, 2 tot 6 uur à €132</span><span>€264 / mnd</span></li>
+          <li><span>Minder handwerk: de helft van inschrijvingen, demo-accounts en bundels</span><span>17 u / mnd</span></li>
+          <li><span>Kleine wijzigingen die FAB niet meer hoeft te doen</span><span>6 – 24 / jaar</span></li>
+          <li><span>Over 1 tot 2 jaar: al mijn tijd naar Dynamics en salesinzichten</span><span>+20 u / week</span></li>
+          <li class="sub"><span>Niet in geld uit te drukken: dezelfde dag live in plaats van 1 tot 4 weken, inzicht in datakwaliteit en de sales-funnel, en continuïteit door werkinstructies en een wijzigingslog</span><span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-whatif">
+    <div class="section-head">
+      <span class="eyebrow">What-if</span>
+      <h2 id="h-whatif">Meer met de partner, of meer met FAB?</h2>
+      <p class="meta">Wat er verandert als ik voor het werk dat ik niet zelf doe vooral met de externe partner of juist vooral met FAB samenwerk</p>
+    </div>
+    <p>In elk scenario doe ik de helft van de kleine wijzigingen zelf, ongeveer 24 per jaar. Het gaat hier om de andere helft, ook ongeveer 24 per jaar: wie doet die? Code, koppelingen en grote projecten blijven in elk scenario bij de partner en FAB.</p>
+    <div class="scen">
+      <div class="sc-basis">
+        <h3>Basis: het huidige voorstel</h3>
+        <p class="one">FAB doet de meeste overige wijzigingen; wat FAB niet kan, zet ik direct bij de partner uit.</p>
+        <dl><dt>Naar partner</dt><dd>6 per jaar</dd><dt>Naar FAB</dt><dd>18 per jaar</dd><dt>Partnerkosten</dt><dd>€3.168 / jaar</dd><dt>FAB-uren</dt><dd>72 / jaar</dd><dt>Gem. wachttijd</dt><dd>1,1 week</dd></dl>
+        <ul><li class="plus">Evenwichtig: minder kosten én minder FAB-werk dan nu</li><li class="min">Rest blijft 1 tot 4 weken duren via FAB</li></ul>
+      </div>
+      <div class="sc-a">
+        <h3>A: meer met de partner</h3>
+        <p class="one">Alles wat ik niet zelf doe, gaat rechtstreeks naar de partner. FAB hoeft geen kleine wijzigingen meer te doen.</p>
+        <dl><dt>Naar partner</dt><dd>24 per jaar</dd><dt>Naar FAB</dt><dd>0</dd><dt>Partnerkosten</dt><dd>€12.672 / jaar</dd><dt>FAB-uren</dt><dd>0</dd><dt>Gem. wachttijd</dt><dd>0,8 week</dd></dl>
+        <ul><li class="plus">Snelst: de rest is in 1 tot 2 weken klaar</li><li class="plus">FAB is helemaal vrij voor grote projecten</li><li class="min">Duurst: €6.336 per jaar méér dan nu</li><li class="min">Kennis zit bij een externe partij; FAB verliest overzicht</li></ul>
+      </div>
+      <div class="sc-b">
+        <h3>B: meer met FAB</h3>
+        <p class="one">FAB neemt de helft over van wat nu naar de partner gaat en begeleidt mij in het groeipad. Alleen specialistisch werk gaat naar de partner.</p>
+        <dl><dt>Naar partner</dt><dd>3 per jaar</dd><dt>Naar FAB</dt><dd>21 per jaar</dd><dt>Partnerkosten</dt><dd>€1.584 / jaar</dd><dt>FAB-uren</dt><dd>84 / jaar</dd><dt>Gem. wachttijd</dt><dd>1,2 week</dd></dl>
+        <ul><li class="plus">Goedkoopst: €4.752 per jaar minder dan nu</li><li class="plus">Kennis blijft binnen SkillsTown; FAB is mijn vangnet</li><li class="plus">Begeleiding door FAB i.p.v. de partner: investering €126 in plaats van ±€918</li><li class="min">FAB moet er tijd voor hebben, en dat is nu juist een knelpunt</li></ul>
+      </div>
+    </div>
+
+    <div class="month" id="m-wi">
+      <h4>De scenario's naast elkaar, per jaar</h4>
+      <div class="smx"></div>
+      <p class="meta">Middenwaardes, bij 4 uur per wijziging voor de partner én voor FAB. FAB-uren zijn interne uren en staan niet in euro's. Wachttijd is het gemiddelde over alle 48 kleine wijzigingen per jaar: wat ik zelf doe staat dezelfde dag live, de partner doet er 1 tot 2 weken over en FAB 1 tot 4 weken.</p>
+      <details>
+        <summary>Bekijk als tabel</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Per jaar</th><th class="num">Nu</th><th class="num">Basis</th><th class="num">A: partner</th><th class="num">B: FAB</th></tr></thead>
+          <tbody>
+            <tr><td>Wijzigingen zelf / partner / FAB</td><td class="num">0 / 12 / 36</td><td class="num">24 / 6 / 18</td><td class="num">24 / 24 / 0</td><td class="num">24 / 3 / 21</td></tr>
+            <tr><td>Partnerkosten (2 – 6 uur)</td><td class="num">€3.168 – €9.504</td><td class="num">€1.584 – €4.752</td><td class="num">€6.336 – €19.008</td><td class="num">€792 – €2.376</td></tr>
+            <tr><td>FAB-uren (2 – 6 uur)</td><td class="num">72 – 216</td><td class="num">36 – 108</td><td class="num">0</td><td class="num">42 – 126</td></tr>
+            <tr><td>Gemiddelde wachttijd</td><td class="num">2,5 weken</td><td class="num">1,1 week</td><td class="num">0,8 week</td><td class="num">1,2 week</td></tr>
+          </tbody>
+        </table></div>
+      </details>
+      <div class="mtip tipbox" role="status"></div>
+    </div>
+
+    <form class="wi" id="wi" onsubmit="return false" aria-labelledby="wi-h">
+      <h3 id="wi-h">Reken zelf: hoeveel gaat er naar de partner?</h3>
+      <div class="wi-presets" role="group" aria-label="Scenario kiezen">
+        <button type="button" data-n="6" aria-pressed="true">Basis</button>
+        <button type="button" data-n="24" aria-pressed="false">A: meer partner</button>
+        <button type="button" data-n="3" aria-pressed="false">B: meer FAB</button>
+      </div>
+      <div class="wi-in">
+        <label>Van de 24 wijzigingen die ik niet zelf doe, naar de partner<small>de rest gaat naar FAB</small>
+          <input id="wi-n" type="range" min="0" max="24" step="1" value="6">
+          <span class="wi-split"><span id="wi-p">Partner: 6</span><span id="wi-f">FAB: 18</span></span>
+        </label>
+        <label>Uur per wijziging<small>voor de partner en voor FAB</small><input id="wi-h2" type="number" min="0.5" max="40" step="0.5" value="4" inputmode="decimal"></label>
+      </div>
+      <div class="wi-out" aria-live="polite">
+        <div><span>Partnerkosten per jaar</span><b id="wi-c">€3.168</b><em id="wi-cd"></em></div>
+        <div><span>FAB-uren per jaar</span><b id="wi-u">72</b><em id="wi-ud"></em></div>
+        <div><span>Gemiddelde wachttijd</span><b id="wi-w">1,1 week</b><em id="wi-wd"></em></div>
+      </div>
+    </form>
+
+  </section>
+
+  <section aria-labelledby="h-wk">
+    <div class="section-head">
+      <span class="eyebrow">Wat ik nu doe</span>
+      <h2 id="h-wk">Mijn week van 40 uur: nu en over 1 tot 2 jaar</h2>
+    </div>
+    <div class="month" id="m-wk">
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--nu)"></i>Handwerk operations</span><span><i style="background:var(--ops2)"></i>Inboxen en overige operations</span><span><i style="background:var(--warn)"></i>Leertijd</span><span><i style="background:var(--accent)"></i>Dynamics (nu ook automatisering en rapportage)</span><span><i style="background:var(--ins)"></i>Salesrapportages en inzichten</span></div>
+      <div class="wk">
+        <div class="wk-row"><div class="lab">Nu<small>50% operations</small></div><div class="wk-bar"><div class="s-hw" style="flex:7.8 1 0" tabindex="0" data-tip="Handwerk operations|7,8 uur per week (2,8 – 12,8): inschrijvingen, demo-accounts, bundels">7,8 u</div><div class="s-ib" style="flex:12.2 1 0" tabindex="0" data-tip="Inboxen en overige operations|12,2 uur per week: de rest van de 20 uur operations">12,2 u</div><div class="s-bh" style="flex:20 1 0" tabindex="0" data-tip="Dynamics-beheer, automatisering en rapportage|20 uur per week: de andere helft van mijn tijd">20 u</div></div></div>
+        <div class="wk-row"><div class="lab">Maand 1 tot 6<small>tijdens het groeipad</small></div><div class="wk-bar"><div class="s-hw" style="flex:3.9 1 0" tabindex="0" data-tip="Handwerk operations|3,9 uur per week: de helft geautomatiseerd">3,9 u</div><div class="s-ib" style="flex:12.2 1 0" tabindex="0" data-tip="Inboxen en overige operations|12,2 uur per week: blijft bij mij">12,2 u</div><div class="s-bh" style="flex:20.9 1 0" tabindex="0" data-tip="Dynamics-beheer, automatisering en rapportage|20,9 uur per week: inclusief de 0,9 uur die overblijft">20,9 u</div><div class="s-lt" style="flex:3 1 0" tabindex="0" data-tip="Leertijd|3 uur per week (2 – 4)">3 u</div></div></div>
+        <div class="wk-row future"><div class="lab">Over 1 tot 2 jaar<small>het ideaalbeeld</small></div><div class="wk-bar"><div class="s-bh" style="flex:20 1 0" tabindex="0" data-tip="Dynamics: beheer en inrichten|20 uur per week, ongeveer de helft; kan per periode verschillen">Dynamics · 20 u</div><div class="s-in" style="flex:20 1 0" tabindex="0" data-tip="Salesrapportages en inzichten|20 uur per week, ongeveer de helft; kan per periode verschillen">Salesinzichten · 20 u</div></div></div>
+        <div class="wk-axis" aria-hidden="true"><div></div><div><span>0</span><span>10</span><span>20</span><span>30</span><span>40 uur</span></div></div>
+      </div>
+      <p class="wk-note"><b>Nu</b> werk ik de helft van mijn tijd in operations. Het handwerk daarin, ongeveer 8 uur per week, bestaat uit 200 tot 500 inschrijvingen, 10 tot 25 demo-accounts en 5 tot 15 bundels per maand. De rest zijn drie inboxen met samen 75 tot 80 mails per week en ander operationeel werk. De andere helft gaat naar beheer, automatisering en rapportage: specificeren en testen, flows bouwen, Journeys-campagnes, Power BI en robotprocessen voor team RPA.</p>
+      <p class="wk-note"><b>Over 1 tot 2 jaar</b> werk ik alleen nog aan Dynamics (beheer en inrichten) en aan salesrapportages en inzichten, ongeveer half om half. Die verdeling kan per periode verschillen. Automatisering en robotprocessen pak ik erbij als dat nodig is.</p>
+      <p class="meta">Middenwaardes. Het handwerk is 2,8 tot 12,8 uur per week, de leertijd 2 tot 4 uur. In de jaarberekening hierboven tel ik de besparing op handwerk pas vanaf maand 7, voor de zekerheid.</p>
+      <details>
+        <summary>Bekijk als tabel</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Uur per week</th><th class="num">Nu</th><th class="num">Maand 1–6</th><th class="num">Over 1 tot 2 jaar</th></tr></thead>
+          <tbody>
+            <tr><td>Handwerk operations</td><td class="num">7,8</td><td class="num">3,9</td><td class="num">0</td></tr>
+            <tr><td>Inboxen en overige operations</td><td class="num">12,2</td><td class="num">12,2</td><td class="num">0</td></tr>
+            <tr><td>Leertijd</td><td class="num">0</td><td class="num">3</td><td class="num">0</td></tr>
+            <tr><td>Dynamics (nu ook automatisering en rapportage)</td><td class="num">20</td><td class="num">20,9</td><td class="num">20</td></tr>
+            <tr><td>Salesrapportages en inzichten</td><td class="num">–</td><td class="num">–</td><td class="num">20</td></tr>
+            <tr><td>Bij een collega of nog te verdelen</td><td class="num">0</td><td class="num">0 (alleen als vangnet)</td><td class="num">±16,1</td></tr>
+            <tr><td>Geautomatiseerd</td><td class="num">0</td><td class="num">3,9</td><td class="num">≥ 3,9</td></tr>
+          </tbody>
+        </table></div>
+      </details>
+      <div class="mtip" role="status"></div>
+    </div>
+
+    <div class="month" id="m-ops">
+      <h4>Waar mijn 20 uur operations over 1 tot 2 jaar heen gaan</h4>
+      <div class="mkey" aria-hidden="true"><span><i style="background:var(--surface);border:2px dashed var(--accent)"></i>Automatisering</span><span><i style="background:var(--ops2)"></i>Nog samen te verdelen</span></div>
+      <div class="wk">
+        <div class="wk-row"><div class="lab">20 uur operations<small>over 1 tot 2 jaar</small></div><div class="wk-bar"><div class="s-au" style="flex:3.9 1 0" tabindex="0" data-tip="Automatisering|3,9 uur per week: minstens de helft van het handwerk; het doel is meer">≥ 3,9 u</div><div class="s-ib" style="flex:16.1 1 0" tabindex="0" data-tip="Nog samen te verdelen|16,1 uur per week: inboxen, de rest van het handwerk en overig werk">Nog te verdelen ± 16,1 u</div></div></div>
+        <div class="wk-axis" aria-hidden="true"><div></div><div><span>0</span><span>5</span><span>10</span><span>15</span><span>20 uur</span></div></div>
+      </div>
+      <p class="wk-note">Na de eerste automatisering blijft er ongeveer 16 uur per week over. Dat zijn vooral de drie inboxen (75 tot 80 mails per week) en de rest van het handwerk. Elk uur dat we extra automatiseren, bijvoorbeeld door inboxverzoeken automatisch te herkennen en door te zetten, hoeft niemand meer te doen. Hoe we de rest verdelen, zoek ik samen met mijn manager uit. Tot die tijd blijf ik het doen, dus er valt geen gat.</p>
+      <div class="mtip" role="status"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-plan">
+    <div class="section-head">
+      <span class="eyebrow">Opvangen</span>
+      <h2 id="h-plan">Hoe we de tijd en de risico's opvangen</h2>
+    </div>
+    <ol class="plan">
+      <li><span class="when">Vóór de start</span><h3>Eerst het handwerk automatiseren</h3><p>Ik begin met de inschrijvingen, het grootste handwerk (2,3 tot 9,6 uur per week), en daarna demo-accounts en bundels. Neemt de automatisering de helft over, dan komt er ongeveer 4 uur per week vrij voor de leertijd.</p></li>
+      <li><span class="when">Maand 1 tot 6</span><h3>Rustig leren, met een vangnet</h3><p>2 tot 4 uur leertijd per week past binnen de tijd die de automatisering vrijmaakt, dus operations blijft gewoon bij mij. Is de automatisering later klaar of levert die minder op, dan is er een overgangsafspraak als vangnet: een collega neemt tijdelijk een klein deel over, of het groeipad gaat langzamer.</p></li>
+      <li><span class="when">Maand 1 tot 6</span><h3>Vaste leertijd in de agenda</h3><p>2 tot 4 uur per week, in een ontwikkelomgeving, met FAB of de partner als meekijker. Daarna doe ik de kleine wijzigingen zelfstandig.</p></li>
+      <li><span class="when">Na het groeipad, in eigen tempo</span><h3>Operations stap voor stap afbouwen</h3><p>Ik automatiseer verder: demo-accounts, bundels en het herkennen en doorzetten van inboxverzoeken. Ik schrijf werkinstructies, zodat het werk overdraagbaar is. Een blok gaat pas over als het is geautomatiseerd of als er ruimte voor is. Tot die tijd blijf ik het doen, dus er valt geen gat.</p></li>
+      <li><span class="when">Over 1 tot 2 jaar</span><h3>Alleen Dynamics en salesinzichten</h3><p>Operations is dan geautomatiseerd of in overleg verdeeld. Ik werk ongeveer half om half aan Dynamics en aan salesrapportages en inzichten. De automatiseringen die ik heb gebouwd, blijven bij mij in beheer.</p></li>
+    </ol>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Als het tegenvalt</th><th>Wat we dan doen</th></tr></thead>
+        <tbody>
+          <tr><td>De automatisering is later klaar</td><td>Dan geldt de overgangsafspraak als vangnet, of duurt het groeipad wat langer. Het tempo is bewust ruim gekozen.</td></tr>
+          <tr><td>De partner rekent minder uren dan geschat</td><td>De besparing in geld zit dan aan de onderkant, ongeveer €1.584 per jaar. De winst zit dan vooral in de doorlooptijd.</td></tr>
+          <tr><td>Er gaat iets mis in productie</td><td>Zonder akkoord zet ik alleen vier soorten kleine wijzigingen door die makkelijk terug te draaien zijn. Al het andere loopt via ontwikkel en akkoord.</td></tr>
+          <tr><td>Er is nog geen ruimte om operations over te dragen</td><td>Dan houd ik dat deel zelf langer en schuift het ideaalbeeld op. Het groeipad en de besparing gaan gewoon door.</td></tr>
+          <tr><td>Ik ben afwezig</td><td>Met werkinstructies en een wijzigingslog kan een collega het werk overnemen. FAB en de partner blijven het vangnet, en grote wijzigingen liggen daar al.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-ask">
+    <div class="section-head">
+      <span class="eyebrow">Volgende stappen</span>
+      <h2 id="h-ask">Wat ik voorstel</h2>
+    </div>
+    <ul class="ask">
+      <li>Rechten om in een ontwikkelomgeving te bouwen en te testen, en een vaste lijst van kleine wijzigingen die ik zelf doorzet</li>
+      <li>2 tot 4 uur leertijd per week, 3 tot 6 maanden lang</li>
+      <li>Een overgangsafspraak als vangnet, voor als de automatisering later klaar is of minder oplevert</li>
+      <li>Samen met mijn manager uitzoeken hoe we het operationele werk stap voor stap afbouwen en verdelen, op weg naar het ideaalbeeld over 1 tot 2 jaar</li>
+      <li>Samen evalueren na 3 en na 6 maanden: doorlooptijd, gefactureerde partneruren en uren handwerk</li>
+    </ul>
+  </section>
+
+</main>
+<script>
+(function () {
+  document.querySelectorAll('.month').forEach(function (box) {
+    var tip = box.querySelector('.mtip'); if (!tip) return;
+    box.querySelectorAll('[data-tip]').forEach(function (t) {
+      function show() {
+        tip.textContent = '';
+        t.getAttribute('data-tip').split('|').forEach(function (line) { var d = document.createElement('div'); d.textContent = line; tip.appendChild(d); });
+        tip.style.display = 'block';
+        var br = box.getBoundingClientRect(), r = t.getBoundingClientRect();
+        tip.style.left = Math.max(8, Math.min(box.clientWidth - tip.offsetWidth - 8, r.left - br.left + r.width / 2 - tip.offsetWidth / 2)) + 'px';
+        tip.style.top = Math.max(8, r.top - br.top - tip.offsetHeight - 8) + 'px';
+      }
+      function hide() { tip.style.display = 'none'; }
+      t.addEventListener('pointerenter', show); t.addEventListener('focus', show);
+      t.addEventListener('pointerleave', hide); t.addEventListener('blur', hide);
+    });
+  });
+})();
+</script>
+<script>
+(function () {
+  var nf = new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 1 });
+  var eur = function (v) { return '€' + new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 0 }).format(v); };
+  var RATE = 132, MINE = 24, REST = 24, NOW_P = 12, NOW_F = 36, TOTAL = 48;
+  function calc(nP, h) {
+    var nF = REST - nP;
+    return { cost: nP * h * RATE, fab: nF * h, wait: (nP * 1.5 + nF * 2.5) / TOTAL };
+  }
+  var nowV = { cost: NOW_P * 4 * RATE, fab: NOW_F * 4, wait: 2.5 };
+  /* kleine grafieken */
+  var box = document.getElementById('m-wi');
+  if (box) {
+    var tip = box.querySelector('.tipbox'), wrap = box.querySelector('.smx');
+    var sc = [['Nu', 'sc-nu', nowV], ['Basis', 'sc-basis', calc(6, 4)], ['A: partner', 'sc-a', calc(24, 4)], ['B: FAB', 'sc-b', calc(3, 4)]];
+    var metrics = [['Partnerkosten per jaar', 'cost', eur], ['FAB-uren per jaar', 'fab', function (v) { return nf.format(v) + ' u'; }], ['Gemiddelde wachttijd', 'wait', function (v) { return nf.format(Math.round(v * 10) / 10) + ' wk'; }]];
+    metrics.forEach(function (m) {
+      var panel = document.createElement('div'); panel.className = 'smx-p';
+      var h = document.createElement('h5'); h.textContent = m[0]; panel.appendChild(h);
+      var max = Math.max.apply(null, sc.map(function (x) { return x[2][m[1]]; })) || 1;
+      sc.forEach(function (x) {
+        var v = x[2][m[1]];
+        var r = document.createElement('div'); r.className = 'smx-r ' + x[1];
+        var l = document.createElement('span'); l.textContent = x[0]; r.appendChild(l);
+        var t = document.createElement('div'); t.className = 'smx-t'; t.tabIndex = 0;
+        t.setAttribute('data-tip', x[0] + '|' + m[0] + ': ' + m[2](v));
+        var b = document.createElement('div'); b.className = 'smx-b'; b.style.width = (v === 0 ? 0 : Math.max(1.5, v / max * 70)) + '%';
+        if (v === 0) b.style.minWidth = '0';
+        var val = document.createElement('span'); val.className = 'smx-v'; val.textContent = m[2](v);
+        t.appendChild(b); t.appendChild(val); r.appendChild(t); panel.appendChild(r);
+        function show() {
+          tip.textContent = '';
+          t.getAttribute('data-tip').split('|').forEach(function (line) { var d = document.createElement('div'); d.textContent = line; tip.appendChild(d); });
+          tip.style.display = 'block';
+          var br = box.getBoundingClientRect(), rr = t.getBoundingClientRect();
+          tip.style.left = Math.max(8, Math.min(box.clientWidth - tip.offsetWidth - 8, rr.left - br.left + b.offsetWidth)) + 'px';
+          tip.style.top = Math.max(8, rr.top - br.top - tip.offsetHeight - 6) + 'px';
+        }
+        function hide() { tip.style.display = 'none'; }
+        t.addEventListener('pointerenter', show); t.addEventListener('focus', show);
+        t.addEventListener('pointerleave', hide); t.addEventListener('blur', hide);
+      });
+      wrap.appendChild(panel);
+    });
+  }
+  /* rekenhulp */
+  var n = document.getElementById('wi-n'), hh = document.getElementById('wi-h2');
+  if (!n || !hh) return;
+  var btns = document.querySelectorAll('#wi .wi-presets button');
+  function delta(el, d, fmt, lowerIsGood, words) {
+    words = words || ['minder', 'meer'];
+    if (Math.abs(d) < 0.05) { el.textContent = 'gelijk aan nu'; el.className = ''; return; }
+    var good = lowerIsGood ? d < 0 : d > 0;
+    el.textContent = (d < 0 ? fmt(-d) + ' ' + words[0] : fmt(d) + ' ' + words[1]) + ' dan nu';
+    el.className = good ? 'good' : 'bad';
+  }
+  function update() {
+    var nP = parseInt(n.value, 10) || 0, h = parseFloat(String(hh.value).replace(',', '.'));
+    if (!isFinite(h) || h <= 0) h = 4;
+    var r = calc(nP, h), now = { cost: NOW_P * h * RATE, fab: NOW_F * h };
+    document.getElementById('wi-p').textContent = 'Partner: ' + nP;
+    document.getElementById('wi-f').textContent = 'FAB: ' + (REST - nP);
+    document.getElementById('wi-c').textContent = eur(r.cost);
+    document.getElementById('wi-u').textContent = nf.format(r.fab) + ' uur';
+    document.getElementById('wi-w').textContent = nf.format(Math.round(r.wait * 10) / 10) + ' week';
+    delta(document.getElementById('wi-cd'), r.cost - now.cost, eur, true);
+    delta(document.getElementById('wi-ud'), r.fab - now.fab, function (v) { return nf.format(v) + ' uur'; }, true);
+    delta(document.getElementById('wi-wd'), r.wait - 2.5, function (v) { return nf.format(Math.round(v * 10) / 10) + ' week'; }, true, ['korter', 'langer']);
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', String(parseInt(b.dataset.n, 10) === nP)); });
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { n.value = b.dataset.n; update(); }); });
+  n.addEventListener('input', update); hh.addEventListener('input', update);
+  update();
+})();
+</script>
+</body>
+</html>
